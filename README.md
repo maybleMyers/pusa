@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://github.com/hpcaitech/Open-Sora-Demo/blob/main/readme/icon.png" width="250"/>
+    <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/f867c49d9570b88e7bbce6e25583a0ad2417cdf7/icon.png" width="250"/>
 </p>
 
 # Pusa-VidGen
