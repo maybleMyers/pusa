@@ -7,7 +7,7 @@
 [![GitHub](https://img.shields.io/badge/GitHub-Code-blue?logo=github)](https://github.com/Yaofang-Liu/Pusa-VidGen) [![Paper](https://img.shields.io/badge/Paper-Coming%20Soon-red)](https://huggingface.co/RaphaelLiu/Pusa-V0.5) [![HuggingFace](https://img.shields.io/badge/🤗-Huggingface-yellow)](https://huggingface.co/RaphaelLiu/Pusa-V0.5)
 
 <p align="center">
-    <img src="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" width="600"/>
+    <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/8e507887f27f31f011ca2ecf318d99fd3633116f/assets/demo1.gif" width="600"/>
     <br>
     <em>Pusa: Image(s)-to-Video examples</em>
 </p>
