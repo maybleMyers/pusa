@@ -5,5 +5,3 @@
 # Pusa-VidGen: Original Open-Source Next-Level Video Generation Model  
 **Codes and weights coming today, 28/03/2025, stay tuned** :relaxed:
 
-# Pusa-VidGen: Original Open-Source Next-Level Video Generation Model
-Codes and weights coming today, 28/03/2025, stay tuned :relaxed:
