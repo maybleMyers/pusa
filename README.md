@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://github.com/" width="250"/>
+    <img src="https://github.com/hpcaitech/Open-Sora-Demo/blob/main/readme/icon.pn" width="250"/>
 </p>
 # Pusa-VidGen
 Pusa: Thousands-handed Video Diffusion Model
