@@ -162,7 +162,7 @@ if __name__ == "__main__":
     
     parser = argparse.ArgumentParser(description="Test VideoEmbeddingDataset")
     parser.add_argument("--data_dir", type=str, 
-                        default="/scratch/dyvm6xra/dyvm6xrauser02/data/vidgen1m/videos_prepared_whole",
+                        default="",
                         help="Directory containing video latent files")
     parser.add_argument("--batch_size", type=int, default=20, help="Batch size")
     parser.add_argument("--num_workers", type=int, default=4, help="Number of workers")

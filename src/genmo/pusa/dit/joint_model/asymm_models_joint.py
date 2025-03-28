@@ -47,48 +47,6 @@ def all_to_all_collect_tokens(x: torch.Tensor, num_heads: int) -> torch.Tensor:
     x = x.contiguous().view(B, M, 3, num_heads, -1)
     return x.permute(2, 0, 1, 3, 4).contiguous()
 
-# TODO Frame-wise MLP to model frame-frame relations should be valid and parameter-efficient 
-# class FrameMixer(nn.Module):
-#     def __init__(self, F, num_layers=2, expansion=4):
-#         super().__init__()
-#         self.layers = nn.ModuleList()
-#         for _ in range(num_layers):
-#             # Bottleneck layer: reduces parameters while adding non-linearity
-#             self.layers.append(nn.Sequential(
-#                 nn.Linear(F, F * expansion),  # Expand
-#                 nn.GELU(),                    # Non-linearity
-#                 nn.Linear(F * expansion, F)   # Compress
-#             ))
-#         self.norm = nn.LayerNorm(F)  # Optional
-
-#     def forward(self, x):        
-#         # Apply frame mixing
-#         residual = x
-#         for layer in self.layers:
-#             x = layer(x) # + residual  # Residual connection
-#             # # residual = x
-#         x = x + residual
-#         x = self.norm(x) if self.norm else x
-        
-#         return x
-
-# TODO Only linear
-# class FrameMixer(nn.Module):
-#     def __init__(self, F, num_layers=2, expansion=4, bias=True, device= None):
-#         super().__init__()
-#         self.layers = nn.ModuleList()
-#         for _ in range(num_layers):
-#             # Bottleneck layer: reduces parameters while adding non-linearity
-#             self.layers.append(nn.Sequential(
-#                 nn.Linear(F, F * expansion, bias=True, device=device),  # Expand
-#                 nn.Linear(F * expansion, F, bias=True, device=device)   # Compress
-    #         ))
-    #     # self.norm = nn.LayerNorm(F)  # Optional
-
-    # def forward(self, x):        
-    #     for layer in self.layers:
-    #         x = layer(x) # + residual  # Residual connectio
-    #     return x
 
 # TODO Only linear, initialize the FrameMixer module to act as an identity function
 class FrameMixer(nn.Module):
@@ -159,8 +117,7 @@ class AsymmetricAttention(nn.Module):
 
         # Input layers.
         self.qkv_bias = qkv_bias
-        self.qkv_x = nn.Linear(dim_x, 3 * dim_x, bias=qkv_bias, device=device) #这些都是token维度的，每个token这么处理，而非全局所有token的mapping，有问题
-        # Project text features to match visual features (dim_y -> dim_x)
+        self.qkv_x = nn.Linear(dim_x, 3 * dim_x, bias=qkv_bias, device=device) 
         self.qkv_y = nn.Linear(dim_y, 3 * dim_x, bias=qkv_bias, device=device)
 
         # Query and key normalization for stability.
@@ -174,24 +131,11 @@ class AsymmetricAttention(nn.Module):
         self.proj_x = nn.Linear(dim_x, dim_x, bias=out_bias, device=device)
         self.proj_y = nn.Linear(dim_x, dim_y, bias=out_bias, device=device) if update_y else nn.Identity()
 
-        # Add FrameMixer
-        # self.dim_t = 28 # TODO for frame num
-        # self.frame_mixer = FrameMixer(self.dim_t, num_layers=1, expansion=1) # TODO 
-        # self.frame_mixer = FrameMixer(self.dim_t, num_layers=2, expansion=1) # TODO
-        # self.frame_mixer = FrameMixer(self.dim_t, num_layers=1, expansion=4, bias=True, device=device) # TODO
 
     def run_qkv_y(self, y):
         # cp_rank, cp_size = cp.get_cp_rank_size()
         local_heads = self.num_heads 
 
-        # if cp.is_cp_active():
-        #     # Only predict local heads.
-        #     assert not self.qkv_bias
-        #     W_qkv_y = self.qkv_y.weight.contiguous().view(3, self.num_heads, self.head_dim, self.dim_y)
-        #     W_qkv_y = W_qkv_y.narrow(1, local_heads, local_heads)
-        #     W_qkv_y = W_qkv_y.reshape(3 * local_heads * self.head_dim, self.dim_y)
-        #     qkv_y = F.linear(y, W_qkv_y, None)  # (B, L, 3 * local_h * head_dim)
-        # else:
         qkv_y = self.qkv_y(y)  # (B, L, 3 * dim)
 
         qkv_y = qkv_y.contiguous().view(qkv_y.size(0), qkv_y.size(1), 3, local_heads, self.head_dim)
@@ -215,34 +159,6 @@ class AsymmetricAttention(nn.Module):
         
         # TODO Reshape for FrameMixer using provided dimensions
         B, T, pH, pW, D = video_shape
-        # x = x.view(B, T, pH, pW, D)
-        # ipdb.set_trace()  
-        # x = rearrange(x, "B (T pH pW) D -> B T pH pW D")  x = rearrange(x.view(B, T, pH, pW, D).permute(0, 2, 3, 4, 1), "B pH pW D T -> (B pH pW D) T").shape
-
-        # # TODO Store the initial input x
-        # initial_x = x.clone()
-
-        # x = x.view(B, T, pH, pW, D).permute(0, 2, 3, 4, 1)
-
-        # x = rearrange(x, "B pH pW D T -> (B pH pW D) T")
-        # # # TODO Split into chunks along the first dimension to reduce memory usage
-        # chunk_size = 32768  # Adjust this based on Áavailable memory
-        # chunks = torch.split(x, chunk_size, dim=0)
-        # processed_chunks = []
-        # for chunk in chunks:
-        #     processed_chunks.append(self.frame_mixer(chunk))
-        # x = torch.cat(processed_chunks, dim=0)
-
-        # # x = self.frame_mixer(x)
-
-        # # Reshape back
-        # x = x.view(B, pH, pW, D, T).permute(0, 4, 1, 2, 3)
-        # x = rearrange(x, "B T pH pW D -> B (T pH pW) D")
-
-        # # Calculate the sum of absolute differences
-        # absolute_differences = torch.abs(initial_x - x)
-        # sum_absolute_differences = torch.sum(absolute_differences)
-        # print("Sum of absolute differences:", sum_absolute_differences.item())
 
         # TODO Pre-norm for visual features
         x = modulated_rmsnorm(x, scale_x)  # (B, M, dim_x) where M = N / cp_group_size
@@ -754,77 +670,6 @@ class AsymmDiTJoint(nn.Module):
 
         return x, c, y_feat, rope_cos, rope_sin
 
-    # def forward(
-    #     self,
-    #     x: torch.Tensor,
-    #     sigma: torch.Tensor,
-    #     y_feat: List[torch.Tensor],
-    #     y_mask: List[torch.Tensor],
-    #     packed_indices: Dict[str, torch.Tensor] = None,
-    #     rope_cos: torch.Tensor = None,
-    #     rope_sin: torch.Tensor = None,
-    # ):
-    #     """Forward pass of DiT.
-
-    #     Args:
-    #         x: (B, C, T, H, W) tensor of spatial inputs (images or latent representations of images)
-    #         sigma: (B,) tensor of noise standard deviations
-    #         y_feat: List((B, L, y_feat_dim) tensor of caption token features. For SDXL text encoders: L=77, y_feat_dim=2048)
-    #         y_mask: List((B, L) boolean tensor indicating which tokens are not padding)
-    #         packed_indices: Dict with keys for Flash Attention. Result of compute_packed_indices.
-    #     """
-    #     B, _, T, H, W = x.shape
-    #     # ipdb.set_trace()
-    #     # Use EFFICIENT_ATTENTION backend for T5 pooling, since we have a mask.
-    #     # Have to call sdpa_kernel outside of a torch.compile region.
-    #     with sdpa_kernel(torch.nn.attention.SDPBackend.EFFICIENT_ATTENTION):
-    #         x, c, y_feat, rope_cos, rope_sin = self.prepare(x, sigma, y_feat[0], y_mask[0])
-    #     del y_mask
-
-    #     # cp_rank, cp_size = cp.get_cp_rank_size()
-    #     N = x.size(1)
-    #     M = N 
-    #     # assert N % cp_size == 0, f"Visual sequence length ({x.shape[1]}) must be divisible by cp_size ({cp_size})."
-
-    #     # if cp_size > 1:
-    #     #     x = x.narrow(1, cp_rank * M, M)
-
-    #     #     assert self.num_heads % cp_size == 0
-    #     #     local_heads = self.num_heads // cp_size
-    #     #     rope_cos = rope_cos.narrow(1, cp_rank * local_heads, local_heads)
-    #     #     rope_sin = rope_sin.narrow(1, cp_rank * local_heads, local_heads)
-    #     # ipdb.set_trace()
-    #     for i, block in enumerate(self.blocks):
-    #         x, y_feat = block(
-    #             x,
-    #             c,
-    #             y_feat,
-    #             rope_cos=rope_cos,
-    #             rope_sin=rope_sin,
-    #             packed_indices=packed_indices,
-    #         )  # (B, M, D), (B, L, D)
-    #     del y_feat  # Final layers don't use dense text features.
-
-    #     # ipdb.set_trace()
-    #     x = self.final_layer(x, c)  # (B, M, patch_size ** 2 * out_channels)
-
-    #     # ipdb.set_trace()
-    #     patch = x.size(2)
-    #     # x = cp.all_gather(x)
-    #     # x = rearrange(x, "(G B) M P -> B (G M) P", G=cp_size, P=patch)
-    #     x = rearrange(
-    #         x,
-    #         "B (T hp wp) (p1 p2 c) -> B c T (hp p1) (wp p2)",
-    #         T=T,
-    #         hp=H // self.patch_size,
-    #         wp=W // self.patch_size,
-    #         p1=self.patch_size,
-    #         p2=self.patch_size,
-    #         c=self.out_channels,
-    #     )
-
-    #     return x
-
     def forward(
         self,
         x: torch.Tensor,
@@ -845,39 +690,13 @@ class AsymmDiTJoint(nn.Module):
             packed_indices: Dict with keys for Flash Attention. Result of compute_packed_indices.
         """
         B, _, T, H, W = x.shape
-        # ipdb.set_trace()
-        # Use EFFICIENT_ATTENTION backend for T5 pooling, since we have a mask.
-        # Have to call sdpa_kernel outside of a torch.compile region.
-        # print("\n=== Forward Pass Debug ===")
-        # print(f"Input shapes:")
-        # print(f"x: {x.shape}, device: {x.device}, requires_grad: {x.requires_grad}")
-        # print(f"sigma: {sigma.shape}, device: {sigma.device}")
         with sdpa_kernel(torch.nn.attention.SDPBackend.EFFICIENT_ATTENTION):
             x, c, y_feat, rope_cos, rope_sin = self.prepare(x, sigma, y_feat[0], y_mask[0])
         del y_mask
 
-        # cp_rank, cp_size = cp.get_cp_rank_size()
-        # print(f"\nAfter prepare:")
-        # print(f"x: {x.shape}, device: {x.device}, requires_grad: {x.requires_grad}")
-        # print(f"c: {c.shape}, device: {c.device}, requires_grad: {c.requires_grad}")
-        # print(f"y_feat: {y_feat.shape}, device: {y_feat.device}, requires_grad: {y_feat.requires_grad}")
-
         N = x.size(1)
         M = N 
-        # assert N % cp_size == 0, f"Visual sequence length ({x.shape[1]}) must be divisible by cp_size ({cp_size})."
 
-        # if cp_size > 1:
-        #     x = x.narrow(1, cp_rank * M, M)
-
-        #     assert self.num_heads % cp_size == 0
-        #     local_heads = self.num_heads // cp_size
-        #     rope_cos = rope_cos.narrow(1, cp_rank * local_heads, local_heads)
-        #     rope_sin = rope_sin.narrow(1, cp_rank * local_heads, local_heads)
-        # ipdb.set_trace()
-        # Track memory through blocks
-        # print("\nMemory before blocks:")
-        # print(f"Allocated: {torch.cuda.memory_allocated()/1e9:.2f} GB")
-        
         for i, block in enumerate(self.blocks):
             # print(f"\nBlock {i}:")
             x_prev, y_prev = x, y_feat  # Store previous values for debugging
@@ -891,44 +710,12 @@ class AsymmDiTJoint(nn.Module):
                 packed_indices=packed_indices,
             )
             
-            # print(f"x shape: {x.shape}, grad_fn: {type(x.grad_fn).__name__}")
-            # if i < len(self.blocks) - 1:  # Only print y_feat if it's not the last block
-            #     print(f"y_feat shape: {y_feat.shape}, grad_fn: {type(y_feat.grad_fn).__name__}")
-            
-            # # Check for NaN/Inf
-            # if torch.isnan(x).any():
-            #     print(f"NaN detected in x at block {i}")
-            # if torch.isinf(x).any():
-            #     print(f"Inf detected in x at block {i}")
-                
-            # # Memory tracking
-            # if i % 10 == 0:  # Print every 10 blocks
-            #     print(f"Memory after block {i}:")
-            #     print(f"Allocated: {torch.cuda.memory_allocated()/1e9:.2f} GB")
         del y_feat  # Final layers don't use dense text features.
         
         # Final layer processing
         x = self.final_layer(x, c)
-        # print(f"\nAfter final layer:")
-        # print(f"x: {x.shape}, device: {x.device}, requires_grad: {x.requires_grad}")
-        # print(f"grad_fn: {type(x.grad_fn).__name__}")
 
-        # ipdb.set_trace()
         patch = x.size(2)
-        # x = cp.all_gather(x)
-        # x = rearrange(x, "(G B) M P -> B (G M) P", G=cp_size, P=patch)
-        # x = rearrange(
-        #     x,
-        #     "B (T hp wp) (p1 p2 c) -> B c T (hp p1) (wp p2)",
-        #     T=T,
-        #     hp=H // self.patch_size,
-        #     wp=W // self.patch_size,
-        #     p1=self.patch_size,
-        #     p2=self.patch_size,
-        #     c=self.out_channels,
-        # )
-        # Make tensor contiguous before rearrange
-        # ... existing code ...
 
         # First make the input tensor contiguous
         x = x.contiguous()
@@ -944,18 +731,5 @@ class AsymmDiTJoint(nn.Module):
             p2=self.patch_size,
             c=self.out_channels,
         ).contiguous()  # Force new memory allocation
-
-        # print(f"\nFinal output:")
-        # print(f"Shape: {x.shape}")
-        # print(f"Device: {x.device}")
-        # print(f"Requires grad: {x.requires_grad}")
-        # print(f"Grad fn: {type(x.grad_fn).__name__}")
-
-        
-        # # Final memory check
-        # print("\nFinal memory state:")
-        # print(f"Allocated: {torch.cuda.memory_allocated()/1e9:.2f} GB")
-        # print(f"Reserved: {torch.cuda.memory_reserved()/1e9:.2f} GB")
-        # print("=== End Forward Pass ===\n")
 
         return x

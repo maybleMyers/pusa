@@ -67,8 +67,7 @@ def linear_quadratic_schedule(num_steps, threshold_noise, linear_steps=None):
     return sigma_schedule
 
 
-# T5_MODEL = "google/t5-v1_1-xxl"
-T5_MODEL = "/home/dyvm6xra/dyvm6xrauser02/AIGC/t5-v1_1-xxl"
+T5_MODEL = "google/t5-v1_1-xxl"
 MAX_T5_TOKEN_LENGTH = 256
 
 

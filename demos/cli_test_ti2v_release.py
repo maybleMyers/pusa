@@ -146,7 +146,7 @@ def generate_video(
         timestamp_str = datetime.now().strftime("%Y%m%d_%H%M%S")
         
         cond_position = input_image["cond_position"]
-        results_base_dir = "/home/dyvm6xra/dyvm6xrauser02/raphael/mochi-1-preview/models/video_test_demos_results"
+        results_base_dir = "./video_test_demos_results"
         results_dir = os.path.join(results_base_dir, f"{model_name}_{checkpoint_name}_dawn_{cond_position}pos_{num_inference_steps}steps")
         os.makedirs(results_dir, exist_ok=True)
         
@@ -217,7 +217,7 @@ from textwrap import dedent
 @click.option("--model_dir", required=True, help="Path to the model directory.")
 @click.option("--dit_path", required=True, help="Path to the dit model directory.")
 @click.option("--cpu_offload", is_flag=True, help="Whether to offload model to CPU")
-@click.option("--data_path", required=True, default="/home/dyvm6xra/dyvm6xrauser02/data/vidgen1m", help="Path to the data directory.")
+@click.option("--data_path", required=True, default="./data", help="Path to the data directory.")
 @click.option("--image_dir", default=None, help="Path to image or directory of images for conditioning.")
 @click.option("--prompt_dir", default=None, help="Path to directory containing prompt text files.")
 @click.option("--cond_position", default=0, type=int, help="Frame position to place the conditioning image, from 0 to 27.")
