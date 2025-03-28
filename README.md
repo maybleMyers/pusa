@@ -7,9 +7,9 @@
 [![GitHub](https://img.shields.io/badge/GitHub-Code-blue?logo=github)](https://github.com/Yaofang-Liu/Pusa-VidGen) [![Paper](https://img.shields.io/badge/Paper-Coming%20Soon-red)](https://huggingface.co/RaphaelLiu/Pusa-V0.5) [![HuggingFace](https://img.shields.io/badge/🤗-Huggingface-yellow)](https://huggingface.co/RaphaelLiu/Pusa-V0.5)
 
 <p align="center">
-    <img src="assets/demo.gif" width="600"/>
+    <img src="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" width="600"/>
     <br>
-    <em>Pusa-VidGen in action: Text-to-Video and Image-to-Video examples</em>
+    <em>Pusa: Image(s)-to-Video examples</em>
 </p>
 
 ## Table of Contents
@@ -31,9 +31,9 @@ Pusa introduces a paradigm shift in video diffusion modeling through frame-level
 ## Method Overview
 
 <p align="center">
-    <img src="assets/method_overview.gif" width="800"/>
+    <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/8e507887f27f31f011ca2ecf318d99fd3633116f/assets/methods_overview.gif" width="800"/>
     <br>
-    <em>Pusa-VidGen's frame-level noise control architecture with vectorized timesteps</em>
+    <em>Pusa-VidGen's novel frame-level noise architecture with vectorized timesteps</em>
 </p>
 
 ## ✨ Key Features
