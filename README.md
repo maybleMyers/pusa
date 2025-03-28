@@ -1,3 +1,6 @@
+<p align="center">
+    <img src="https://github.com/" width="250"/>
+</p>
 # Pusa-VidGen
 Pusa: Thousands-handed Video Diffusion Model
 
