@@ -2,7 +2,7 @@
     <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/f867c49d9570b88e7bbce6e25583a0ad2417cdf7/icon.png" width="70"/>
 </p>
 
-# Pusa-VidGen: Original Open-Source Next-Level Video Generation Model
+# Pusa-VidGen: Thousands Timesteps Video Diffusion Model
 
 [![GitHub](https://img.shields.io/badge/GitHub-Code-blue?logo=github)](https://github.com/Yaofang-Liu/Pusa-VidGen) [![Paper](https://img.shields.io/badge/Paper-Coming%20Soon-red)](https://huggingface.co/RaphaelLiu/Pusa-V0.5) [![HuggingFace](https://img.shields.io/badge/🤗-Huggingface-yellow)](https://huggingface.co/RaphaelLiu/Pusa-V0.5)
 
@@ -26,7 +26,7 @@
 
 ## Overview
 
-Pusa introduces a paradigm shift in video diffusion modeling through frame-level noise control, departing from conventional approaches. This shift was first presented in our [FVDM](https://arxiv.org/abs/2410.03160) paper. Leveraging this architecture, Pusa seamlessly supports diverse video generation tasks (Text/Image/Video-to-Video) while maintaining exceptional motion fidelity and prompt adherence with our refined base model adaptations. Pusa-V0.5 represents an early preview based on [Mochi1-Preview](https://huggingface.co/genmo/mochi-1-preview). We are open-sourcing this work to foster community collaboration, enhance methodologies, and expand capabilities.
+Pusa introduces a paradigm shift in video diffusion modeling through frame-level noise control (thus it has thousands of timesteps, rather than one thousand of timesteps), departing from conventional approaches. This shift was first presented in our [FVDM](https://arxiv.org/abs/2410.03160) paper. Leveraging this architecture, Pusa seamlessly supports diverse video generation tasks (Text/Image/Video-to-Video) while maintaining exceptional motion fidelity and prompt adherence with our refined base model adaptations. Pusa-V0.5 represents an early preview based on [Mochi1-Preview](https://huggingface.co/genmo/mochi-1-preview). We are open-sourcing this work to foster community collaboration, enhance methodologies, and expand capabilities.
 
 ## Method Overview
 
@@ -174,7 +174,7 @@ bash ./demos/cli_test_ti2v_release.sh
 ## Limitations
 
 Pusa currently has several known limitations:
-- The base Mochi model generates videos at relatively low resolution (480p)
+- The base Mochi model generates videos at low resolution (480p)
 - We anticipate significant quality improvements when applying our methodology to more advanced models like Wan2.1
 - We welcome community contributions to enhance model performance and extend its capabilities
 
@@ -182,27 +182,3 @@ Pusa currently has several known limitations:
 
 - [FVDM](https://arxiv.org/abs/2410.03160): Introduces the groundbreaking frame-level noise control with vectorized timestep approach that inspired Pusa.
 - [Mochi](https://huggingface.co/genmo/mochi-1-preview): Our foundation model, recognized as a leading open-source video generation system on the Artificial Analysis Leaderboard.
-
-## Citation
-
-If you find our work useful in your research, please consider citing:
-
-```bibtex
-@misc{Liu2025pusa,
-      title={Pusa: A Next-Level All-in-One Video Diffusion Model},
-      author={Yaofang Liu and Rui Liu},
-      year={2025},
-      publisher = {GitHub},
-      journal = {GitHub repository},
-      howpublished={\url{https://github.com/Yaofang-Liu/Pusa-VidGen}}
-}
-```
-
-```bibtex
-@article{liu2024redefining,
-  title={Redefining Temporal Modeling in Video Diffusion: The Vectorized Timestep Approach},
-  author={Liu, Yaofang and Ren, Yumeng and Cun, Xiaodong and Artola, Aitor and Liu, Yang and Zeng, Tieyong and Chan, Raymond H and Morel, Jean-michel},
-  journal={arXiv preprint arXiv:2410.03160},
-  year={2024}
-}
-```
