@@ -13,13 +13,14 @@
 
 ## Table of Contents
 - [Overview](#overview)
+- [Method Overview](#method-overview)
 - [Key Features](#-key-features)
 - [Unique Architecture](#-unique-architecture)
-- [Method Overview](#method-overview)
-- [Installation and Usage](#installation-and-usage)
-- [Current Status and Roadmap](#current-status-and-roadmap)
 - [Changelog](#changelog)
+- [Installation and Usage](#installation-and-usage)
+- [Training](#training)
 - [Limitations](#limitations)
+- [Current Status and Roadmap](#current-status-and-roadmap)
 - [Related Work](#related-work)
 - [Citation](#citation)
 
@@ -34,6 +35,7 @@ Pusa introduces a paradigm shift in video diffusion modeling through frame-level
     <br>
     <em>Pusa-VidGen's novel frame-level noise architecture with vectorized timesteps</em>
 </p>
+
 
 ## ✨ Key Features
 
@@ -66,6 +68,18 @@ Pusa introduces a paradigm shift in video diffusion modeling through frame-level
 
 - **Universal Applicability**: The methodology can be readily applied to other leading video diffusion models including Hunyuan Video, Wan2.1, and others. *Collaborations enthusiastically welcomed!*
 
+
+## Changelog
+
+**v0.5 (March 28, 2025)**
+- Initial public release
+- Released model weights and basic inference code
+- Support for Text-to-Video and Image-to-Video generation
+
+**v0.5 (April 10, 2025)**
+- Release our training code and details [here](https://github.com/Yaofang-Liu/Mochi-Full-Finetuner)
+- Released multi-nodes full fintuing code for both Pusa and Mochi [here](https://github.com/Yaofang-Liu/Mochi-Full-Finetuner)
+  
 ## Installation and Usage
 
 ### Installation 
@@ -144,31 +158,9 @@ We also provide a shell script for convenience:
 bash ./demos/cli_test_ti2v_release.sh
 ```
 
-## Current Status and Roadmap
+## Training
 
-### Currently Available
-- ✅ Model weights
-- ✅ Inference code for Text-to-Video generation
-- ✅ Inference code for Image-to-Video generation
-- ✅ Basic documentation
-
-### TODO List
-- 🔄 Training code and details
-- 🔄 Frame interpolation inference code
-- 🔄 Video transition generation code
-- 🔄 Seamless loop generation code
-- 🔄 Extended video generation code
-- 🔄 Advanced configuration options
-- 🔄 Model fine-tuning guide
-- 🔄 Novel diffusion sampling algorithms, editing methods, and more...
-
-## Changelog
-
-**v0.5 (March 28, 2025)**
-- Initial public release
-- Released model weights and basic inference code
-- Support for Text-to-Video and Image-to-Video generation
-
+Please find our Pusa training code and details here [here](https://github.com/Yaofang-Liu/Mochi-Full-Finetuner), which also support training for original model.
 
 ## Limitations
 
@@ -176,6 +168,22 @@ Pusa currently has several known limitations:
 - The base Mochi model generates videos at low resolution (480p)
 - We anticipate significant quality improvements when applying our methodology to more advanced models like Wan2.1
 - We welcome community contributions to enhance model performance and extend its capabilities
+
+### Currently Available
+- ✅ Model weights
+- ✅ Inference code for Text-to-Video generation
+- ✅ Inference code for Image-to-Video generation
+- ✅ Basic documentation
+- ✅ Training code and details
+- ✅ Model full fine-tuning guide for both Pusa and Mochi
+
+### TODO List
+- 🔄 Frame interpolation inference code
+- 🔄 Video transition generation code
+- 🔄 Seamless loop generation code
+- 🔄 Extended video generation code
+- 🔄 Advanced configuration options
+- 🔄 Novel diffusion sampling algorithms, editing methods, and more...
 
 ## Related Work
 
