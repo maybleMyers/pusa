@@ -6,6 +6,8 @@
 
 [![GitHub](https://img.shields.io/badge/GitHub-Code-blue?logo=github)](https://github.com/Yaofang-Liu/Pusa-VidGen) [![HuggingFace](https://img.shields.io/badge/🤗-Huggingface-yellow)](https://huggingface.co/RaphaelLiu/Pusa-V0.5) [![Trainer](https://img.shields.io/badge/GitHub-Code-blue?logo=github)](https://github.com/Yaofang-Liu/Mochi-Full-Finetuner)  [![Dataset](https://img.shields.io/badge/🤗-Huggingface-yellow)](https://huggingface.co/datasets/RaphaelLiu/PusaV0.5_Training)
 
+[![Codebase](https://img.shields.io/badge/Codebase-Source%20Code-8A2BE2?logo=git)](https://github.com/Yaofang-Liu/Pusa-VidGen) [![ModelHub](https://img.shields.io/badge/⚡-Model%20Hub-FFD700?logo=huggingface)](https://huggingface.co/RaphaelLiu/Pusa-V0.5) [![Training](https://img.shields.io/badge/Codebase-Training%20Tools-32CD32?logo=git)](https://github.com/Yaofang-Liu/Mochi-Full-Finetuner)  [![DataRepo](https://img.shields.io/badge/📁-Dataset%20Repo-6495ED?logo=huggingface)](https://huggingface.co/datasets/RaphaelLiu/PusaV0.5_Training)
+
 <p align="center">
     <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/8e507887f27f31f011ca2ecf318d99fd3633116f/assets/demo1.gif" width="800" autoplay loop muted/>
     <br>
