@@ -2,9 +2,9 @@
     <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/f867c49d9570b88e7bbce6e25583a0ad2417cdf7/icon.png" width="70"/>
 </p>
 
-# Pusa-VidGen: Thousands Timesteps Video Diffusion Model
+# Pusa: Thousands Timesteps Video Diffusion Model
 
-[![GitHub](https://img.shields.io/badge/GitHub-Code-blue?logo=github)](https://github.com/Yaofang-Liu/Pusa-VidGen) [![Paper](https://img.shields.io/badge/Paper-Coming%20Soon-red)](https://huggingface.co/RaphaelLiu/Pusa-V0.5) [![HuggingFace](https://img.shields.io/badge/🤗-Huggingface-yellow)](https://huggingface.co/RaphaelLiu/Pusa-V0.5)
+[![GitHub](https://img.shields.io/badge/GitHub-Code-blue?logo=github)](https://github.com/Yaofang-Liu/Pusa-VidGen) [![HuggingFace](https://img.shields.io/badge/🤗-Huggingface-yellow)](https://huggingface.co/RaphaelLiu/Pusa-V0.5) [![Trainer](https://img.shields.io/badge/GitHub-Code-blue?logo=github)](https://github.com/Yaofang-Liu/Mochi-Full-Finetuner)  [![Dataset](https://img.shields.io/badge/🤗-Huggingface-yellow)](https://huggingface.co/datasets/RaphaelLiu/PusaV0.5_Training)
 
 <p align="center">
     <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/8e507887f27f31f011ca2ecf318d99fd3633116f/assets/demo1.gif" width="800" autoplay loop muted/>
@@ -182,3 +182,27 @@ Pusa currently has several known limitations:
 
 - [FVDM](https://arxiv.org/abs/2410.03160): Introduces the groundbreaking frame-level noise control with vectorized timestep approach that inspired Pusa.
 - [Mochi](https://huggingface.co/genmo/mochi-1-preview): Our foundation model, recognized as a leading open-source video generation system on the Artificial Analysis Leaderboard.
+
+## BibTeX
+If you use this work in your project, please cite the following references.
+```
+@misc{Liu2025pusa,
+      title={Pusa: Thousands Timesteps Video Diffusion Model},
+      author={Yaofang Liu and Rui Liu},
+      year={2025},
+      publisher = {GitHub},
+      journal = {GitHub repository},
+      howpublished={\url{https://github.com/Yaofang-Liu/Pusa-VidGen}}
+}
+```
+
+```
+@article{liu2024redefining,
+  title={Redefining Temporal Modeling in Video Diffusion: The Vectorized Timestep Approach},
+  author={Liu, Yaofang and Ren, Yumeng and Cun, Xiaodong and Artola, Aitor and Liu, Yang and Zeng, Tieyong and Chan, Raymond H and Morel, Jean-michel},
+  journal={arXiv preprint arXiv:2410.03160},
+  year={2024}
+}
+```
+
+
