@@ -77,8 +77,10 @@ Pusa introduces a paradigm shift in video diffusion modeling through frame-level
 - Support for Text-to-Video and Image-to-Video generation
 
 **v0.5 (April 10, 2025)**
-- Release our training code and details [here](https://github.com/Yaofang-Liu/Mochi-Full-Finetuner)
-- Released multi-nodes full fintuing code for both Pusa and Mochi [here](https://github.com/Yaofang-Liu/Mochi-Full-Finetuner)
+- Released our training codes and details [here](https://github.com/Yaofang-Liu/Mochi-Full-Finetuner)
+- Support multi-nodes full fintuing code for both Pusa and Mochi [training](https://github.com/Yaofang-Liu/Mochi-Full-Finetuner)
+- Released our training dataset [dataset](https://huggingface.co/datasets/RaphaelLiu/PusaV0.5_Training)
+
   
 ## Installation and Usage
 
