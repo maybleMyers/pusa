@@ -78,7 +78,7 @@ Pusa introduces a paradigm shift in video diffusion modeling through frame-level
 
 **v0.5 (April 10, 2025)**
 - Released our training codes and details [here](https://github.com/Yaofang-Liu/Mochi-Full-Finetuner)
-- Support multi-nodes full fintuing code for both Pusa and Mochi [training](https://github.com/Yaofang-Liu/Mochi-Full-Finetuner)
+- Support multi-nodes/single-node full finetuning code for both Pusa and Mochi
 - Released our training dataset [dataset](https://huggingface.co/datasets/RaphaelLiu/PusaV0.5_Training)
 
   
@@ -178,7 +178,8 @@ Pusa currently has several known limitations:
 - ✅ Basic documentation
 - ✅ Training code and details
 - ✅ Model full fine-tuning guide for both Pusa and Mochi
-
+- ✅ Training dataset
+  
 ### TODO List
 - 🔄 Frame interpolation inference code
 - 🔄 Video transition generation code
