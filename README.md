@@ -186,10 +186,10 @@ Pusa currently has several known limitations:
 If you use this work in your project, please cite the following references.
 ```
 @misc{Liu2025pusa,
-      title={Pusa: Thousands Timesteps Video Diffusion Model},
-      author={Yaofang Liu and Rui Liu},
-      year={2025},
-      url={https://github.com/Yaofang-Liu/Pusa-VidGen},
+  title={Pusa: Thousands Timesteps Video Diffusion Model},
+  author={Yaofang Liu and Rui Liu},
+  year={2025},
+  url={https://github.com/Yaofang-Liu/Pusa-VidGen},
 }
 ```
 
