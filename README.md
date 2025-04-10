@@ -181,12 +181,10 @@ Pusa currently has several known limitations:
 - ✅ Training dataset
   
 ### TODO List
-- 🔄 Frame interpolation inference code
-- 🔄 Video transition generation code
-- 🔄 Seamless loop generation code
-- 🔄 Extended video generation code
-- 🔄 Advanced configuration options
-- 🔄 Novel diffusion sampling algorithms, editing methods, and more...
+- 🔄 Inference scripts for start & end frames, video transition, video extension, and more ...
+- 🔄 Release more advanced versions with SOTA models like Wan 2.1 and Hunyuan Video
+- 🔄 Release Paper
+- 🔄 ....
 
 ## Related Work
 
