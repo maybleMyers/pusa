@@ -6,7 +6,11 @@
 [![ModelHub](https://img.shields.io/badge/⚡-Model%20Hub-FFD700?logo=huggingface)](https://huggingface.co/RaphaelLiu/Pusa-V0.5) [![Training](https://img.shields.io/badge/Codebase-Training%20Tools-32CD32?logo=git)](https://github.com/Yaofang-Liu/Mochi-Full-Finetuner)  [![DataRepo](https://img.shields.io/badge/📁-Dataset%20Repo-6495ED?logo=huggingface)](https://huggingface.co/datasets/RaphaelLiu/PusaV0.5_Training) 
 [![Paper](https://img.shields.io/badge/📜-FVDM%20Paper-B31B1B?logo=arxiv)](https://arxiv.org/abs/2410.03160) [![Twitter](https://img.shields.io/badge/🐦-Follow%20on%20Twitter-1DA1F2?logo=twitter)](https://x.com/stephenajason)
 
-https://github.com/Yaofang-Liu/Pusa-VidGen/blob/19420f90a7bef750f45e41a866d0bdf35442b514/assets/demo0.mp4
+<p align="center">
+    <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/8e507887f27f31f011ca2ecf318d99fd3633116f/assets/demo0.gif" width="800" autoplay loop muted/>
+    <br>
+    <em>Pusa: Image(s)-to-Video examples</em>
+</p>
 
 ## Table of Contents
 - [Overview](#overview)
