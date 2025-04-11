@@ -7,9 +7,9 @@
 [![Paper](https://img.shields.io/badge/📜-FVDM%20Paper-B31B1B?logo=arxiv)](https://arxiv.org/abs/2410.03160) [![Twitter](https://img.shields.io/badge/🐦-Follow%20on%20Twitter-1DA1F2?logo=twitter)](https://x.com/stephenajason)
 
 <p align="center">
-    <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/8e507887f27f31f011ca2ecf318d99fd3633116f/assets/demo0.gif" width="800" autoplay loop muted/>
+    <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/55de93a198427525e23a509e0f0d04616b10d71f/assets/demo0.gif" width="800" autoplay loop muted/>
     <br>
-    <em>Pusa: Image(s)-to-Video examples</em>
+    <em>Pusa: showcases </em>
 </p>
 
 ## Table of Contents
