@@ -138,7 +138,7 @@ python ./demos/cli_test_ti2v_release.py \
   --cond_position 1 \
   --num_steps 30
 ```
-Note: We suggest you to try different `con_position` here, and you may also modify the level of noise added to the condition image. You'd likely get some surprises.
+Note: We suggest you to try different `con_position` here, and you may also modify the level of noise added to the condition image. You'd be likely to get some surprises.
 
 #### Processing A Group of Images
 ```bash
