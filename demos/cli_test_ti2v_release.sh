@@ -11,6 +11,7 @@ CHECKPOINTS=(
 image_dir="<path_to_input_image_dir>"
 # prompt_dir=None
 prompt="The camera remains still, the boy waves the baseball bat and knocks the baseball away."
+# Strongly suggest to try different con_position here and also you can modify the level of noise add to the condition image, you may find some surprise
 cond_position=1
 num_steps=30
 
