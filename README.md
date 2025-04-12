@@ -133,7 +133,7 @@ python ./demos/cli_test_ti2v_release.py \
 python ./demos/cli_test_ti2v_release.py \
   --model_dir "/path/to/Pusa-V0.5" \
   --dit_path "/path/to/Pusa-V0.5/pusa_v0_dit.safetensors" \
-  --prompt "The camera remains still, the boy waves the baseball bat and knocks the baseball away." \
+  --prompt "Your_prompt_here" \
   --image_dir "/path/to/input/image.jpg" \
   --cond_position 1 \
   --num_steps 30
