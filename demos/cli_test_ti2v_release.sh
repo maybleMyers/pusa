@@ -21,7 +21,7 @@ num_steps=30
 # cond_position=1
 # num_steps=30
 
-# Generate with 1 GPU, generated video will be splited into 4 parts for decoding
+# Generate with 1 GPU, generated video will be splitted into 4 parts for decoding
 for CHECKPOINT in "${CHECKPOINTS[@]}"; do
     CUDA_VISIBLE_DEVICES=6 python3 ./demos/cli_test_ti2v_release.py --model_dir "$MODEL_DIR" --dit_path "$CHECKPOINT" --image_dir "$image_dir" --prompt "$prompt" --prompt_dir "$prompt_dir" --cond_position "$cond_position" --num_steps "$num_steps"
 done
