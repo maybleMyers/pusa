@@ -117,16 +117,6 @@ huggingface-cli download RaphaelLiu/Pusa-V0.5 --local-dir <path_to_downloaded_di
 
 ### Basic Usage
 
-#### Text-to-Video Generation
-
-```bash
-python ./demos/cli_test_ti2v_release.py \
-  --model_dir "/path/to/Pusa-V0.5" \
-  --dit_path "/path/to/Pusa-V0.5/pusa_v0_dit.safetensors" \
-  --prompt "A man is playing basketball" \
-  --num_steps 30
-```
-
 #### Image-to-Video Generation
 
 ```bash
@@ -135,10 +125,23 @@ python ./demos/cli_test_ti2v_release.py \
   --dit_path "/path/to/Pusa-V0.5/pusa_v0_dit.safetensors" \
   --prompt "Your_prompt_here" \
   --image_dir "/path/to/input/image.jpg" \
-  --cond_position 1 \
-  --num_steps 30
+  --cond_position 0 \
+  --num_steps 30 \
+  --noise_multiplier 0
 ```
 Note: We suggest you to try different `con_position` here, and you may also modify the level of noise added to the condition image. You'd be likely to get some surprises.
+
+Take `./demos/example.jpg` as an example:
+```bash
+python ./demos/cli_test_ti2v_release.py \
+  --model_dir "/path/to/Pusa-V0.5" \
+  --dit_path "/path/to/Pusa-V0.5/pusa_v0_dit.safetensors" \
+  --prompt "The camera remains still, the man is surfing on a wave with his surfboard." \
+  --image_dir "./demos/example.jpg" \
+  --cond_position 0 \
+  --num_steps 30 \
+  --noise_multiplier 0.4
+```
 
 #### Processing A Group of Images
 ```bash
@@ -160,6 +163,16 @@ We also provide a shell script for convenience:
 # Edit cli_test_ti2v_release.sh to set your paths
 # Then run:
 bash ./demos/cli_test_ti2v_release.sh
+```
+
+#### Text-to-Video Generation
+
+```bash
+python ./demos/cli_test_ti2v_release.py \
+  --model_dir "/path/to/Pusa-V0.5" \
+  --dit_path "/path/to/Pusa-V0.5/pusa_v0_dit.safetensors" \
+  --prompt "A man is playing basketball" \
+  --num_steps 30
 ```
 
 ## Training

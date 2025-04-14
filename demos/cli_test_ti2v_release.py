@@ -21,7 +21,7 @@ from genmo.mochi_preview.pipelines_ti2v_release import (
 
 
 import torch
-from torch.utils.data import Dataset,@ DataLoader
+from torch.utils.data import Dataset, DataLoader
 import random
 import string
 from lightning.pytorch  import LightningDataModule
@@ -87,6 +87,7 @@ def generate_video(
     num_inference_steps,
     data_path,
     input_image=None,
+    noise_multiplier=0,
 ):
     load_model()
     global dit_path
@@ -115,6 +116,7 @@ def generate_video(
         "negative_prompt": negative_prompt,
         "seed": seed,
         "data_path": data_path,
+        "noise_multiplier": noise_multiplier,
     }
     
     # Handle different input types
@@ -145,9 +147,12 @@ def generate_video(
         from datetime import datetime
         timestamp_str = datetime.now().strftime("%Y%m%d_%H%M%S")
         
-        cond_position = input_image["cond_position"]
-        results_base_dir = "./video_test_demos_results"
-        results_dir = os.path.join(results_base_dir, f"{model_name}_{checkpoint_name}_dawn_{cond_position}pos_{num_inference_steps}steps")
+        if input_image is not None:
+            cond_position = input_image["cond_position"]
+        else:
+            cond_position = ""
+        results_base_dir = "/home/dyvm6xra/dyvm6xrauser02/raphael/mochi-1-preview/models/video_test_demos_results"
+        results_dir = os.path.join(results_base_dir, f"{model_name}_{checkpoint_name}_github_user_demo_{cond_position}pos_{num_inference_steps}steps_crop_{noise_multiplier}sigma")
         os.makedirs(results_dir, exist_ok=True)
         
         # Extract filename from input_image if available
@@ -217,35 +222,75 @@ from textwrap import dedent
 @click.option("--model_dir", required=True, help="Path to the model directory.")
 @click.option("--dit_path", required=True, help="Path to the dit model directory.")
 @click.option("--cpu_offload", is_flag=True, help="Whether to offload model to CPU")
-@click.option("--data_path", required=True, default="./data", help="Path to the data directory.")
+@click.option("--data_path", required=True, default="/home/dyvm6xra/dyvm6xrauser02/data/vidgen1m", help="Path to the data directory.")
 @click.option("--image_dir", default=None, help="Path to image or directory of images for conditioning.")
 @click.option("--prompt_dir", default=None, help="Path to directory containing prompt text files.")
 @click.option("--cond_position", default=0, type=int, help="Frame position to place the conditioning image, from 0 to 27.")
+@click.option("--noise_multiplier", default=0, type=float, help="Noise multiplier for noise on the conditioning image.")
 
 def generate_cli(
     prompt, negative_prompt, width, height, num_frames, seed, cfg_scale, num_steps, model_dir, 
-    dit_path, cpu_offload, data_path, image_dir, prompt_dir, cond_position
+    dit_path, cpu_offload, data_path, image_dir, prompt_dir, cond_position, noise_multiplier
 ):
     configure_model(model_dir, dit_path, cpu_offload)
-    
-    
+
     # Case 1: Text to video generation
     if image_dir is None:
-        click.echo("Running text-to-video generation with provided prompt")
-        with torch.inference_mode():
-            output = generate_video(
-                prompt,
-                negative_prompt,
-                width,
-                height,
-                num_frames,
-                seed,
-                cfg_scale,
-                num_steps,
-                data_path,
-                input_image=None,
-            )
-            click.echo(f"Video generated at: {output}")
+        
+        # Check if we have a prompt directory to process multiple prompts
+        if prompt_dir is not None and os.path.isdir(prompt_dir):
+            prompt_files = [f for f in os.listdir(prompt_dir) if f.lower().endswith('.txt')]
+
+            prompt_files = prompt_files[210:] # TODO: Remove this
+
+            if not prompt_files:
+                click.echo(f"No prompt files found in {prompt_dir}")
+                return
+                
+            click.echo(f"Found {len(prompt_files)} prompt files to process")
+            
+            for i, prompt_file in enumerate(prompt_files):
+                file_path = os.path.join(prompt_dir, prompt_file)
+                click.echo(f"Processing prompt file {i+1}/{len(prompt_files)}: {file_path}")
+                
+                # Read prompt from file
+                with open(file_path, 'r') as f:
+                    file_prompt = f.read().strip()
+                
+                click.echo(f"Using prompt: {file_prompt}")
+                
+                with torch.inference_mode():
+                    output = generate_video(
+                        file_prompt,
+                        negative_prompt,
+                        width,
+                        height,
+                        num_frames,
+                        seed,
+                        cfg_scale,
+                        num_steps,
+                        data_path,
+                        input_image=None,
+                        noise_multiplier=noise_multiplier,
+                    )
+                    click.echo(f"Video generated at: {output}")
+        else:
+            # Process single prompt as before
+            click.echo("Running text-to-video generation with provided prompt")
+            with torch.inference_mode():
+                output = generate_video(
+                    prompt,
+                    negative_prompt,
+                    width,
+                    height,
+                    num_frames,
+                    seed,
+                    cfg_scale,
+                    num_steps,
+                    data_path,
+                    input_image=None,
+                )
+                click.echo(f"Video generated at: {output}")
         return
 
     config = dict(
@@ -311,9 +356,13 @@ def generate_cli(
         with torch.inference_mode():
             with torch.autocast("cuda", dtype=torch.bfloat16):
                 t0 = time.time()
+                encoder = encoder.to(device)
                 ldist = encoder(image_tensor)
                 image_tensor = ldist.sample()
         
+        torch.cuda.empty_cache()
+        encoder = encoder.to("cpu")
+        del ldist
         
         # Package input for generate_video
         input_image = {
@@ -334,6 +383,7 @@ def generate_cli(
                 num_steps,
                 data_path,
                 input_image,
+                noise_multiplier=noise_multiplier,
             )
             click.echo(f"Video generated at: {output}")
         return
@@ -390,12 +440,17 @@ def generate_cli(
                 with torch.inference_mode():
                     with torch.autocast("cuda", dtype=torch.bfloat16):
                         t0 = time.time()
+                        encoder = encoder.to(device)
                         ldist = encoder(image_tensor)
                         image_tensor = ldist.sample()
-                
+                torch.cuda.empty_cache()
+                encoder = encoder.to("cpu")
+                del ldist
+
                 # Get corresponding prompt
                 img_basename = os.path.basename(file_path).split('.')[0]
                 prompt_file = os.path.join(prompt_dir, f"{img_basename}.txt")
+                
                 if os.path.exists(prompt_file):
                     with open(prompt_file, 'r') as f:
                         file_prompt = f.read().strip()
@@ -421,6 +476,7 @@ def generate_cli(
                     num_steps,
                     data_path,
                     input_image,
+                    noise_multiplier=noise_multiplier,
                 )
                 click.echo(f"Video generated at: {output}")
         return

@@ -67,7 +67,8 @@ def linear_quadratic_schedule(num_steps, threshold_noise, linear_steps=None):
     return sigma_schedule
 
 
-T5_MODEL = "google/t5-v1_1-xxl"
+# T5_MODEL = "google/t5-v1_1-xxl"
+T5_MODEL = "/home/dyvm6xra/dyvm6xrauser02/AIGC/t5-v1_1-xxl"
 MAX_T5_TOKEN_LENGTH = 256
 
 
@@ -341,6 +342,7 @@ def sample_model(device, dit, encoder, condition_image, condition_frame_idx, con
     sample_steps = args["num_inference_steps"]
     cfg_schedule = args["cfg_schedule"]
     sigma_schedule = args["sigma_schedule"]
+    noise_multiplier = args["noise_multiplier"]
 
     assert_eq(len(cfg_schedule), sample_steps, "cfg_schedule must have length sample_steps")
     assert_eq(
@@ -349,7 +351,10 @@ def sample_model(device, dit, encoder, condition_image, condition_frame_idx, con
         "sigma_schedule must have length sample_steps + 1",
     )
 
-    B = condition_image.shape[0]
+    if condition_image is not None:
+        B = condition_image.shape[0]
+    else:
+        B = 1
     SPATIAL_DOWNSAMPLE = 8
     TEMPORAL_DOWNSAMPLE = 6
     IN_CHANNELS = 12
@@ -362,18 +367,9 @@ def sample_model(device, dit, encoder, condition_image, condition_frame_idx, con
     )
     cond_latent = condition_image
 
-    # # Process input video through encoder
-    # with torch.inference_mode():
-    #     # Temporarily move dit to CPU to free up GPU memory
-    #     z_with_features = add_fourier_features(condition_image.to(device))
-    #     with torch.autocast("cuda", dtype=torch.bfloat16):
-    #         # ipdb.set_trace()
-    #         ldist = encoder(z_with_features)
-    #         cond_latent = ldist.sample()  # Original encoded latents
-    #         # z_0 = ldist  # Original encoded latents
-    if condition_frame_idx is str:
-        z_0[:,:,eval(condition_frame_idx),:,:] = cond_latent[eval(condition_frame_idx)]
-    else:
+    if isinstance(condition_frame_idx, list):
+        z_0[:,:, condition_frame_idx,:,:] = cond_latent[:,:,condition_frame_idx]
+    elif isinstance(condition_frame_idx, int):
         z_0[:,:,condition_frame_idx:(condition_frame_idx+1),:,:] = cond_latent
 
     num_latents = latent_t * latent_h * latent_w
@@ -389,7 +385,6 @@ def sample_model(device, dit, encoder, condition_image, condition_frame_idx, con
         z_0 = repeat(z_0, "b ... -> (repeat b) ...", repeat=2)
 
     def model_fn(*, z, sigma, cfg_scale):
-        # ipdb.set_trace()
         if cond_batched:
             with torch.autocast("cuda", dtype=torch.bfloat16):
                 out = dit(z, sigma, **cond_batched)
@@ -410,30 +405,13 @@ def sample_model(device, dit, encoder, condition_image, condition_frame_idx, con
         bs = B if cond_text else B * 2
         sigma = torch.tensor([sigma] * (bs * latent_t), device=device).reshape((bs, latent_t))
 
-        # TODO
-        # sigma[:,0] = sigma_schedule[-1]
-        # sigma[:,-1] = sigma_schedule[-1]  
-        # sigma[:,13] = sigma_schedule[-1]
+        # if condition_frame_idx is list:
+        if isinstance(condition_frame_idx, list): # Any frames to video
+            sigma[:, condition_frame_idx] = sigma[:, condition_frame_idx] / 4
+        elif isinstance(condition_frame_idx, int): #I2V
+            sigma[:,condition_frame_idx] = sigma[:,condition_frame_idx] * float(noise_multiplier)
 
-        # sigma[:,:2] = sigma_schedule[-1]
-        # sigma[:,-2:] = sigma_schedule[-1]
-
-        # sigma[:,:4] = sigma_schedule[-1]
-        # sigma[:,-4:] = sigma_schedule[-1]
-
-        # sigma[:,0] = sigma[:,0] / 5
-        if condition_frame_idx is str:
-            sigma[:,eval(condition_frame_idx)] = sigma[:,eval(condition_frame_idx)] / 4
-        else:
-            sigma[:,condition_frame_idx] = sigma[:,condition_frame_idx] / 4
-        # sigma[:,2] = sigma[:,2] / 3
-        # sigma[:,3] = sigma[:,3] / 2
-        
-        
-        print( "sigma", sigma)
-        # ipdb.set_trace()
         if i == 0:
-            # ipdb.set_trace()
             z = (1.0 - sigma[:B].view(B, 1, latent_t, 1, 1)) * z_0 + sigma[:B].view(B, 1, latent_t, 1, 1) * torch.randn(
                 (B, IN_CHANNELS, latent_t, latent_h, latent_w),
                 device=device,
@@ -444,24 +422,11 @@ def sample_model(device, dit, encoder, condition_image, condition_frame_idx, con
         
         dsigma = sigma - sigma_schedule[i + 1]
 
-        # TODO
-        # dsigma[:,0] = 0
-        # dsigma[:,-1] = 0
-        # dsigma[:,13] = 0
-
-        # dsigma[:, :2] = 0
-        # dsigma[:, -2:] = 0
-
-        # dsigma[:, :4] = 0
-        # dsigma[:, -4:] = 0
-
-        # dsigma[:,0] = sigma[:,0] - sigma_schedule[i + 1] / 5
-        if condition_frame_idx is str:
-            dsigma[:,eval(condition_frame_idx)] = sigma[:,eval(condition_frame_idx)] - sigma_schedule[i + 1] / 4
-        else:
-            dsigma[:,condition_frame_idx] = sigma[:,condition_frame_idx] - sigma_schedule[i + 1] / 4
-        # dsigma[:,2] = sigma[:,2] - sigma_schedule[i + 1] / 3
-        # dsigma[:,3] = sigma[:,3] - sigma_schedule[i + 1] / 2
+        if isinstance(condition_frame_idx, list):
+            dsigma[:, condition_frame_idx] = sigma[:, condition_frame_idx] - sigma_schedule[i + 1] / 4
+        elif isinstance(condition_frame_idx, int):
+            dsigma[:,condition_frame_idx] = sigma[:,condition_frame_idx] - sigma_schedule[i + 1] * float(noise_multiplier)
+            
 
         pred = model_fn(
             z=z,
@@ -530,7 +495,7 @@ class MochiSingleGPUPipeline:
             self.encoder = None
         t.print_stats()
 
-    def __call__(self, batch_cfg, prompt, negative_prompt,condition_image, condition_frame_idx, **kwargs):
+    def __call__(self, batch_cfg, prompt, negative_prompt,condition_image=None, condition_frame_idx=None, **kwargs):
         with torch.inference_mode():
             print_max_memory = lambda: print(
                 f"Max memory reserved: {torch.cuda.max_memory_reserved() / 1024**3:.2f} GB"
@@ -588,7 +553,7 @@ class MultiGPUContext:
         print(f"Initializing rank {local_rank+1}/{world_size}")
         assert world_size > 1, f"Multi-GPU mode requires world_size > 1, got {world_size}"
         os.environ["MASTER_ADDR"] = "127.0.0.1"
-        os.environ["MASTER_PORT"] = "29500"
+        os.environ["MASTER_PORT"] = "29503"
         with t("init_process_group"):
             dist.init_process_group(
                 "nccl",
@@ -633,7 +598,7 @@ class MochiMultiGPUPipeline:
             num_cpus=8*world_size, 
             num_gpus=world_size,     
             # logging_level="DEBUG",
-            object_store_memory=1000 * 1024 * 1024 * 1024,
+            object_store_memory=512 * 1024 * 1024 * 1024,
         )
         RemoteClass = ray.remote(MultiGPUContext)
         self.ctxs = [
@@ -652,10 +617,11 @@ class MochiMultiGPUPipeline:
             ray.get(ctx.__ray_ready__.remote())
 
     def __call__(self, **kwargs):
-        def sample(ctx, *, batch_cfg, prompt, negative_prompt, condition_image, condition_frame_idx, **kwargs):
+        def sample(ctx, *, batch_cfg, prompt, negative_prompt, condition_image=None, condition_frame_idx=None, **kwargs):
             with progress_bar(type="ray_tqdm", enabled=ctx.local_rank == 0), torch.inference_mode():
                 # Move condition_image to the appropriate device
-                condition_image = condition_image.to(ctx.device)
+                if condition_image is not None:
+                    condition_image = condition_image.to(ctx.device)
                 print(prompt)
                 conditioning = get_conditioning(
                     ctx.tokenizer,
