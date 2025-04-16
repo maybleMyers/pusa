@@ -51,7 +51,7 @@ Pusa introduces a paradigm shift in video diffusion modeling through frame-level
   - *Note: Efficiency can be further improved with single-node training and advanced parallelism techniques. Collaborations welcome!*
 
 - **Complete Open-Source Release**:
-  - Full codebase
+  - Full codebase and dataset
   - Detailed architecture specifications
   - Comprehensive training methodology
 
