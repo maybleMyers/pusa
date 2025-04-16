@@ -143,7 +143,7 @@ You can get this result:
     <br>
 </p>
 
-The baselines's results are like this (From the [VideoGen-Eval](https://github.com/AILab-CVC/VideoGen-Eval) benchmark):
+You may also ref to the baselines' results from the [VideoGen-Eval](https://github.com/AILab-CVC/VideoGen-Eval) benchmark:
 
 <p align="center">
     <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/62526737953d9dc757414f2a368b94a0492ca6da/assets/example_baseline.gif" width="800" autoplay loop muted/>
