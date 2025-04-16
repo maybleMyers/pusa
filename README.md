@@ -20,8 +20,6 @@
 - [Training](#training)
 - [Limitations](#limitations)
 - [Current Status and Roadmap](#current-status-and-roadmap)
-- [Related Work](#related-work)
-- [Citation](#citation)
 
 ## Overview
 
