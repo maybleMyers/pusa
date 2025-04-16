@@ -153,8 +153,7 @@ The baselines's results are like this (From the [VideoGen-Eval](https://github.c
 <div style="display: flex; justify-content: center; gap: 10px;">
   <div>
     <p align="center">Pusa Result</p>
-    <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/62526737953d9dc757414f2a368b94a0492ca6da/assets/example.gif
-" width="200" autoplay loop muted/>
+    <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/62526737953d9dc757414f2a368b94a0492ca6da/assets/example.gif" width="200" autoplay loop muted/>
   </div>
   <div>
     <p align="center">Baseline Results</p>
