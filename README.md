@@ -25,12 +25,9 @@
 
 Pusa introduces a paradigm shift in video diffusion modeling through frame-level noise control (thus it has thousands of timesteps, rather than one thousand of timesteps), departing from conventional approaches. This shift was first presented in our [FVDM](https://arxiv.org/abs/2410.03160) paper. Leveraging this architecture, Pusa seamlessly supports diverse video generation tasks (Text/Image/Video-to-Video) while maintaining exceptional motion fidelity and prompt adherence with our refined base model adaptations. Pusa-V0.5 represents an early preview based on [Mochi1-Preview](https://huggingface.co/genmo/mochi-1-preview). We are open-sourcing this work to foster community collaboration, enhance methodologies, and expand capabilities.
 
-<p align="center">
-    <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/8e507887f27f31f011ca2ecf318d99fd3633116f/assets/methods_overview.gif" width="800" autoplay loop muted/>
-    <br>
-    <em>Pusa-VidGen's novel frame-level noise architecture with vectorized timesteps</em>
-</p>
+Pusa's novel frame-level noise architecture with vectorized timesteps compared with conventional video diffusion models with a scalar timestep
 
+https://github.com/user-attachments/assets/7d751fd8-9a14-42e6-bcde-6db940df6537
 
 ### ✨ Key Features
 
@@ -149,8 +146,6 @@ You may ref to the baselines' results from the [VideoGen-Eval](https://github.co
     <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/62526737953d9dc757414f2a368b94a0492ca6da/assets/example_baseline.gif" width="800" autoplay loop muted/>
     <br>
 </p>
-
-https://github.com/user-attachments/assets/13b927bd-a10a-4ab3-b778-c9a2dadf1050
 
 #### Processing A Group of Images
 ```bash
