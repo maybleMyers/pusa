@@ -139,7 +139,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 python ./demos/cli_test_ti2v_release.py \
 You can get this result:
 
 <p align="center">
-    <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/62526737953d9dc757414f2a368b94a0492ca6da/assets/example.gif" width="800" autoplay loop muted/>
+    <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/62526737953d9dc757414f2a368b94a0492ca6da/assets/example.gif" width="300" autoplay loop muted/>
     <br>
 </p>
 
@@ -149,18 +149,6 @@ The baselines's results are like this (From the [VideoGen-Eval](https://github.c
     <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/62526737953d9dc757414f2a368b94a0492ca6da/assets/example_baseline.gif" width="800" autoplay loop muted/>
     <br>
 </p>
-
-<div style="display: flex; justify-content: center; gap: 10px;">
-  <div>
-    <p align="center">Pusa Result</p>
-    <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/62526737953d9dc757414f2a368b94a0492ca6da/assets/example.gif" width="200" autoplay loop muted/>
-  </div>
-  <div>
-    <p align="center">Baseline Results</p>
-    <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/62526737953d9dc757414f2a368b94a0492ca6da/assets/example_baseline.gif" width="600" autoplay loop muted/>
-  </div>
-</div>
-
 
 #### Processing A Group of Images
 ```bash
