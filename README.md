@@ -15,9 +15,6 @@
 
 ## Table of Contents
 - [Overview](#overview)
-- [Method Overview](#method-overview)
-- [Key Features](#-key-features)
-- [Unique Architecture](#-unique-architecture)
 - [Changelog](#changelog)
 - [Installation and Usage](#installation-and-usage)
 - [Training](#training)
@@ -30,8 +27,6 @@
 
 Pusa introduces a paradigm shift in video diffusion modeling through frame-level noise control (thus it has thousands of timesteps, rather than one thousand of timesteps), departing from conventional approaches. This shift was first presented in our [FVDM](https://arxiv.org/abs/2410.03160) paper. Leveraging this architecture, Pusa seamlessly supports diverse video generation tasks (Text/Image/Video-to-Video) while maintaining exceptional motion fidelity and prompt adherence with our refined base model adaptations. Pusa-V0.5 represents an early preview based on [Mochi1-Preview](https://huggingface.co/genmo/mochi-1-preview). We are open-sourcing this work to foster community collaboration, enhance methodologies, and expand capabilities.
 
-## Method Overview
-
 <p align="center">
     <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/8e507887f27f31f011ca2ecf318d99fd3633116f/assets/methods_overview.gif" width="800" autoplay loop muted/>
     <br>
@@ -39,7 +34,7 @@ Pusa introduces a paradigm shift in video diffusion modeling through frame-level
 </p>
 
 
-## ✨ Key Features
+### ✨ Key Features
 
 - **Comprehensive Multi-task Support**:
   - Text-to-Video generation
@@ -62,7 +57,7 @@ Pusa introduces a paradigm shift in video diffusion modeling through frame-level
   - Detailed architecture specifications
   - Comprehensive training methodology
 
-## 🔍 Unique Architecture
+### 🔍 Unique Architecture
 
 - **Novel Diffusion Paradigm**: Implements frame-level noise control with vectorized timesteps, originally introduced in the [FVDM paper](https://arxiv.org/abs/2410.03160), enabling unprecedented flexibility and scalability.
 
