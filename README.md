@@ -131,9 +131,9 @@ python ./demos/cli_test_ti2v_release.py \
 ```
 Note: We suggest you to try different `con_position` here, and you may also modify the level of noise added to the condition image. You'd be likely to get some surprises.
 
-Take `./demos/example.jpg` as an example:
+Take `./demos/example.jpg` as an example and run with 4 GPUs:
 ```bash
-python ./demos/cli_test_ti2v_release.py \
+CUDA_VISIBLE_DEVICES=0,1,2,3 python ./demos/cli_test_ti2v_release.py \
   --model_dir "/path/to/Pusa-V0.5" \
   --dit_path "/path/to/Pusa-V0.5/pusa_v0_dit.safetensors" \
   --prompt "The camera remains still, the man is surfing on a wave with his surfboard." \
@@ -142,6 +142,29 @@ python ./demos/cli_test_ti2v_release.py \
   --num_steps 30 \
   --noise_multiplier 0.4
 ```
+You can get this result:
+<p align="center">
+    <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/55de93a198427525e23a509e0f0d04616b10d71f/assets/example.gif" width="800" autoplay loop muted/>
+    <br>
+</p>
+
+The baselines's results are like this (From the [VideoGen-Eval](https://github.com/AILab-CVC/VideoGen-Eval) benchmark):
+<p align="center">
+    <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/55de93a198427525e23a509e0f0d04616b10d71f/assets/example_baseline.gif" width="800" autoplay loop muted/>
+    <br>
+</p>
+
+<div style="display: flex; justify-content: center; gap: 10px;">
+  <div>
+    <p align="center">Pusa Result</p>
+    <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/55de93a198427525e23a509e0f0d04616b10d71f/assets/example.gif" width="400" autoplay loop muted/>
+  </div>
+  <div>
+    <p align="center">Baseline Results</p>
+    <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/55de93a198427525e23a509e0f0d04616b10d71f/assets/example_baseline.gif" width="400" autoplay loop muted/>
+  </div>
+</div>
+
 
 #### Processing A Group of Images
 ```bash
