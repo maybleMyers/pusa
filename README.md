@@ -150,6 +150,8 @@ You may ref to the baselines' results from the [VideoGen-Eval](https://github.co
     <br>
 </p>
 
+https://github.com/user-attachments/assets/13b927bd-a10a-4ab3-b778-c9a2dadf1050
+
 #### Processing A Group of Images
 ```bash
 python ./demos/cli_test_ti2v_release.py \
