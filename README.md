@@ -144,12 +144,14 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 python ./demos/cli_test_ti2v_release.py \
   --noise_multiplier 0.4
 ```
 You can get this result:
+
 <p align="center">
     <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/55de93a198427525e23a509e0f0d04616b10d71f/assets/example.gif" width="800" autoplay loop muted/>
     <br>
 </p>
 
 The baselines's results are like this (From the [VideoGen-Eval](https://github.com/AILab-CVC/VideoGen-Eval) benchmark):
+
 <p align="center">
     <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/55de93a198427525e23a509e0f0d04616b10d71f/assets/example_baseline.gif" width="800" autoplay loop muted/>
     <br>
