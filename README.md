@@ -13,6 +13,14 @@
     <em>Pusa showcases </em>
 </p>
 
+<p align="center">
+    <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/8d2af9cad78859361cb1bc6b8df56d06b2c2fbb8/assets/demo_T2V.gif" width="1000" autoplay loop muted/>
+    <br>
+    <em>Pusa still can do text-to-video generation like base model Mochi </em>
+</p>
+
+**Pusa can do many more other things, you may check details below.**
+
 ## Table of Contents
 - [Overview](#overview)
 - [Changelog](#changelog)
