@@ -178,7 +178,7 @@ We also provide a shell script for convenience:
 bash ./demos/cli_test_ti2v_release.sh
 ```
 
-### Multi-frame Video Generation
+### Multi-frame Condition
 
 Pusa supports generating videos from multiple keyframes (2 or more) placed at specific positions in the sequence. This is useful for both start-end frame generation and multi-keyframe interpolation.
 
@@ -214,7 +214,7 @@ python ./demos/cli_test_multi_frames_release.py \
   --num_steps 30
 ```
 
-### Video Transition Generation
+### Video Transition
 
 Create smooth transitions between two videos:
 
