@@ -178,46 +178,6 @@ We also provide a shell script for convenience:
 bash ./demos/cli_test_ti2v_release.sh
 ```
 
-
-### Start&End Frames Generation
-Use ./demos/cli_test_multi_frames_release.sh
-MULTI_COND='{
-   "0": ["./demos/example3.jpg", 0.3],
-   "20": ["./demos/example5.jpg", 0.5]
- }'
-prompt="Drone view of waves crashing against the rugged cliffs along Big Sur’s garay point beach. The crashing blue waters create white-tipped waves, while the golden light of the setting sun illuminates the rocky shore. A small island with a lighthouse sits in the distance, and green shrubbery covers the cliff’s edge. The steep drop from the road down to the beach is a dramatic feat, with the cliff’s edges jutting out over the sea. This is a view that captures the raw beauty of the coast and the rugged landscape of the Pacific Coast Highway."
-
-### Multi-Frames Generation
-Use ./demos/cli_test_multi_frames_release.sh
-for example start, middle, end frames as condiitons
-MULTI_COND='{
-   "0": ["./demos/example3.jpg", 0.3],
-   "13": ["./demos/example4.jpg", 0.5],
-   "27": ["./demos/example5.jpg", 0.5]
- }'
-prompt="Drone view of waves crashing against the rugged cliffs along Big Sur’s garay point beach. The crashing blue waters create white-tipped waves, while the golden light of the setting sun illuminates the rocky shore. A small island with a lighthouse sits in the distance, and green shrubbery covers the cliff’s edge. The steep drop from the road down to the beach is a dramatic feat, with the cliff’s edges jutting out over the sea. This is a view that captures the raw beauty of the coast and the rugged landscape of the Pacific Coast Highway."
-
-### Video Transition
-Use ./demos/cli_test_transition_release.sh
-for example
-prompt="A fluffy Cockapoo, perched atop a vibrant pink flamingo jumps into a crystal-clear pool."
-video_start_dir="/home/dyvm6xra/dyvm6xrauser02/Pusa-VidGen/demos/example1.mp4"
-video_end_dir="/home/dyvm6xra/dyvm6xrauser02/Pusa-VidGen/demos/example2.mp4"
-cond_position_start="[0]"
-cond_position_end="[-3,-2,-1]"
-noise_multiplier="[0.1,0.8,0.8,0.8]"
-You may try different cond_position_start and cond_position_end, and noise_multiplier to get different results.
-
-### Video Extension
-Use ./demos/cli_test_v2v_release.sh
-For example
-prompt="A cinematic shot captures a fluffy Cockapoo, perched atop a vibrant pink flamingo float, in a sun-drenched Los Angeles swimming pool. "
-video_dir="./demos/example1.mp4"
-cond_position="[0,1,2,3]"
-noise_multiplier="[0.1,0.2,0.3,0.4]"
-You may try different cond_position_start and cond_position_end, and noise_multiplier to get different results.
-
-
 ### Multi-frame Video Generation
 
 Pusa supports generating videos from multiple keyframes (2 or more) placed at specific positions in the sequence. This is useful for both start-end frame generation and multi-keyframe interpolation.
