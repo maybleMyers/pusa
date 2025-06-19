@@ -25,6 +25,10 @@
 
 **Pusa can do many more other things, you may check details below.**
 
+####  
+#### 🔥🔥🔥2025.06.19:  Pusa-Wan2.1 Code&Paper Coming Very Soon. Please Stay Tuned！🚀🔥
+####  
+
 ## Table of Contents
 - [Overview](#overview)
 - [Changelog](#changelog)
