@@ -8,7 +8,7 @@
 [![Xiaohongshu](https://img.shields.io/badge/📕-Xiaohongshu-FF2442)](https://www.xiaohongshu.com/discovery/item/67f898dc000000001c008339?source=webshare&xhsshare=pc_web&xsec_token=ABAhG8mltqyMxL9kI0eRxwj7EwiW7MFYH2oPl4n8ww0OM=&xsec_source=pc_share)
 
 ## News 
-#### 🔥🔥🔥2025.06.19:  Pusa-Wan2.1 Code&Paper Coming Very Soon. Please Stay Tuned！🚀🔥
+#### 🔥🔥🔥 2025.06.19:  Pusa-Wan2.1 Code&Paper Coming Very Soon. Please Stay Tuned！🚀🔥
 **Pusa-Wan2.1 results here**
 <img width="1000" alt="Image" src="https://github.com/user-attachments/assets/18a7f520-b4aa-42e3-9d8d-7fd29bbcb3d5" />
  
@@ -27,9 +27,7 @@
 
 **Pusa can do many more other things, you may check details below.**
 
-####  
-#### 🔥🔥🔥2025.06.19:  Pusa-Wan2.1 Code&Paper Coming Very Soon. Please Stay Tuned！🚀🔥
-####  
+ 
 
 ## Table of Contents
 - [Overview](#overview)
