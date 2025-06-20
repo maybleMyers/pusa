@@ -9,7 +9,9 @@
 
 ## News 
 #### 🔥🔥🔥2025.06.19:  Pusa-Wan2.1 Code&Paper Coming Very Soon. Please Stay Tuned！🚀🔥
-####  
+**Pusa-Wan2.1 results here**
+<img width="893" alt="Image" src="https://github.com/user-attachments/assets/18a7f520-b4aa-42e3-9d8d-7fd29bbcb3d5" />
+ 
 
 <p align="center">
     <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/55de93a198427525e23a509e0f0d04616b10d71f/assets/demo0.gif" width="1000" autoplay loop muted/>
