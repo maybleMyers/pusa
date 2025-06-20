@@ -9,7 +9,7 @@
 
 ## News 
 #### 🔥🔥🔥 2025.06.19:  Pusa-Wan2.1 Code&Paper Coming Very Soon. Please Stay Tuned！🚀🔥
-**Pusa-Wan2.1 results here**
+**Pusa-Wan2.1 (14B 720p 81 frames) results here**
 <img width="1000" alt="Image" src="https://github.com/user-attachments/assets/18a7f520-b4aa-42e3-9d8d-7fd29bbcb3d5" />
  
 
