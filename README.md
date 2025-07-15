@@ -7,8 +7,6 @@
 [![Paper](https://img.shields.io/badge/📜-FVDM%20Paper-B31B1B?logo=arxiv)](https://arxiv.org/abs/2410.03160) [![Twitter](https://img.shields.io/badge/🐦-Twitter-1DA1F2?logo=twitter)](https://x.com/stephenajason)
 [![Xiaohongshu](https://img.shields.io/badge/📕-Xiaohongshu-FF2442)](https://www.xiaohongshu.com/discovery/item/67f898dc000000001c008339?source=webshare&xhsshare=pc_web&xsec_token=ABAhG8mltqyMxL9kI0eRxwj7EwiW7MFYH2oPl4n8ww0OM=&xsec_source=pc_share)
 
-<<<<<<< HEAD
----
 
 ## 🚀 Announcing Pusa V1.0 🚀
 
@@ -18,8 +16,7 @@ Pusa V1.0 extends the capabilities of the original Wan-T2V models with our uniqu
 
 For detailed usage and examples for Pusa V1.0, please see the **[Pusa V1.0 README](./PusaV1/examples/pusavideo/README.md)**.
 
----
-=======
+
 ## News 
 #### 🔥🔥🔥 2025.06.19:  Pusa-Wan2.1 Code&Paper Coming Very Soon. Please Stay Tuned！More details [here](https://mp.weixin.qq.com/s/MCOrbgJvqWwFnYmavSde6w)🚀🔥
 **Pusa-Wan2.1 (14B 720p 81 frames) results here**
