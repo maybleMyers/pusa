@@ -1,6 +1,29 @@
 # Pusa-Video V1.0
 
-By fine-tuning the state-of-the-art Wan2.1-T2V-14B model with Vectorized Timestep Adaptation (VTA), Pusa-V1.0 unlocks zero-shot capabilities for tasks like image-to-video (I2V), video extension, start-end frames, et al., all while preserving the base model's text-to-video capability. Particularly, Pusa-V1.0 achieves better performance than Wan-I2V in I2V generation with unprecedented efficiency.
+<p align="center">
+    <a href="https://yaofang-liu.github.io/Pusa_Web/"><img alt="Project Page" src="https://img.shields.io/badge/Project-Page-blue?style=for-the-badge"></a>
+    <a href="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/e99c3dcf866789a2db7fbe2686888ec398076a82/PusaV1/PusaV1.0_Report.pdf"><img alt="Technical Report" src="https://img.shields.io/badge/Technical_Report-📜-B31B1B?style=for-the-badge"></a>
+    <a href="https://huggingface.co/RaphaelLiu/PusaV1"><img alt="Model" src="https://img.shields.io/badge/Pusa_V1.0-Model-FFD700?style=for-the-badge&logo=huggingface"></a>
+    <a href="https://huggingface.co/datasets/RaphaelLiu/PusaV1_training"><img alt="Dataset" src="https://img.shields.io/badge/Pusa_V1.0-Dataset-6495ED?style=for-the-badge&logo=huggingface"></a>
+</p>
+<p align="center">
+    <a href="https://github.com/Yaofang-Liu/Mochi-Full-Finetuner"><img alt="Code" src="https://img.shields.io/badge/Code-Training%20Scripts-32CD32?logo=github"></a>
+    <a href="https://arxiv.org/abs/2410.03160"><img alt="Paper" src="https://img.shields.io/badge/📜-FVDM%20Paper-B31B1B?logo=arxiv"></a>
+    <a href="https://x.com/stephenajason"><img alt="Twitter" src="https://img.shields.io/badge/🐦-Twitter-1DA1F2?logo=twitter"></a>
+    <a href="https://www.xiaohongshu.com/discovery/item/67f898dc000000001c008339"><img alt="Xiaohongshu" src="https://img.shields.io/badge/📕-Xiaohongshu-FF2442"></a>
+</p>
+
+
+## 🔥🔥🔥🚀 Announcing Pusa V1.0 🚀🔥🔥🔥
+
+We are excited to release **Pusa V1.0**, a groundbreaking paradigm that leverages **vectorized timestep adaptation (VTA)** to enable fine-grained temporal control within a unified video diffusion framework. By finetuning the SOTA **Wan-T2V-14B** model with VTA, Pusa V1.0 achieves unprecedented efficiency, **surpassing Wan-I2V on Vbench-I2V with only $500 of training cost**. The codebase has been integrated into the `PusaV1` directory, based on `DiffSynth-Studio`.
+
+<img width="1000" alt="Image" src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/d98ef44c1f7c11724a6887b71fe35152493c68b4/PusaV1/pusa_benchmark_figure_dark.png" />
+
+Pusa V1.0 not only sets a new standard for image-to-video generation but also unlocks many other zero-shot multi-task capabilities such as start-end frames and video extension, all without task-specific training while preserving the base model's T2V capabilities.
+
+For detailed usage and examples for Pusa V1.0, please see the **[Pusa V1.0 README](./PusaV1/README.md)**.
+
 
 ## Installation
 

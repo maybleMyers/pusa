@@ -3,24 +3,33 @@
 </p>
 
 # Pusa: Thousands Timesteps Video Diffusion Model
-[![ModelHub](https://img.shields.io/badge/⚡-Model%20Hub-FFD700?logo=huggingface)](https://huggingface.co/RaphaelLiu/Pusa-V0.5) [![Code](https://img.shields.io/badge/Code-Training%20Scripts-32CD32?logo=github)](https://github.com/Yaofang-Liu/Mochi-Full-Finetuner) [![DataRepo](https://img.shields.io/badge/📁-Dataset%20Repo-6495ED?logo=huggingface)](https://huggingface.co/datasets/RaphaelLiu/PusaV0.5_Training) 
-[![Paper](https://img.shields.io/badge/📜-FVDM%20Paper-B31B1B?logo=arxiv)](https://arxiv.org/abs/2410.03160) [![Twitter](https://img.shields.io/badge/🐦-Twitter-1DA1F2?logo=twitter)](https://x.com/stephenajason)
-[![Xiaohongshu](https://img.shields.io/badge/📕-Xiaohongshu-FF2442)](https://www.xiaohongshu.com/discovery/item/67f898dc000000001c008339?source=webshare&xhsshare=pc_web&xsec_token=ABAhG8mltqyMxL9kI0eRxwj7EwiW7MFYH2oPl4n8ww0OM=&xsec_source=pc_share)
+<p align="center">
+    <a href="https://yaofang-liu.github.io/Pusa_Web/"><img alt="Project Page" src="https://img.shields.io/badge/Project-Page-blue?style=for-the-badge"></a>
+    <a href="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/e99c3dcf866789a2db7fbe2686888ec398076a82/PusaV1/PusaV1.0_Report.pdf"><img alt="Technical Report" src="https://img.shields.io/badge/Technical_Report-📜-B31B1B?style=for-the-badge"></a>
+    <a href="https://huggingface.co/RaphaelLiu/PusaV1"><img alt="Model" src="https://img.shields.io/badge/Pusa_V1.0-Model-FFD700?style=for-the-badge&logo=huggingface"></a>
+    <a href="https://huggingface.co/datasets/RaphaelLiu/PusaV1_training"><img alt="Dataset" src="https://img.shields.io/badge/Pusa_V1.0-Dataset-6495ED?style=for-the-badge&logo=huggingface"></a>
+</p>
+<p align="center">
+    <a href="https://github.com/Yaofang-Liu/Mochi-Full-Finetuner"><img alt="Code" src="https://img.shields.io/badge/Code-Training%20Scripts-32CD32?logo=github"></a>
+    <a href="https://arxiv.org/abs/2410.03160"><img alt="Paper" src="https://img.shields.io/badge/📜-FVDM%20Paper-B31B1B?logo=arxiv"></a>
+    <a href="https://x.com/stephenajason"><img alt="Twitter" src="https://img.shields.io/badge/🐦-Twitter-1DA1F2?logo=twitter"></a>
+    <a href="https://www.xiaohongshu.com/discovery/item/67f898dc000000001c008339"><img alt="Xiaohongshu" src="https://img.shields.io/badge/📕-Xiaohongshu-FF2442"></a>
+</p>
 
 
 ## 🔥🔥🔥🚀 Announcing Pusa V1.0 🚀🔥🔥🔥
 
-We are excited to announce the release of **Pusa V1.0**, a significant upgrade to our video generation framework. This version is built upon the SOTA **Wan-T2V-14B** model from Alibaba and surpasses "Wan-I2V" on Vbench-I2V with unprecedented low cost. The codebase has been integrated into the `PusaV1` directory, which was based on `DiffSynth-Studio`.
+We are excited to release **Pusa V1.0**, a groundbreaking paradigm that leverages **vectorized timestep adaptation (VTA)** to enable fine-grained temporal control within a unified video diffusion framework. By finetuning the SOTA **Wan-T2V-14B** model with VTA, Pusa V1.0 achieves unprecedented efficiency, **surpassing Wan-I2V on Vbench-I2V with only $500 of training cost**. The codebase has been integrated into the `PusaV1` directory, based on `DiffSynth-Studio`.
 
 <img width="1000" alt="Image" src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/d98ef44c1f7c11724a6887b71fe35152493c68b4/PusaV1/pusa_benchmark_figure_dark.png" />
 
-Pusa V1.0 extends the capabilities of the original Wan-T2V models with our unique vectorized timestep adaptations, providing enhanced performance and new features.
+Pusa V1.0 not only sets a new standard for image-to-video generation but also unlocks many other zero-shot multi-task capabilities such as start-end frames and video extension, all without task-specific training while preserving the base model's T2V capabilities.
 
-For detailed usage and examples for Pusa V1.0, please see the **[Pusa V1.0 README](./PusaV1/examples/pusavideo/README.md)**.
+For detailed usage and examples for Pusa V1.0, please see the **[Pusa V1.0 README](./PusaV1/README.md)**.
 
 
 ## News 
-#### 🔥🔥🔥 2025.07:  Pusa V1.0 (Pusa-Wan) Code, Paper, and Dataset, all released!!!
+#### 🔥🔥🔥 2025.07:  Pusa V1.0 (Pusa-Wan) Code, Technical Report, and Dataset, all released!!! Check our [project page](https://yaofang-liu.github.io/Pusa_Web/) and [paper](https://github.com/Yaofang-Liu/Pusa-VidGen/blob/e99c3dcf866789a2db7fbe2686888ec398076a82/PusaV1/PusaV1.0_Report.pdf) for more info.
 #### 🔥🔥🔥 2025.04:  Pusa V0.5 (Pusa-Mochi) released.
 
  
@@ -28,13 +37,13 @@ For detailed usage and examples for Pusa V1.0, please see the **[Pusa V1.0 READM
 <p align="center">
     <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/55de93a198427525e23a509e0f0d04616b10d71f/assets/demo0.gif" width="1000" autoplay loop muted/>
     <br>
-    <em>Pusa showcases </em>
+    <em>Pusa V0.5 showcases </em>
 </p>
 
 <p align="center">
     <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/8d2af9cad78859361cb1bc6b8df56d06b2c2fbb8/assets/demo_T2V.gif" width="1000" autoplay loop muted/>
     <br>
-    <em>Pusa still can do text-to-video generation like base model Mochi </em>
+    <em>Pusa V0.5 still can do text-to-video generation like base model Mochi </em>
 </p>
 
 **Pusa can do many more other things, you may check details below.**
@@ -44,22 +53,21 @@ For detailed usage and examples for Pusa V1.0, please see the **[Pusa V1.0 READM
 ## Table of Contents
 - [Overview](#overview)
 - [Changelog](#changelog)
-- [Pusa V1.0 (Based on Wan-Video)](#pusa-v10-based-on-wan-video)
-  - [Installation](#installation-v1)
-  - [Usage](#usage-v1)
+- [Pusa V1.0 (Based on Wan)](#pusa-v10-based-on-wan)
 - [Pusa V0.5 (Based on Mochi)](#pusa-v05-based-on-mochi)
 - [Training](#training)
 - [Limitations](#limitations)
 - [Current Status and Roadmap](#current-status-and-roadmap)
+- [Related Work](#related-work)
+- [BibTeX](#bibtex)
 
 ## Overview
 
-Pusa introduces a paradigm shift in video diffusion modeling through frame-level noise control (thus it has thousands of timesteps, rather than one thousand of timesteps), departing from conventional approaches. This shift was first presented in our [FVDM](https://arxiv.org/abs/2410.03160) paper. 
+Pusa (*pu: 'sA:*, from "Thousand-Hand Guanyin" in Chinese) introduces a paradigm shift in video diffusion modeling through frame-level noise control with vectorized timesteps, departing from conventional scalar timestep approaches. This shift was first presented in our [FVDM](https://arxiv.org/abs/2410.03160) paper. 
 
+**Pusa V1.0** is based on the SOTA **Wan-T2V-14B** model and enhances it with our unique vectorized timestep adaptations (VTA), a non-destructive adaptation that fully preserves the capabilities of the base model.
 
 **Pusa V0.5** leverages this architecture, and it is based on [Mochi1-Preview](https://huggingface.co/genmo/mochi-1-preview). We are open-sourcing this work to foster community collaboration, enhance methodologies, and expand capabilities.
-
-**Pusa V1.0** is based on Wan models with similar enhancements.
 
 
 Pusa's novel frame-level noise architecture with vectorized timesteps compared with conventional video diffusion models with a scalar timestep
@@ -70,23 +78,21 @@ https://github.com/user-attachments/assets/7d751fd8-9a14-42e6-bcde-6db940df6537
 ### ✨ Key Features
 
 - **Comprehensive Multi-task Support**:
-  - Text-to-Video generation
-  - Image-to-Video transformation
-  - Frame interpolation
-  - Video transitions
-  - Seamless looping
-  - Extended video generation
+  - Text-to-Video 
+  - Image-to-Video 
+  - Start-End Frames
+  - Video completion/transitions
+  - Video Extension
   - And more...
 
 - **Unprecedented Efficiency**:
-  - Trained with only 0.1k H800 GPU hours
-  - Total training cost: $0.1k
-  - Hardware: 16 H800 GPUs
-  - Configuration: Batch size 32, 500 training iterations, 1e-5 learning rate
-  - *Note: Efficiency can be further improved with single-node training and advanced parallelism techniques. Collaborations welcome!*
+  - Surpasses Wan-I2V-14B with **≤ 1/200 of the training cost** (\$500 vs. ≥ \$100,000)
+  - Trained on a dataset **≤ 1/2500 of the size** (4K vs. ≥ 10M samples)
+  - Achieves a **VBench-I2V score of 87.32%** (vs. 86.86% for Wan-I2V-14B)
 
 - **Complete Open-Source Release**:
-  - Full codebase and dataset
+  - Full codebase and training/inference scripts
+  - LoRA model weights and dataset for Pusa V1.0
   - Detailed architecture specifications
   - Comprehensive training methodology
 
@@ -103,8 +109,9 @@ https://github.com/user-attachments/assets/7d751fd8-9a14-42e6-bcde-6db940df6537
 
 **v1.0 (July 15, 2025)**
 - Released Pusa V1.0, based on the Wan-Video models.
+- Released Technical Report, V1.0 model weights and dataset.
 - Integrated codebase as `/PusaV1`.
-- Added new examples and training scripts for Pusa V1.0 in `PusaV1/examples/pusavideo`.
+- Added new examples and training scripts for Pusa V1.0 in `PusaV1/`.
 - Updated documentation for the V1.0 release.
 
 **v0.5 (June 3, 2025)**
@@ -117,26 +124,7 @@ https://github.com/user-attachments/assets/7d751fd8-9a14-42e6-bcde-6db940df6537
 
 ## Pusa V1.0 (Based on Wan)
 
-Pusa V1.0 leverages the powerful Wan-Video models and enhances them with our custom LoRA models and training scripts.
-
-### Installation <a name="installation-v1"></a>
-
-You may install using [uv](https://github.com/astral-sh/uv):
-
-```bash
-# Navigate to the PusaV1 directory which contains the diffsynth package
-cd PusaV1
-pip install uv
-uv venv .venv
-source .venv/bin/activate
-uv pip install -e .
-```
-
-### Usage <a name="usage-v1"></a>
-
-For detailed instructions, model zoo, and advanced usage, please refer to the **[Pusa V1.0 README](./PusaV1/examples/pusavideo/README.md)**.
-
----
+Pusa V1.0 leverages the powerful Wan-Video models and enhances them with our custom LoRA models and training scripts. For detailed instructions on installation, model preparation, usage examples, and training, please refer to the **[Pusa V1.0 README](./PusaV1/README.md)**.
 
 ## Pusa V0.5 (Based on Mochi)
 
@@ -338,35 +326,37 @@ python ./demos/cli_test_ti2v_release.py \
 
 ## Training
 
-Please find our Pusa training code and details here [here](https://github.com/Yaofang-Liu/Mochi-Full-Finetuner), which also support training for original model.
+For Pusa V1.0, please find the training details in the **[Pusa V1.0 README](./PusaV1/README.md#training)**.
+
+For Pusa V0.5, you can find our training code and details [here](https://github.com/Yaofang-Liu/Mochi-Full-Finetuner), which also supports training for the original Mochi model.
 
 ## Limitations
 
 Pusa currently has several known limitations:
-- The base Mochi model generates videos at low resolution (480p)
-- We anticipate significant quality improvements when applying our methodology to more advanced models like Wan2.1
-- We welcome community contributions to enhance model performance and extend its capabilities
+- Video generation quality is dependent on the base model (e.g., Wan-T2V-14B for V1.0).
+- We anticipate significant quality improvements when applying our methodology to more advanced models.
+- We welcome community contributions to enhance model performance and extend its capabilities.
 
 ### Currently Available
-- ✅ Model weights
+- ✅ Model weights for Pusa V1.0 and V0.5
 - ✅ Inference code for Text-to-Video generation
 - ✅ Inference code for Image-to-Video generation
-- ✅ Basic documentation
-- ✅ Training code and details
-- ✅ Model full fine-tuning guide for both Pusa and Mochi
-- ✅ Training dataset
 - ✅ Inference scripts for start & end frames, multi-frames, video transition, video extension
+- ✅ Training code and details
+- ✅ Model full fine-tuning guide (for Pusa V0.5)
+- ✅ Training datasets
+- ✅ Technical Report for Pusa V1.0
   
 ### TODO List
-- 🔄 Inference scripts for more ...
-- 🔄 Release more advanced versions with SOTA models like Wan 2.1 and Hunyuan Video
-- 🔄 Release Paper
+- 🔄 Release more advanced versions with SOTA models
+- 🔄 More capabilities like long video generation
 - 🔄 ....
 
 ## Related Work
 
 - [FVDM](https://arxiv.org/abs/2410.03160): Introduces the groundbreaking frame-level noise control with vectorized timestep approach that inspired Pusa.
-- [Mochi](https://huggingface.co/genmo/mochi-1-preview): Our foundation model, recognized as a leading open-source video generation system on the Artificial Analysis Leaderboard.
+- [Wan-Video](https://github.com/modelscope/DiffSynth-Studio): The foundation model for Pusa V1.0.
+- [Mochi](https://huggingface.co/genmo/mochi-1-preview): The foundation model for Pusa V0.5, recognized as a leading open-source video generation system on the Artificial Analysis Leaderboard.
 
 ## BibTeX
 If you use this work in your project, please cite the following references.
@@ -387,5 +377,6 @@ If you use this work in your project, please cite the following references.
   year={2024}
 }
 ```
+
 
 
