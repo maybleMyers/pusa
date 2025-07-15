@@ -13,7 +13,7 @@
     <a href="https://github.com/Yaofang-Liu/Mochi-Full-Finetuner"><img alt="Code" src="https://img.shields.io/badge/Code-Training%20Scripts-32CD32?logo=github"></a>
     <a href="https://arxiv.org/abs/2410.03160"><img alt="Paper" src="https://img.shields.io/badge/📜-FVDM%20Paper-B31B1B?logo=arxiv"></a>
     <a href="https://x.com/stephenajason"><img alt="Twitter" src="https://img.shields.io/badge/🐦-Twitter-1DA1F2?logo=twitter"></a>
-    <a href="https://www.xiaohongshu.com/discovery/item/67f898dc000000001c008339"><img alt="Xiaohongshu" src="https://img.shields.io/badge/📕-Xiaohongshu-FF2442"></a>
+    <a href="https://www.xiaohongshu.com/user/profile/5c6f928f0000000010015ca1?xsec_token=YBEf_x-s5bOBQIMJuNQvJ6H23Anwey1nnDgC9wiLyDHPU=&xsec_source=app_share&xhsshare=CopyLink&appuid=5c6f928f0000000010015ca1&apptime=1752622393&share_id=60f9a8041f974cb7ac5e3f0f161bf748"><img alt="Xiaohongshu" src="https://img.shields.io/badge/📕-Xiaohongshu-FF2442"></a>
 </p>
 
 
