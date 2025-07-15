@@ -8,9 +8,11 @@
 [![Xiaohongshu](https://img.shields.io/badge/📕-Xiaohongshu-FF2442)](https://www.xiaohongshu.com/discovery/item/67f898dc000000001c008339?source=webshare&xhsshare=pc_web&xsec_token=ABAhG8mltqyMxL9kI0eRxwj7EwiW7MFYH2oPl4n8ww0OM=&xsec_source=pc_share)
 
 
-## 🚀 Announcing Pusa V1.0 🚀
+## 🔥🔥🔥🚀 Announcing Pusa V1.0 🚀🔥🔥🔥
 
 We are excited to announce the release of **Pusa V1.0**, a significant upgrade to our video generation framework. This version is built upon the SOTA **Wan-T2V-14B** model from Alibaba and surpasses "Wan-I2V" on Vbench-I2V with unprecedented low cost. The codebase has been integrated into the `PusaV1` directory, which was based on `DiffSynth-Studio`.
+
+<img width="1000" alt="Image" src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/d98ef44c1f7c11724a6887b71fe35152493c68b4/PusaV1/pusa_benchmark_figure_dark.png" />
 
 Pusa V1.0 extends the capabilities of the original Wan-T2V models with our unique vectorized timestep adaptations, providing enhanced performance and new features.
 
@@ -18,11 +20,10 @@ For detailed usage and examples for Pusa V1.0, please see the **[Pusa V1.0 READM
 
 
 ## News 
-#### 🔥🔥🔥 2025.06.19:  Pusa-Wan2.1 Code&Paper Coming Very Soon. Please Stay Tuned！More details [here](https://mp.weixin.qq.com/s/MCOrbgJvqWwFnYmavSde6w)🚀🔥
-**Pusa-Wan2.1 (14B 720p 81 frames) results here**
-<img width="1000" alt="Image" src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/d98ef44c1f7c11724a6887b71fe35152493c68b4/PusaV1/pusa_benchmark_figure_dark.png" />
+#### 🔥🔥🔥 2025.07:  Pusa V1.0 (Pusa-Wan) Code, Paper, and Dataset, all released!!!
+#### 🔥🔥🔥 2025.04:  Pusa V0.5 (Pusa-Mochi) released.
+
  
->>>>>>> 4288a7b2987c77cb41a4ea9a3b0558f19fc10e3d
 
 <p align="center">
     <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/55de93a198427525e23a509e0f0d04616b10d71f/assets/demo0.gif" width="1000" autoplay loop muted/>
