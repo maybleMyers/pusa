@@ -23,7 +23,7 @@ For detailed usage and examples for Pusa V1.0, please see the **[Pusa V1.0 READM
 ## News 
 #### 🔥🔥🔥 2025.06.19:  Pusa-Wan2.1 Code&Paper Coming Very Soon. Please Stay Tuned！More details [here](https://mp.weixin.qq.com/s/MCOrbgJvqWwFnYmavSde6w)🚀🔥
 **Pusa-Wan2.1 (14B 720p 81 frames) results here**
-<img width="1000" alt="Image" src="https://github.com/user-attachments/assets/18a7f520-b4aa-42e3-9d8d-7fd29bbcb3d5" />
+<img width="1000" alt="Image" src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/d98ef44c1f7c11724a6887b71fe35152493c68b4/PusaV1/pusa_benchmark_figure_dark.png" />
  
 >>>>>>> 4288a7b2987c77cb41a4ea9a3b0558f19fc10e3d
 
