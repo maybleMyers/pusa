@@ -7,6 +7,7 @@
 [![Paper](https://img.shields.io/badge/📜-FVDM%20Paper-B31B1B?logo=arxiv)](https://arxiv.org/abs/2410.03160) [![Twitter](https://img.shields.io/badge/🐦-Twitter-1DA1F2?logo=twitter)](https://x.com/stephenajason)
 [![Xiaohongshu](https://img.shields.io/badge/📕-Xiaohongshu-FF2442)](https://www.xiaohongshu.com/discovery/item/67f898dc000000001c008339?source=webshare&xhsshare=pc_web&xsec_token=ABAhG8mltqyMxL9kI0eRxwj7EwiW7MFYH2oPl4n8ww0OM=&xsec_source=pc_share)
 
+<<<<<<< HEAD
 ---
 
 ## 🚀 Announcing Pusa V1.0 🚀
@@ -18,6 +19,13 @@ Pusa V1.0 extends the capabilities of the original Wan-T2V models with our uniqu
 For detailed usage and examples for Pusa V1.0, please see the **[Pusa V1.0 README](./PusaV1/examples/pusavideo/README.md)**.
 
 ---
+=======
+## News 
+#### 🔥🔥🔥 2025.06.19:  Pusa-Wan2.1 Code&Paper Coming Very Soon. Please Stay Tuned！More details [here](https://mp.weixin.qq.com/s/MCOrbgJvqWwFnYmavSde6w)🚀🔥
+**Pusa-Wan2.1 (14B 720p 81 frames) results here**
+<img width="1000" alt="Image" src="https://github.com/user-attachments/assets/18a7f520-b4aa-42e3-9d8d-7fd29bbcb3d5" />
+ 
+>>>>>>> 4288a7b2987c77cb41a4ea9a3b0558f19fc10e3d
 
 <p align="center">
     <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/55de93a198427525e23a509e0f0d04616b10d71f/assets/demo0.gif" width="1000" autoplay loop muted/>
@@ -32,6 +40,8 @@ For detailed usage and examples for Pusa V1.0, please see the **[Pusa V1.0 READM
 </p>
 
 **Pusa can do many more other things, you may check details below.**
+
+ 
 
 ## Table of Contents
 - [Overview](#overview)
@@ -57,6 +67,7 @@ Pusa introduces a paradigm shift in video diffusion modeling through frame-level
 Pusa's novel frame-level noise architecture with vectorized timesteps compared with conventional video diffusion models with a scalar timestep
 
 https://github.com/user-attachments/assets/7d751fd8-9a14-42e6-bcde-6db940df6537
+
 
 ### ✨ Key Features
 
