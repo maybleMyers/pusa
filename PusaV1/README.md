@@ -38,14 +38,14 @@ pip install xfuser>=0.4.3 absl-py peft lightning pandas deepspeed wandb av
 
 ## Model Preparation
 
-Download the necessary models and place them into the `PusaV1/model_zoo` directory. You can use the following commands to download and arrange the models correctly.
+Download the necessary models and place them into the `./model_zoo` directory. You can use the following commands to download and arrange the models correctly.
 
 ```shell
 # Make sure you are in the PusaV1 directory
 # Install huggingface-cli if you don't have it
 pip install -U "huggingface_hub[cli]"
-huggingface-cli download RaphaelLiu/PusaV1 --local-dir ./PusaV1/model_zoo/
-cat ./PusaV1/pusa_v1.pt.part* > ./PusaV1/pusa_v1.pt
+huggingface-cli download RaphaelLiu/PusaV1 --local-dir ./model_zoo/
+cat ./model_zoo/PusaV1/pusa_v1.pt.part* > ./model_zoo/PusaV1/pusa_v1.pt
 ```
 
 ## Usage Examples
@@ -60,7 +60,7 @@ This script generates a video conditioned on an input image and a text prompt.
 python examples/pusavideo/wan_14b_image_to_video_pusa.py \
   --image_path "./demos/input_image.jpg" \
   --prompt "A wide-angle shot shows a serene monk meditating perched a top of the letter E of a pile of weathered rocks that vertically spell out 'ZEN'. The rock formation is perched atop a misty mountain peak at sunrise. The warm light bathes the monk in a gentle glow, highlighting the folds of his saffron robes. The sky behind him is a soft gradient of pink and orange, creating a tranquil backdrop. The camera slowly zooms in, capturing the monk's peaceful expression and the intricate details of the rocks. The scene is bathed in a soft, ethereal light, emphasizing the spiritual atmosphere." \
-  --lora_path "./model_zoo/PusaV1/pusa_v1.pt" \
+  --lora_path "./model_zoo/PusaV1/pusa_v1.pt"
 ```
 
 ### Video-to-Video Generation

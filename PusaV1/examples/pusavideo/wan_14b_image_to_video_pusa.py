@@ -43,7 +43,7 @@ def main():
     pipe = WanVideoPusaPipeline.from_model_manager(model_manager, torch_dtype=torch.bfloat16, device=device)
     pipe.enable_vram_management(num_persistent_param_in_dit=6*10**9)
 
-    num_inference_steps = 50
+    num_inference_steps = 10
     seed = 0
     torch.manual_seed(seed)
     
