@@ -23,7 +23,7 @@ Pusa V1.0 not only sets a new standard for image-to-video generation but also un
 
 
 ## :sparkles: Highlights
-- [ComfyUI](https://huggingface.co/Kijai/WanVideo_comfy/tree/main/Pusa), supported by kijai, thanks a lot! 
+- [ComfyUI](https://huggingface.co/Kijai/WanVideo_comfy/tree/main/Pusa), supported by [Kijai](https://github.com/kijai), thanks a lot! 
 
 ## Installation
 
