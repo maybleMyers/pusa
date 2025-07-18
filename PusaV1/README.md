@@ -45,7 +45,17 @@ Download the necessary models and place them into the `./model_zoo` directory. Y
 # Install huggingface-cli if you don't have it
 pip install -U "huggingface_hub[cli]"
 huggingface-cli download RaphaelLiu/PusaV1 --local-dir ./model_zoo/PusaV1
-cat ./model_zoo/PusaV1/pusa_v1.pt.part* > ./model_zoo/PusaV1/pusa_v1.pt
+
+# (Optional) Please download Wan2.1-T2V-14B to ./model_zoo/PusaV1 is you don't have it, if you have you can directly soft link it to ./model_zoo/PusaV1
+huggingface-cli download Wan-AI/Wan2.1-T2V-14B --local-dir ./model_zoo/PusaV1
+```
+
+The checkpoints should arrange like this to use the codes with default settings:
+```shell
+./model_zoo
+  - PusaV1
+    - Wan2.1-T2V-14B
+    - pusa_v1.pt
 ```
 
 ## Usage Examples
