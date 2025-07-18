@@ -52,13 +52,13 @@ cat ./model_zoo/PusaV1/pusa_v1.pt.part* > ./model_zoo/PusaV1/pusa_v1.pt
 
 All scripts save their output in an `outputs` directory, which will be created if it doesn't exist.
 
-### Image(s) Conditioned Video Generation
-
-This script generates a video conditioned on one or more input frames and a text prompt. It can be used for image-to-video, start-end frame conditioned generation, and other multi-frame conditioning tasks.
-
 !!! :sparkles: **Please note that we have two core unique parameters that differ from other methods. `--cond_position`** is Comma-separated list of frame indices for conditioning. You can use any position from 0 to 20". **`--noise_multipliers`** is "Comma-separated noise multipliers for conditioning frames. A value of 0 means the condition image is used as totally clean, higher value means add more noise. For I2V, you can use 0.3 or any from 0 to 1. For Start-End-Frame, you can use 0.3,0.7, or any from 0 to 1.
 
 **Try different configurations and you will get different results.** **Examples shown below are just for demonstration and not the best** :)
+
+### Image(s) Conditioned Video Generation
+
+This script generates a video conditioned on one or more input frames and a text prompt. It can be used for image-to-video, start-end frame conditioned generation, and other multi-frame conditioning tasks.
 
 **Example 1: Image-to-Video**
 Generates a video from a single starting image. 
