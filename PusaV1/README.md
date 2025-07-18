@@ -52,7 +52,7 @@ cat ./model_zoo/PusaV1/pusa_v1.pt.part* > ./model_zoo/PusaV1/pusa_v1.pt
 
 All scripts save their output in an `outputs` directory, which will be created if it doesn't exist.
 
-### Image-Conditioned Video Generation
+### Image(s) Conditioned Video Generation
 
 This script generates a video conditioned on one or more input frames and a text prompt. It can be used for image-to-video, start-end frame conditioned generation, and other multi-frame conditioning tasks.
 
