@@ -71,26 +71,26 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan_14b_multi_frames_pusa.py \
 <table>
   <tr>
     <td align="center">
-      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/multi_frame_output_cond_[0]_noise_[0.0].gif?raw=true" width="400" autoplay loop muted controls></img>
+      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/multi_frame_output_cond_0_noise_0p0.gif?raw=true" width="400"/>
       <br>
       <sub>noise: [0.0]</sub>
     </td>
     <td align="center">
-      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/multi_frame_output_cond_[0]_noise_[0.2].gif?raw=true" width="400" autoplay loop muted controls></img>
+      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/multi_frame_output_cond_0_noise_0p2.gif?raw=true" width="400"/>
       <br>
       <sub>noise: [0.2]</sub>
     </td>
   </tr>
   <tr>
     <td align="center">
-      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/multi_frame_output_cond_[0]_noise_[0.3].gif?raw=true" width="400" autoplay loop muted controls></img>
+      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/multi_frame_output_cond_0_noise_0p3.gif?raw=true" width="400"/>
       <br>
       <sub>noise: [0.3]</sub>
     </td>
     <td align="center">
-      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/multi_frame_output_cond_[0]_noise_[0.5].gif?raw=true" width="400" autoplay loop muted controls></img>
+      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/multi_frame_output_cond_0_noise_0p5.gif?raw=true" width="400"/>
       <br>
-      <sub>noise: [0.4]</sub>
+      <sub>noise: [0.5]</sub>
     </td>
   </tr>
 </table>
@@ -110,26 +110,26 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan_14b_multi_frames_pusa.py \
 <table>
   <tr>
     <td align="center">
-      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/multi_frame_output_cond_[0, 20]_noise_[0.2, 0.6].gif?raw=true" width="400" autoplay loop muted controls></img>
+      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/multi_frame_output_cond_0_20_noise_0p2_0p6.gif?raw=true" width="400"/>
       <br>
       <sub>noise: [0.2, 0.6]</sub>
     </td>
     <td align="center">
-      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/multi_frame_output_cond_[0, 20]_noise_[0.3, 0.7].gif?raw=true" width="400" autoplay loop muted controls></img>
+      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/multi_frame_output_cond_0_20_noise_0p3_0p7.gif?raw=true" width="400"/>
       <br>
       <sub>noise: [0.3, 0.7]</sub>
     </td>
   </tr>
   <tr>
     <td align="center">
-      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/multi_frame_output_cond_[0, 20]_noise_[0.4, 0.8].gif?raw=true" width="400" autoplay loop muted controls></img>
+      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/multi_frame_output_cond_0_20_noise_0p4_0p8.gif?raw=true" width="400"/>
       <br>
-      <sub>noise: [0.2, 0.4]</sub>
+      <sub>noise: [0.4, 0.8]</sub>
     </td>
     <td align="center">
-      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/multi_frame_output_cond_[0, 20]_noise_[0.5, 0.5].gif?raw=true" width="400" autoplay loop muted controls></img>
+      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/multi_frame_output_cond_0_20_noise_0p5_0p5.gif?raw=true" width="400"/>
       <br>
-      <sub>noise: [0.1, 0.7]</sub>
+      <sub>noise: [0.5, 0.5]</sub>
     </td>
   </tr>
 </table>
@@ -153,24 +153,24 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan_14b_v2v_pusa.py \
 <table>
   <tr>
     <td align="center">
-      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/v2v_input_video_cond_[0, 20]_noise_[0.0, 0.0].gif?raw=true" width="400" autoplay loop muted controls></img>
+      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/v2v_input_video_cond_0_20_noise_0p0_0p0.gif?raw=true" width="400"/>
       <br>
       <sub>noise: [0.0, 0.0]</sub>
     </td>
     <td align="center">
-      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/v2v_input_video_cond_[0, 20]_noise_[0.2, 0.2].gif?raw=true" width="400" autoplay loop muted controls></img>
+      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/v2v_input_video_cond_0_20_noise_0p2_0p2.gif?raw=true" width="400"/>
       <br>
       <sub>noise: [0.2, 0.2]</sub>
     </td>
   </tr>
   <tr>
     <td align="center">
-      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/v2v_input_video_cond_[0, 20]_noise_[0.3, 0.3].gif?raw=true" width="400" autoplay loop muted controls></img>
+      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/v2v_input_video_cond_0_20_noise_0p3_0p3.gif?raw=true" width="400"/>
       <br>
       <sub>noise: [0.3, 0.3]</sub>
     </td>
     <td align="center">
-      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/v2v_input_video_cond_[0, 20]_noise_[0.1, 0.3].gif?raw=true" width="400" autoplay loop muted controls></img>
+      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/v2v_input_video_cond_0_20_noise_0p1_0p3.gif?raw=true" width="400"/>
       <br>
       <sub>noise: [0.1, 0.3]</sub>
     </td>
@@ -192,24 +192,24 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan_14b_v2v_pusa.py \
 <table>
   <tr>
     <td align="center">
-      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/v2v_input_video_cond_[0, 1, 2, 3]_noise_[0.2, 0.4, 0.6, 0.8].gif?raw=true" width="400" autoplay loop muted controls></img>
+      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/v2v_input_video_cond_0_1_2_3_noise_0p2_0p4_0p6_0p8.gif?raw=true" width="400"/>
       <br>
       <sub>noise: [0.2, 0.4, 0.6, 0.8]</sub>
     </td>
     <td align="center">
-      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/v2v_input_video_cond_[0, 1, 2, 3]_noise_[0.3, 0.4, 0.5, 0.6].gif?raw=true" width="400" autoplay loop muted controls></img>
+      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/v2v_input_video_cond_0_1_2_3_noise_0p3_0p4_0p5_0p6.gif?raw=true" width="400"/>
       <br>
       <sub>noise: [0.3, 0.4, 0.5, 0.6]</sub>
     </td>
   </tr>
   <tr>
     <td align="center">
-      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/v2v_input_video_cond_[0, 1, 2, 3]_noise_[0.0, 0.3, 0.4, 0.5].gif?raw=true" width="400" autoplay loop muted controls></img>
+      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/v2v_input_video_cond_0_1_2_3_noise_0p0_0p3_0p4_0p5.gif?raw=true" width="400"/>
       <br>
       <sub>noise: [0.0, 0.3, 0.4, 0.5]</sub>
     </td>
     <td align="center">
-      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/v2v_input_video_cond_[0, 1, 2, 3]_noise_[0.0, 0.0, 0.5, 0.7].gif?raw=true" width="400" autoplay loop muted controls></img>
+      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/v2v_input_video_cond_0_1_2_3_noise_0p0_0p0_0p5_0p7.gif?raw=true" width="400"/>
       <br>
       <sub>noise: [0.0, 0.0, 0.5, 0.7]</sub>
     </td>
@@ -231,7 +231,7 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan_14b_text_to_video_pusa.py \
 </div>
 
 ## Training
-Our training pipeline is based on Diffsynth-Studio, which supports both full finetuing and lora finetuing. We use LoRA training on a custom dataset to get Pusa V1.0 model. The training process consists of two stages: data preparation and training. 
+Our training pipeline is based on [DiffySynth-Studio](https://github.com/modelscope/DiffSynth-Studio/tree/3edf3583b1f08944cee837b94d9f84d669c2729c/examples/wanvideo), which supports both full finetuing and lora finetuning. We use LoRA training on a custom dataset to get Pusa V1.0 model. The training process consists of two stages: data preparation and training. 
 
 ### Prepare Dataset
 You can download our dataset on Huggingface or prepare our own dataset following [DiffySynth-Studio](https://github.com/modelscope/DiffSynth-Studio/tree/3edf3583b1f08944cee837b94d9f84d669c2729c/examples/wanvideo).
@@ -242,7 +242,7 @@ huggingface-cli download RaphaelLiu/PusaV1_training --repo-type dataset --local-
 ```
 
 ### Training
-After prepraring the dataset, you can start training. We provide a sample script `train.sh` for multi-GPU training on a single node using `deepspeed` and Lora. The training pipeline is based on [DiffySynth-Studio](https://github.com/modelscope/DiffSynth-Studio/tree/3edf3583b1f08944cee837b94d9f84d669c2729c/examples/wanvideo), you may check for more info.
+After prepraring the dataset, you can start training. We provide a sample script `train.sh` for multi-GPU training on a single node using `deepspeed` and Lora. 
 
 You can find the content in `examples/pusavideo/train.sh` and modify the paths and parameters as needed. Finally, run the script from the `PusaV1` directory:
 ```shell
