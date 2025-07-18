@@ -14,16 +14,16 @@
 </p>
 
 
+
 ## 🔥🔥🔥🚀 Announcing Pusa V1.0 🚀🔥🔥🔥
 
 We are excited to release **Pusa V1.0**, a groundbreaking paradigm that leverages **vectorized timestep adaptation (VTA)** to enable fine-grained temporal control within a unified video diffusion framework. By finetuning the SOTA **Wan-T2V-14B** model with VTA, Pusa V1.0 achieves unprecedented efficiency, **surpassing Wan-I2V on Vbench-I2V with only $500 of training cost**. The codebase has been integrated into the `PusaV1` directory, based on `DiffSynth-Studio`.
 
-<img width="1000" alt="Image" src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/d98ef44c1f7c11724a6887b71fe35152493c68b4/PusaV1/pusa_benchmark_figure_dark.png" />
-
 Pusa V1.0 not only sets a new standard for image-to-video generation but also unlocks many other zero-shot multi-task capabilities such as start-end frames and video extension, all without task-specific training while preserving the base model's T2V capabilities.
 
-For detailed usage and examples for Pusa V1.0, please see the **[Pusa V1.0 README](./PusaV1/README.md)**.
 
+## :sparkles: Highlights
+- [ComfyUI](https://huggingface.co/Kijai/WanVideo_comfy/tree/main/Pusa), supported by [Kijai](https://github.com/kijai), thanks a lot! 
 
 ## Installation
 
@@ -52,12 +52,16 @@ cat ./model_zoo/PusaV1/pusa_v1.pt.part* > ./model_zoo/PusaV1/pusa_v1.pt
 
 All scripts save their output in an `outputs` directory, which will be created if it doesn't exist.
 
-### Image-Conditioned Video Generation
+!!! :sparkles: **Please note that we have two core unique parameters that differ from other methods. `--cond_position`** is Comma-separated list of frame indices for conditioning. You can use any position from 0 to 20". **`--noise_multipliers`** is "Comma-separated noise multipliers for conditioning frames. A value of 0 means the condition image is used as totally clean, higher value means add more noise. For I2V, you can use 0.3 or any from 0 to 1. For Start-End-Frame, you can use 0.3,0.7, or any from 0 to 1.
+
+**Try different configurations and you will get different results.** **Examples shown below are just for demonstration and not the best** :)
+
+### Image(s) Conditioned Video Generation
 
 This script generates a video conditioned on one or more input frames and a text prompt. It can be used for image-to-video, start-end frame conditioned generation, and other multi-frame conditioning tasks.
 
 **Example 1: Image-to-Video**
-Generates a video from a single starting image.
+Generates a video from a single starting image. 
 
 ```shell
 CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan_14b_multi_frames_pusa.py \
