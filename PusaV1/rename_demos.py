@@ -37,6 +37,6 @@ def rename_demo_files(directory):
 
 if __name__ == "__main__":
     # Assuming the script is run from the project root (Pusa-VidGen)
-    outputs_directory = "./PusaV1/outputs"
+    outputs_directory = "./outputs"
     rename_demo_files(outputs_directory)
     print("\nRenaming finished.") 
