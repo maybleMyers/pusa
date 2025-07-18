@@ -71,24 +71,24 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan_14b_multi_frames_pusa.py \
 <table>
   <tr>
     <td align="center">
-      <video src="./outputs/multi_frame_output_cond_[0]_noise_[0.0].mp4" width="400" autoplay loop muted controls></video>
+      <video src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/multi_frame_output_cond_[0]_noise_[0.0].mp4?raw=true" width="400" autoplay loop muted controls></video>
       <br>
       <sub>noise: [0.0]</sub>
     </td>
     <td align="center">
-      <video src="./outputs/multi_frame_output_cond_[0]_noise_[0.2].mp4" width="400" autoplay loop muted controls></video>
+      <video src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/multi_frame_output_cond_[0]_noise_[0.2].mp4?raw=true" width="400" autoplay loop muted controls></video>
       <br>
       <sub>noise: [0.2]</sub>
     </td>
   </tr>
   <tr>
     <td align="center">
-      <video src="./outputs/multi_frame_output_cond_[0]_noise_[0.3].mp4" width="400" autoplay loop muted controls></video>
+      <video src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/multi_frame_output_cond_[0]_noise_[0.3].mp4?raw=true" width="400" autoplay loop muted controls></video>
       <br>
       <sub>noise: [0.3]</sub>
     </td>
     <td align="center">
-      <video src="./outputs/multi_frame_output_cond_[0]_noise_[0.5].mp4" width="400" autoplay loop muted controls></video>
+      <video src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/multi_frame_output_cond_[0]_noise_[0.5].mp4?raw=true" width="400" autoplay loop muted controls></video>
       <br>
       <sub>noise: [0.4]</sub>
     </td>
@@ -110,24 +110,24 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan_14b_multi_frames_pusa.py \
 <table>
   <tr>
     <td align="center">
-      <video src="./outputs/multi_frame_output_cond_[0, 20]_noise_[0.2, 0.6].mp4" width="400" autoplay loop muted controls></video>
+      <video src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/multi_frame_output_cond_[0, 20]_noise_[0.2, 0.6].mp4?raw=true" width="400" autoplay loop muted controls></video>
       <br>
       <sub>noise: [0.2, 0.6]</sub>
     </td>
     <td align="center">
-      <video src="./outputs/multi_frame_output_cond_[0, 20]_noise_[0.3, 0.7].mp4" width="400" autoplay loop muted controls></video>
+      <video src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/multi_frame_output_cond_[0, 20]_noise_[0.3, 0.7].mp4?raw=true" width="400" autoplay loop muted controls></video>
       <br>
       <sub>noise: [0.3, 0.7]</sub>
     </td>
   </tr>
   <tr>
     <td align="center">
-      <video src="./outputs/multi_frame_output_cond_[0, 20]_noise_[0.4, 0.8].mp4" width="400" autoplay loop muted controls></video>
+      <video src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/multi_frame_output_cond_[0, 20]_noise_[0.4, 0.8].mp4?raw=true" width="400" autoplay loop muted controls></video>
       <br>
       <sub>noise: [0.2, 0.4]</sub>
     </td>
     <td align="center">
-      <video src="./outputs/multi_frame_output_cond_[0, 20]_noise_[0.5, 0.5].mp4" width="400" autoplay loop muted controls></video>
+      <video src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/multi_frame_output_cond_[0, 20]_noise_[0.5, 0.5].mp4?raw=true" width="400" autoplay loop muted controls></video>
       <br>
       <sub>noise: [0.1, 0.7]</sub>
     </td>
@@ -153,24 +153,24 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan_14b_v2v_pusa.py \
 <table>
   <tr>
     <td align="center">
-      <video src="./outputs/v2v_input_video_cond_[0, 20]_noise_[0.0, 0.0].mp4" width="400" autoplay loop muted controls></video>
+      <video src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/v2v_input_video_cond_[0, 20]_noise_[0.0, 0.0].mp4?raw=true" width="400" autoplay loop muted controls></video>
       <br>
       <sub>noise: [0.0, 0.0]</sub>
     </td>
     <td align="center">
-      <video src="./outputs/v2v_input_video_cond_[0, 20]_noise_[0.2, 0.2].mp4" width="400" autoplay loop muted controls></video>
+      <video src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/v2v_input_video_cond_[0, 20]_noise_[0.2, 0.2].mp4?raw=true" width="400" autoplay loop muted controls></video>
       <br>
       <sub>noise: [0.2, 0.2]</sub>
     </td>
   </tr>
   <tr>
     <td align="center">
-      <video src="./outputs/v2v_input_video_cond_[0, 20]_noise_[0.3, 0.3].mp4" width="400" autoplay loop muted controls></video>
+      <video src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/v2v_input_video_cond_[0, 20]_noise_[0.3, 0.3].mp4?raw=true" width="400" autoplay loop muted controls></video>
       <br>
       <sub>noise: [0.3, 0.3]</sub>
     </td>
     <td align="center">
-      <video src="./outputs/v2v_input_video_cond_[0, 20]_noise_[0.1, 0.3].mp4" width="400" autoplay loop muted controls></video>
+      <video src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/v2v_input_video_cond_[0, 20]_noise_[0.1, 0.3].mp4?raw=true" width="400" autoplay loop muted controls></video>
       <br>
       <sub>noise: [0.1, 0.3]</sub>
     </td>
@@ -192,24 +192,24 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan_14b_v2v_pusa.py \
 <table>
   <tr>
     <td align="center">
-      <video src="./outputs/v2v_input_video_cond_[0, 1, 2, 3]_noise_[0.2, 0.4, 0.6, 0.8].mp4" width="400" autoplay loop muted controls></video>
+      <video src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/v2v_input_video_cond_[0, 1, 2, 3]_noise_[0.2, 0.4, 0.6, 0.8].mp4?raw=true" width="400" autoplay loop muted controls></video>
       <br>
       <sub>noise: [0.2, 0.4, 0.6, 0.8]</sub>
     </td>
     <td align="center">
-      <video src="./outputs/v2v_input_video_cond_[0, 1, 2, 3]_noise_[0.3, 0.4, 0.5, 0.6].mp4" width="400" autoplay loop muted controls></video>
+      <video src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/v2v_input_video_cond_[0, 1, 2, 3]_noise_[0.3, 0.4, 0.5, 0.6].mp4?raw=true" width="400" autoplay loop muted controls></video>
       <br>
       <sub>noise: [0.3, 0.4, 0.5, 0.6]</sub>
     </td>
   </tr>
   <tr>
     <td align="center">
-      <video src="./outputs/v2v_input_video_cond_[0, 1, 2, 3]_noise_[0.0, 0.3, 0.4, 0.5].mp4" width="400" autoplay loop muted controls></video>
+      <video src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/v2v_input_video_cond_[0, 1, 2, 3]_noise_[0.0, 0.3, 0.4, 0.5].mp4?raw=true" width="400" autoplay loop muted controls></video>
       <br>
       <sub>noise: [0.0, 0.3, 0.4, 0.5]</sub>
     </td>
     <td align="center">
-      <video src="./outputs/v2v_input_video_cond_[0, 1, 2, 3]_noise_[0.0, 0.0, 0.5, 0.7].mp4" width="400" autoplay loop muted controls></video>
+      <video src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/v2v_input_video_cond_[0, 1, 2, 3]_noise_[0.0, 0.0, 0.5, 0.7].mp4?raw=true" width="400" autoplay loop muted controls></video>
       <br>
       <sub>noise: [0.0, 0.0, 0.5, 0.7]</sub>
     </td>
@@ -227,7 +227,7 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan_14b_text_to_video_pusa.py \
 ```
 
 <div align="center">
-  <video src="./outputs/t2v_output.mp4" width="400" autoplay loop muted controls></video>
+  <video src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/t2v_output.mp4?raw=true" width="400" autoplay loop muted controls></video>
 </div>
 
 ## Training
