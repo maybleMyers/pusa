@@ -153,7 +153,7 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan_14b_v2v_pusa.py \
 <table>
   <tr>
     <td align="center">
-      <video src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/v2v_input_video_cond_[0, 20]_noise_[0.0, 0.0].mp4?raw=true" width="400" autoplay loop muted controls></video>
+      <video src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/067bddea84f7559b0bbb4483277efe9f17dec32b/PusaV1/outputs/v2v_input_video_cond_%5B0%2C%2020%5D_noise_%5B0.0%2C%200.0%5D.mp4" width="400" autoplay loop muted controls></video>
       <br>
       <sub>noise: [0.0, 0.0]</sub>
     </td>
@@ -165,7 +165,7 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan_14b_v2v_pusa.py \
   </tr>
   <tr>
     <td align="center">
-      <video src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/v2v_input_video_cond_[0, 20]_noise_[0.3, 0.3].mp4?raw=true" width="400" autoplay loop muted controls></video>
+      <video src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/067bddea84f7559b0bbb4483277efe9f17dec32b/PusaV1/outputs/v2v_input_video_cond_%5B0%2C%2020%5D_noise_%5B0.3%2C%200.3%5D.mp4" width="400" autoplay loop muted controls></video>
       <br>
       <sub>noise: [0.3, 0.3]</sub>
     </td>
@@ -234,7 +234,7 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan_14b_text_to_video_pusa.py \
 Our training pipeline is based on Diffsynth-Studio, which supports both full finetuing and lora finetuing. We use LoRA training on a custom dataset to get Pusa V1.0 model. The training process consists of two stages: data preparation and training. 
 
 ### Prepare Dataset
-You can download our dataset on Huggingface or prepare our own dataset following https://github.com/modelscope/DiffSynth-Studio/tree/main/examples/wanvideo.
+You can download our dataset on Huggingface or prepare our own dataset following [DiffySynth-Studio](https://github.com/modelscope/DiffSynth-Studio/tree/3edf3583b1f08944cee837b94d9f84d669c2729c/examples/wanvideo).
 
 Download `PusaV1_training` dataset to here `./dataset/`.
 ```shell
@@ -242,7 +242,7 @@ huggingface-cli download RaphaelLiu/PusaV1_training --repo-type dataset --local-
 ```
 
 ### Training
-After prepraring the dataset, you can start training. We provide a sample script `train.sh` for multi-GPU training on a single node using `torchrun` and `deepspeed`.
+After prepraring the dataset, you can start training. We provide a sample script `train.sh` for multi-GPU training on a single node using `deepspeed` and Lora. The training pipeline is based on [DiffySynth-Studio](https://github.com/modelscope/DiffSynth-Studio/tree/3edf3583b1f08944cee837b94d9f84d669c2729c/examples/wanvideo), you may check for more info.
 
 You can find the content in `examples/pusavideo/train.sh` and modify the paths and parameters as needed. Finally, run the script from the `PusaV1` directory:
 ```shell
