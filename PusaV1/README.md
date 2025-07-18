@@ -64,7 +64,7 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan_14b_multi_frames_pusa.py \
   --image_paths "./demos/input_image.jpg" \
   --prompt "A wide-angle shot shows a serene monk meditating perched a top of the letter E of a pile of weathered rocks that vertically spell out 'ZEN'. The rock formation is perched atop a misty mountain peak at sunrise. The warm light bathes the monk in a gentle glow, highlighting the folds of his saffron robes. The sky behind him is a soft gradient of pink and orange, creating a tranquil backdrop. The camera slowly zooms in, capturing the monk's peaceful expression and the intricate details of the rocks. The scene is bathed in a soft, ethereal light, emphasizing the spiritual atmosphere." \
   --cond_position "0" \
-  --noise_multipliers "0.3" \
+  --noise_multipliers "0.2" \
   --lora_path "./model_zoo/PusaV1/pusa_v1.pt"
 ```
 
@@ -88,9 +88,9 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan_14b_multi_frames_pusa.py \
       <sub>noise: [0.3]</sub>
     </td>
     <td align="center">
-      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/multi_frame_output_cond_0_noise_0p5.gif?raw=true" width="400"/>
+      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/multi_frame_output_cond_0_noise_0p4.gif?raw=true" width="400"/>
       <br>
-      <sub>noise: [0.5]</sub>
+      <sub>noise: [0.4]</sub>
     </td>
   </tr>
 </table>
@@ -103,33 +103,33 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan_14b_multi_frames_pusa.py \
   --image_paths "./demos/start_frame.jpg" "./demos/end_frame.jpg" \
   --prompt "plastic injection machine opens releasing a soft inflatable foamy morphing sticky figure over a hand. isometric. low light. dramatic light. macro shot. real footage" \
   --cond_position "0,20" \
-  --noise_multipliers "0.2,0.6" \
+  --noise_multipliers "0.2,0.5" \
   --lora_path "./model_zoo/PusaV1/pusa_v1.pt"
 ```
 
 <table>
   <tr>
     <td align="center">
-      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/multi_frame_output_cond_0_20_noise_0p2_0p6.gif?raw=true" width="400"/>
+      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/multi_frame_output_cond_0_20_noise_0p1_0p4.gif?raw=true" width="400"/>
       <br>
-      <sub>noise: [0.2, 0.6]</sub>
+      <sub>noise: [0.1, 0.4]</sub>
     </td>
     <td align="center">
-      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/multi_frame_output_cond_0_20_noise_0p3_0p7.gif?raw=true" width="400"/>
+      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/multi_frame_output_cond_0_20_noise_0p2_0p5.gif?raw=true" width="400"/>
       <br>
-      <sub>noise: [0.3, 0.7]</sub>
+      <sub>noise: [0.2, 0.5]</sub>
     </td>
   </tr>
   <tr>
     <td align="center">
-      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/multi_frame_output_cond_0_20_noise_0p4_0p8.gif?raw=true" width="400"/>
+      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/multi_frame_output_cond_0_20_noise_0p1_0p7.gif?raw=true" width="400"/>
       <br>
-      <sub>noise: [0.4, 0.8]</sub>
+      <sub>noise: [0.1, 0.7]</sub>
     </td>
     <td align="center">
-      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/multi_frame_output_cond_0_20_noise_0p5_0p5.gif?raw=true" width="400"/>
+      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/multi_frame_output_cond_0_20_noise_0p2_0p6.gif?raw=true" width="400"/>
       <br>
-      <sub>noise: [0.5, 0.5]</sub>
+      <sub>noise: [0.2, 0.6]</sub>
     </td>
   </tr>
 </table>
@@ -170,9 +170,9 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan_14b_v2v_pusa.py \
       <sub>noise: [0.3, 0.3]</sub>
     </td>
     <td align="center">
-      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/v2v_input_video_cond_0_20_noise_0p1_0p3.gif?raw=true" width="400"/>
+      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/outputs/v2v_input_video_cond_0_20_noise_0p4_0p4.gif?raw=true" width="400"/>
       <br>
-      <sub>noise: [0.1, 0.3]</sub>
+      <sub>noise: [0.4, 0.4]</sub>
     </td>
   </tr>
 </table>
