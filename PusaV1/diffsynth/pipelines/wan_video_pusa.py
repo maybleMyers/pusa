@@ -466,7 +466,8 @@ class WanVideoPusaPipeline(BasePipeline):
 
             timestep = timestep.unsqueeze(0).unsqueeze(1).repeat(1, latents.shape[2]).to(dtype=self.torch_dtype, device=self.device)
 
-            timestep[:,0] = 0 
+            # timestep[:,0] = 0 
+            # import ipdb; ipdb.set_trace()
 
             print("timestep", timestep[0])
 

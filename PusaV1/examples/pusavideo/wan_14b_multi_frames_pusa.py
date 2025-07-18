@@ -7,29 +7,27 @@ from diffsynth import ModelManager, PusaMultiFramesPipeline, save_video
 import datetime
 
 def main():
-    parser = argparse.ArgumentParser(description="Pusa Multi-Frame to Video Generation")
-    parser.add_argument("--image_paths", type=str, nargs='+', required=True, help="Paths to the conditioning image frames.")
+    parser = argparse.ArgumentParser(description="Pusa Conditional Video Generation from one or more images (Image-to-Video, Start-End-Frame-to-Video, Multi-Frames-to-Video).")
+    parser.add_argument("--image_paths", type=str, nargs='+', required=True, help="Paths to one or more conditioning image frames.")
     parser.add_argument("--prompt", type=str, required=True, help="Text prompt for video generation.")
-    parser.add_argument("--cond_position", type=str, required=True, help="Comma-separated list of frame indices for conditioning.")
-    parser.add_argument("--noise_multipliers", type=str, required=True, help="Comma-separated noise multipliers for conditioning frames.")
+    parser.add_argument("--cond_position", type=str, required=True, help="Comma-separated list of frame indices for conditioning. You can use any position from 0 to 20")
+    parser.add_argument("--noise_multipliers", type=str, required=True, help="Comma-separated noise multipliers for conditioning frames. A value of 0 means the condition image is used as totally clean, higher value means add more noise. For I2V, you can use 0.3 or any from 0 to 1. For Start-End-Frame, you can use 0.3,0.7, or any from 0 to 1.")
     parser.add_argument("--i2v_model_path", type=str, default="model_zoo/PusaV1/Wan2.1-I2V-14B-720P/models_clip_open-clip-xlm-roberta-large-vit-huge-14.pth", help="Path to the I2V CLIP model.")
     parser.add_argument("--t2v_model_dir", type=str, default="model_zoo/PusaV1/Wan2.1-T2V-14B", help="Directory of the T2V model components.")
     parser.add_argument("--lora_path", type=str, required=True, help="Path to the LoRA checkpoint file.")
     parser.add_argument("--lora_alpha", type=float, default=1.4, help="Alpha value for LoRA.")
-    parser.add_argument("--output_dir", type=str, default="outputs", help="Directory to save the output video.")
-    parser.add_argument("--gpu_id", type=int, default=0, help="GPU ID to use.")
+    parser.add_argument("--output_dir", type=str, default="./outputs", help="Directory to save the output video.")
     args = parser.parse_args()
 
-    torch.cuda.set_device(args.gpu_id)
-    device = f"cuda:{args.gpu_id}"
+    device = "cuda" if torch.cuda.is_available() else "cpu"
 
     # Load models
-    print(f"Loading models on GPU {args.gpu_id}...")
+    print("Loading models...")
     model_manager = ModelManager(device="cpu")
-    model_manager.load_models(
-        [args.i2v_model_path],
-        torch_dtype=torch.float32,
-    )
+    # model_manager.load_models(
+    #     [args.i2v_model_path],
+    #     torch_dtype=torch.float32,
+    # )
     
     base_dir = args.t2v_model_dir
     model_files = sorted([os.path.join(base_dir, f) for f in os.listdir(base_dir) if f.endswith('.safetensors')])
@@ -47,7 +45,7 @@ def main():
     
     pipe = PusaMultiFramesPipeline.from_model_manager(model_manager, torch_dtype=torch.bfloat16, device=device)
     pipe.enable_vram_management(num_persistent_param_in_dit=6*10**9)
-    print(f"Models loaded successfully on GPU {args.gpu_id}")
+    print(f"Models loaded successfully")
 
     cond_pos_list = [int(x.strip()) for x in args.cond_position.split(',')]
     noise_mult_list = [float(x.strip()) for x in args.noise_multipliers.split(',')]
@@ -73,7 +71,7 @@ def main():
     
     os.makedirs(args.output_dir, exist_ok=True)
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-    video_filename = os.path.join(args.output_dir, f"multi_frame_output_{timestamp}.mp4")
+    video_filename = os.path.join(args.output_dir, f"multi_frame_output_{timestamp}_cond_{str(cond_pos_list)}_noise_{str(noise_mult_list)}.mp4")
     print(f"Saved to {video_filename}")
     save_video(video, video_filename, fps=25, quality=5)
 

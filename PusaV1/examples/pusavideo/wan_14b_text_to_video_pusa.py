@@ -11,11 +11,9 @@ def main():
     parser.add_argument("--lora_path", type=str, required=True, help="Path to the LoRA checkpoint file.")
     parser.add_argument("--lora_alpha", type=float, default=1.4, help="Alpha value for LoRA.")
     parser.add_argument("--output_dir", type=str, default="outputs", help="Directory to save the output video.")
-    parser.add_argument("--gpu_id", type=int, default=0, help="GPU ID to use.")
     args = parser.parse_args()
 
-    torch.cuda.set_device(args.gpu_id)
-    device = f"cuda:{args.gpu_id}"
+    device = "cuda" if torch.cuda.is_available() else "cpu"
 
     # Load models
     model_manager = ModelManager(device="cpu")
@@ -41,8 +39,8 @@ def main():
     video = pipe(
         prompt=args.prompt,
         negative_prompt=args.negative_prompt,
-        num_inference_steps=50,
-        height=1280, width=720, num_frames=81,
+        num_inference_steps=30,
+        height=720, width=1280, num_frames=81,
         seed=0, tiled=True
     )
 

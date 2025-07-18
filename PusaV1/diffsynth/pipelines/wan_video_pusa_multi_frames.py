@@ -5,7 +5,7 @@ from ..models.wan_video_text_encoder import WanTextEncoder
 from ..models.wan_video_vae import WanVideoVAE
 from ..models.wan_video_image_encoder import WanImageEncoder
 from ..models.wan_video_vace import VaceWanModel
-from ..schedulers.flow_match_pusa_multi_frames import FlowMatchSchedulerPusaMultiFrames
+from ..schedulers.flow_match_pusa_v2v import FlowMatchSchedulerPusaV2V
 from .base import BasePipeline
 from ..prompters import WanPrompter
 import torch, os
@@ -27,7 +27,7 @@ class PusaMultiFramesPipeline(BasePipeline):
 
     def __init__(self, device="cuda", torch_dtype=torch.float16, tokenizer_path=None):
         super().__init__(device=device, torch_dtype=torch_dtype)
-        self.scheduler = FlowMatchSchedulerPusaMultiFrames(shift=5, sigma_min=0.0, extra_one_step=True)
+        self.scheduler = FlowMatchSchedulerPusaV2V(shift=5, sigma_min=0.0, extra_one_step=True)
         self.prompter = WanPrompter(tokenizer_path=tokenizer_path)
         self.text_encoder: WanTextEncoder = None
         self.image_encoder: WanImageEncoder = None
