@@ -14,6 +14,7 @@
 </p>
 
 
+
 ## 🔥🔥🔥🚀 Announcing Pusa V1.0 🚀🔥🔥🔥
 
 We are excited to release **Pusa V1.0**, a groundbreaking paradigm that leverages **vectorized timestep adaptation (VTA)** to enable fine-grained temporal control within a unified video diffusion framework. By finetuning the SOTA **Wan-T2V-14B** model with VTA, Pusa V1.0 achieves unprecedented efficiency, **surpassing Wan-I2V on Vbench-I2V with only $500 of training cost**. The codebase has been integrated into the `PusaV1` directory, based on `DiffSynth-Studio`.
@@ -22,8 +23,9 @@ We are excited to release **Pusa V1.0**, a groundbreaking paradigm that leverage
 
 Pusa V1.0 not only sets a new standard for image-to-video generation but also unlocks many other zero-shot multi-task capabilities such as start-end frames and video extension, all without task-specific training while preserving the base model's T2V capabilities.
 
-For detailed usage and examples for Pusa V1.0, please see the **[Pusa V1.0 README](./PusaV1/README.md)**.
 
+## :sparkles: Highlights
+- [ComfyUI](https://huggingface.co/Kijai/WanVideo_comfy/tree/main/Pusa)
 
 ## Installation
 
