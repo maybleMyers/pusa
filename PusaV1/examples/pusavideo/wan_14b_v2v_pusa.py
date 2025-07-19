@@ -61,6 +61,7 @@ def main():
     parser.add_argument("--noise_multipliers", type=str, required=True, help="Comma-separated noise multipliers for conditioning frames.")
     parser.add_argument("--lora_path", type=str, required=True, help="Path to the LoRA checkpoint file.")
     parser.add_argument("--lora_alpha", type=float, default=1.4, help="Alpha value for LoRA.")
+    parser.add_argument("--num_inference_steps", type=int, default=30, help="Number of inference steps.")
     parser.add_argument("--output_dir", type=str, default="outputs", help="Directory to save the output video.")
     args = parser.parse_args()
 
@@ -69,11 +70,7 @@ def main():
     # Load models
     print("Loading models...")
     model_manager = ModelManager(device="cpu")
-    # model_manager.load_models(
-    #     ["model_zoo/PusaV1/Wan2.1-I2V-14B-720P/models_clip_open-clip-xlm-roberta-large-vit-huge-14.pth"],
-    #     torch_dtype=torch.float32,
-    # )
-    
+
     base_dir = "model_zoo/PusaV1/Wan2.1-T2V-14B"
     model_files = sorted([os.path.join(base_dir, f) for f in os.listdir(base_dir) if f.endswith('.safetensors')])
     
@@ -103,7 +100,7 @@ def main():
         conditioning_video=conditioning_video,
         conditioning_indices=cond_pos_list,
         conditioning_noise_multipliers=noise_mult_list,
-        num_inference_steps=30,
+        num_inference_steps=args.num_inference_steps,
         height=720, width=1280, num_frames=81,
         seed=0, tiled=True
     )
@@ -111,7 +108,7 @@ def main():
     os.makedirs(args.output_dir, exist_ok=True)
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     output_filename = os.path.basename(args.video_path).split('.')[0]
-    video_filename = os.path.join(args.output_dir, f"v2v_{output_filename}_{timestamp}_cond_{str(cond_pos_list)}_noise_{str(noise_mult_list)}.mp4")
+    video_filename = os.path.join(args.output_dir, f"v2v_{output_filename}_{timestamp}_cond_{str(cond_pos_list)}_noise_{str(noise_mult_list)}_alpha_{args.lora_alpha}.mp4")
     print(f"Saved to {video_filename}")
     save_video(video, video_filename, fps=25, quality=5)
 

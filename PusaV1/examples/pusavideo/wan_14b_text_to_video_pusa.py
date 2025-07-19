@@ -10,6 +10,7 @@ def main():
     parser.add_argument("--negative_prompt", type=str, default="Bright tones, overexposed, static, blurred details, subtitles, style, works, paintings, images, static, overall gray, worst quality, low quality, JPEG compression residue, ugly, incomplete, extra fingers, poorly drawn hands, poorly drawn faces, deformed, disfigured, misshapen limbs, fused fingers, still picture, messy background, three legs, many people in the background, walking backwards", help="Negative text prompt.")
     parser.add_argument("--lora_path", type=str, required=True, help="Path to the LoRA checkpoint file.")
     parser.add_argument("--lora_alpha", type=float, default=1.4, help="Alpha value for LoRA.")
+    parser.add_argument("--num_inference_steps", type=int, default=30, help="Number of inference steps.")
     parser.add_argument("--output_dir", type=str, default="outputs", help="Directory to save the output video.")
     args = parser.parse_args()
 
@@ -39,7 +40,7 @@ def main():
     video = pipe(
         prompt=args.prompt,
         negative_prompt=args.negative_prompt,
-        num_inference_steps=30,
+        num_inference_steps=args.num_inference_steps,
         height=720, width=1280, num_frames=81,
         seed=0, tiled=True
     )
