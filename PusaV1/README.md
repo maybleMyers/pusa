@@ -20,7 +20,7 @@
 We are excited to release **Pusa V1.0**, a groundbreaking paradigm that leverages **vectorized timestep adaptation (VTA)** to enable fine-grained temporal control within a unified video diffusion framework. By finetuning the SOTA **Wan-T2V-14B** model with VTA, Pusa V1.0 achieves unprecedented efficiency, **surpassing Wan-I2V on Vbench-I2V with only $500 of training cost and 4k data**. The codebase has been integrated into the `PusaV1` directory, based on `DiffSynth-Studio`. Pusa V1.0 not only sets a new standard for image-to-video generation but also unlocks many other zero-shot multi-task capabilities such as start-end frames and video extension, all without task-specific training while preserving the base model's T2V capabilities.
 
 **Important Note!!!**  
-**Our method also works for Full Finetuning with extremely low cost (see [Pusa V0.5](https://github.com/Yaofang-Liu/Mochi-Full-Finetuner)). The model gains mainly come from our method, not Lora. Lora is insignificant here.**. We use Lora only because, Wan2.1 full finetuing need too many GPUs (at least 32*80G GPUs, yet only have 24), so that we choose Lora with very large rank to approximate full finetuing. Why 512 rank is just because  its the largest rank that can train with 8*80G GPUs (768 would cause OOM). Besides, we also finetuned the base model with 81 frames in 480p data or 65 frames in 720p data with less GPUs, our method also works. **We suggest more to try full finetuing with our method if you have the resources. We believe the performance could be further imporved!**
+**Our method also works for Full Finetuning with extremely low cost (see [Pusa V0.5](https://github.com/Yaofang-Liu/Mochi-Full-Finetuner)). The model gains mainly come from our method, not Lora. Lora is insignificant here.**. We use Lora only because, Wan2.1 full finetuing need too many GPUs (at least 32x80G GPUs, yet only have 24), so that we choose Lora with very large rank to approximate full finetuing. Why 512 rank is just because  its the largest rank that can train with 8x80G GPUs (768 would cause OOM). Besides, we also finetuned the base model with 81 frames in 480p data or 65 frames in 720p data with less GPUs, our method also works. **We suggest more to try full finetuing with our method if you have the resources. We believe the performance could be further imporved!**
 
 ## :sparkles: Highlights
 - [ComfyUI](https://huggingface.co/Kijai/WanVideo_comfy/tree/main/Pusa), supported by [Kijai](https://github.com/kijai), thanks a lot! 
@@ -62,7 +62,7 @@ The checkpoints should arrange like this to use the codes with default settings:
 
 All scripts save their output in an `outputs` directory, which will be created if it doesn't exist.
 
-!!! :sparkles: **Please note that we have two core unique parameters that differ from other methods. `--cond_position`** is Comma-separated list of frame indices for conditioning. You can use any position from 0 to 20". **`--noise_multipliers`** is "Comma-separated noise multipliers for conditioning frames. A value of 0 means the condition image is used as totally clean, higher value means add more noise. For I2V, you can use 0.2 or any from 0 to 1. For Start-End-Frame, you can use 0.2,0.4, or any from 0 to 1. **`--lora_alpha`** is another very important parameter. A bigger alpha would bring more temporal consistency (i.e., make generated frames more like conditioning part), but may also cause small motion or even collapse. We recommend using a value around 1 to 2.
+!!! :sparkles: **Please note that we have two core unique parameters that differ from other methods. `--cond_position`** is Comma-separated list of frame indices for conditioning. You can use any position from 0 to 20. **`--noise_multipliers`** is "Comma-separated noise multipliers for conditioning frames. A value of 0 means the condition image is used as totally clean, higher value means add more noise. For I2V, you can use 0.2 or any from 0 to 1. For Start-End-Frame, you can use 0.2,0.4, or any from 0 to 1. **`--lora_alpha`** is another very important parameter. A bigger alpha would bring more temporal consistency (i.e., make generated frames more like conditioning part), but may also cause small motion or even collapse. We recommend using a value around 1 to 2.
 
 **Try different configurations and you will get different results.** **Examples shown below are just for demonstration and not the best**
 
@@ -70,7 +70,7 @@ All scripts save their output in an `outputs` directory, which will be created i
 
 This script generates a video conditioned on one or more input frames and a text prompt. It can be used for image-to-video, start-end frame conditioned generation, and other multi-frame conditioning tasks.
 
-**Example 1: Image-to-Video**
+**Example 1-1: Image-to-Video**
 Generates a video from a single starting image. 
 
 ```shell
@@ -111,8 +111,8 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan_14b_multi_frames_pusa.py \
   </tr>
 </table>
 
-**Example 2: Image-to-Video with Different LoRA Alpha Values**
-Demonstrates the effect of different LoRA alpha values and noise levels on generation quality and temporal consistency.
+**Example 1-2: Image-to-Video with Different LoRA Alpha Values**
+Demonstrates the effect of different LoRA alpha values on generation quality and temporal consistency.
 
 ```shell
 CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan_14b_multi_frames_pusa.py \
@@ -146,9 +146,9 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan_14b_multi_frames_pusa.py \
       <sub>noise: [0.0], alpha: 1.6</sub>
     </td>
     <td align="center">
-      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/assets/multi_frame_output1_cond_0_noise_0p1_alpha_1p3.gif?raw=true" width="333"/>
+      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/assets/multi_frame_output1_cond_0_noise_0p2_alpha_1p3.gif?raw=true" width="333"/>
       <br>
-      <sub>noise: [0.1], alpha: 1.3</sub>
+      <sub>noise: [0.2], alpha: 1.3</sub>
     </td>
   </tr>
 </table>
