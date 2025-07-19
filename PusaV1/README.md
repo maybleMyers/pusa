@@ -116,8 +116,8 @@ Demonstrates the effect of different LoRA alpha values on generation quality and
 
 ```shell
 CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan_14b_multi_frames_pusa.py \
-  --image_paths "./demos/input_image2.jpg" \
-  --prompt "an astronaut riding a horse on the moon amidst moon dust. 1978. Shot in super8" \
+  --image_paths "./demos/input_image1.jpg" \
+  --prompt "A low-angle, long exposure shot of a lone female climber, wearing shorts and tank top rock climbing on a massive asteroid in deep space. The climber is suspended against a star-filled void. dramatic shadows across the asteroid's rugged surface, emphasizing the climber's isolation and the scale of the space rock. Dust particles float in the light beams, catching the light. The climber moves methodically, with focused determination." \
   --cond_position "0" \
   --noise_multipliers "0.2" \
   --lora_path "./model_zoo/PusaV1/pusa_v1.pt" \
