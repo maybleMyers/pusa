@@ -105,7 +105,7 @@ class PusaVideoDemo:
         cap.release()
         return frames
 
-    def generate_i2v_video(self, image, prompt, noise_multiplier, 
+    def generate_i2v_video(self, image_path, prompt, noise_multiplier, 
                           lora_alpha, num_inference_steps, negative_prompt, progress=gr.Progress()):
         """Generate video from single image (I2V)"""
         try:
@@ -116,11 +116,11 @@ class PusaVideoDemo:
             progress(0.2, desc="Processing input image...")
             
             # Process single image for I2V
-            if image is None:
+            if image_path is None:
                 raise ValueError("No image provided")
             
-            # Handle single image input
-            img = Image.open(image.name if hasattr(image, 'name') else image)
+            # Handle image path - Gradio with type="filepath" returns the path directly
+            img = Image.open(image_path)
             processed_image = img.convert("RGB").resize((1280, 720), Image.LANCZOS)
             
             # I2V always uses position 0 (first frame)
@@ -147,7 +147,7 @@ class PusaVideoDemo:
         except Exception as e:
             return None, f"Error: {str(e)}"
 
-    def generate_multi_frames_video(self, images, prompt, cond_position, noise_multipliers, 
+    def generate_multi_frames_video(self, image1, image2, image3, num_imgs, prompt, cond_position, noise_multipliers, 
                                    lora_alpha, num_inference_steps, negative_prompt, progress=gr.Progress()):
         """Generate video from multiple frames (Start-End, Multi-frame)"""
         try:
@@ -161,19 +161,22 @@ class PusaVideoDemo:
             cond_pos_list = [int(x.strip()) for x in cond_position.split(',')]
             noise_mult_list = [float(x.strip()) for x in noise_multipliers.split(',')]
             
+            # Collect images based on num_imgs
+            image_paths = [image1, image2]
+            if num_imgs == "3" and image3 is not None:
+                image_paths.append(image3)
+            
+            # Filter out None values
+            image_paths = [path for path in image_paths if path is not None]
+            
+            if len(image_paths) != len(cond_pos_list) or len(image_paths) != len(noise_mult_list):
+                raise ValueError("The number of images, conditioning positions, and noise multipliers must be the same.")
+            
             # Process images
             processed_images = []
-            if images is None:
-                raise ValueError("No images provided")
-            
-            for img_path in images:
-                if img_path is not None:
-                    # img_path is a file path string from gr.Files
-                    img = Image.open(img_path.name if hasattr(img_path, 'name') else img_path)
-                    processed_images.append(img.convert("RGB").resize((1280, 720), Image.LANCZOS))
-            
-            if len(processed_images) != len(cond_pos_list) or len(processed_images) != len(noise_mult_list):
-                raise ValueError("The number of images, conditioning positions, and noise multipliers must be the same.")
+            for img_path in image_paths:
+                img = Image.open(img_path)
+                processed_images.append(img.convert("RGB").resize((1280, 720), Image.LANCZOS))
             
             multi_frame_images = {
                 cond_pos: (img, noise_mult) 
@@ -607,10 +610,10 @@ def create_demo():
                 with gr.Row():
                     with gr.Column(scale=1):
                         gr.Markdown("#### 📷 Input Image")
-                        image_input = gr.File(
-                            file_types=["image"],
+                        image_input = gr.Image(
                             label="Upload Single Image",
-                            file_count="single"
+                            type="filepath",  # This returns the file path directly
+                            height=300
                         )
                         
                         gr.Markdown("#### ⚙️ Generation Parameters")
@@ -685,10 +688,17 @@ def create_demo():
                 with gr.Row():
                     with gr.Column(scale=1):
                         gr.Markdown("#### 📷 Input Images")
-                        images_input = gr.Files(
-                            file_types=["image"],
-                            label="Upload Multiple Images",
-                            file_count="multiple"
+                        # Replace gr.Files with multiple gr.Image components for better display
+                        with gr.Row():
+                            image1_input = gr.Image(label="Image 1", type="filepath", height=200)
+                            image2_input = gr.Image(label="Image 2", type="filepath", height=200)
+                            image3_input = gr.Image(label="Image 3 (Optional)", type="filepath", height=200)
+
+                        # Add a textbox to specify how many images are being used
+                        num_images = gr.Dropdown(
+                            choices=["2", "3"], 
+                            value="2", 
+                            label="Number of Images"
                         )
                         
                         gr.Markdown("#### 🎯 Conditioning Parameters")
@@ -1160,7 +1170,7 @@ def create_demo():
         
         generate_multi_btn.click(
             fn=demo_instance.generate_multi_frames_video,
-            inputs=[images_input, prompt_multi, cond_position_multi, noise_multipliers_multi, 
+            inputs=[image1_input, image2_input, image3_input, num_images, prompt_multi, cond_position_multi, noise_multipliers_multi, 
                    lora_alpha_multi, steps_multi, negative_prompt_multi],
             outputs=[video_output_multi, status_multi]
         )

@@ -97,18 +97,19 @@ class FlowMatchSchedulerPusa():
     
     def add_noise(self, original_samples, noise, timestep):
         if isinstance(timestep, torch.Tensor):
-            # timestep = timestep.cpu()
             self.timesteps = self.timesteps.to(timestep.device)
             self.sigmas = self.sigmas.to(timestep.device)
         if len(timestep.shape) == 1:
             timestep_id = torch.argmin((self.timesteps - timestep).abs())
             sigma = self.sigmas[timestep_id]
         else:
-            timestep_id = torch.argmin((self.timesteps.unsqueeze(1) - timestep).abs(), dim=0)
-            sigma = self.sigmas[timestep_id].unsqueeze(0).unsqueeze(1).unsqueeze(3).unsqueeze(4).to(original_samples.device)
+            timestep_id = torch.argmin((self.timesteps.unsqueeze(-1).unsqueeze(-1) - timestep.unsqueeze(0)).abs(), dim=0)
+            timestep_id = timestep_id.squeeze(0)
+            sigma = self.sigmas[timestep_id].unsqueeze(1).unsqueeze(3).unsqueeze(4).to(original_samples.device)
         sample = (1 - sigma) * original_samples + sigma * noise
         
         return sample
+    
     
 
     def training_target(self, sample, noise, timestep):
