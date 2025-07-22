@@ -76,12 +76,7 @@ The checkpoints should arrange like this to use the codes with default settings:
 ## 🎬 Gradio Demo (Work in Progress)
 
 For the easiest way to experience Pusa V1.0, we provide a beautiful web-based Gradio demo with an intuitive interface:
-<div style="display: flex; justify-content: center; gap: 10px;">
-  <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/22f96c7de9b1f98bc373505bcc0cb846954dea8f/PusaV1/assets/gradio_page1_1.png?raw=true" 
-       alt="Image 1" width="49%">
-  <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/22f96c7de9b1f98bc373505bcc0cb846954dea8f/PusaV1/assets/gradio_page2_1.png?raw=true" 
-       alt="Image 2" width="49%">
-</div>
+
 
 ```shell
 # Launch the demo
@@ -91,8 +86,20 @@ bash launch_demo.sh
 python examples/pusavideo/run_demo.py
 ```
 
-The demo will be available at `http://localhost:7860` and includes:
+<div style="display: flex; justify-content: center; gap: 10px;">
+  <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/22f96c7de9b1f98bc373505bcc0cb846954dea8f/PusaV1/assets/gradio_page1_1.png?raw=true" 
+       alt="Image 1" width="49%">
+  <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/22f96c7de9b1f98bc373505bcc0cb846954dea8f/PusaV1/assets/gradio_page2_1.png?raw=true" 
+       alt="Image 2" width="49%">
+</div>
 
+The demo will be available at `http://localhost:7860` and includes:
+<div style="display: flex; justify-content: center; gap: 10px;">
+  <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/22f96c7de9b1f98bc373505bcc0cb846954dea8f/PusaV1/assets/gradio_page1_1.png?raw=true" 
+       alt="Image 1" width="49%">
+  <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/22f96c7de9b1f98bc373505bcc0cb846954dea8f/PusaV1/assets/gradio_page2_1.png?raw=true" 
+       alt="Image 2" width="49%">
+</div>
 - **🎨 Image-to-Video (I2V)**: Generate videos from single images with motion control
 - **🖼️ Multi-Frame Generation**: Create smooth transitions between start-end frames  
 - **🎥 Video-to-Video (V2V)**: Extend or complete existing videos
@@ -101,6 +108,7 @@ The demo will be available at `http://localhost:7860` and includes:
 - **⚙️ Easy Parameter Control**: Adjust LoRA alpha, noise multipliers, and conditioning positions
 
 The Gradio interface provides real-time parameter adjustment and includes pre-configured examples for each generation mode. Perfect for experimentation and getting familiar with Pusa V1.0's capabilities!
+
 
 ## Usage Examples
 
