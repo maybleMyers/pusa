@@ -58,6 +58,29 @@ The checkpoints should arrange like this to use the codes with default settings:
     - pusa_v1.pt
 ```
 
+## 🎬 Gradio Demo (Recommended)
+
+For the easiest way to experience Pusa V1.0, we provide a beautiful web-based Gradio demo with an intuitive interface:
+
+```shell
+# Launch the demo
+bash launch_demo.sh
+
+# Or run directly
+python examples/pusavideo/run_demo.py
+```
+
+The demo will be available at `http://localhost:7860` and includes:
+
+- **🎨 Image-to-Video (I2V)**: Generate videos from single images with motion control
+- **🖼️ Multi-Frame Generation**: Create smooth transitions between start-end frames  
+- **🎥 Video-to-Video (V2V)**: Extend or complete existing videos
+- **📝 Text-to-Video (T2V)**: Generate videos directly from text descriptions
+- **📊 Interactive Gallery**: View demo results with exact parameter settings
+- **⚙️ Easy Parameter Control**: Adjust LoRA alpha, noise multipliers, and conditioning positions
+
+The Gradio interface provides real-time parameter adjustment and includes pre-configured examples for each generation mode. Perfect for experimentation and getting familiar with Pusa V1.0's capabilities!
+
 ## Usage Examples
 
 All scripts save their output in an `outputs` directory, which will be created if it doesn't exist.
