@@ -78,9 +78,9 @@ The checkpoints should arrange like this to use the codes with default settings:
 For the easiest way to experience Pusa V1.0, we provide a beautiful web-based Gradio demo with an intuitive interface:
 <div style="display: flex; justify-content: center; gap: 10px;">
   <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/22f96c7de9b1f98bc373505bcc0cb846954dea8f/PusaV1/assets/gradio_page1_1.png?raw=true" 
-       alt="Image 1" width="50%">
+       alt="Image 1" width="49%">
   <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/22f96c7de9b1f98bc373505bcc0cb846954dea8f/PusaV1/assets/gradio_page2_1.png?raw=true" 
-       alt="Image 2" width="50%">
+       alt="Image 2" width="49%">
 </div>
 
 ```shell
