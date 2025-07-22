@@ -13,7 +13,22 @@
     <a href="https://www.xiaohongshu.com/discovery/item/67f898dc000000001c008339"><img alt="Xiaohongshu" src="https://img.shields.io/badge/📕-Xiaohongshu-FF2442"></a>
 </p>
 
+## 📑 Table of Contents
 
+- [🔥 Announcing Pusa V1.0](#-announcing-pusa-v10-)
+- [✨ Highlights](#sparkles-highlights)
+- [🛠️ Installation](#installation)
+- [📦 Model Preparation](#model-preparation)
+- [🎬 Gradio Demo (Work in Progress)](#-gradio-demo-work-in-progress)
+- [🚀 Usage Examples](#usage-examples)
+  - [Image(s) Conditioned Video Generation](#images-conditioned-video-generation)
+  - [Video-to-Video Generation](#video-to-video-generation)
+  - [Text-to-Video Generation](#text-to-video-generation)
+- [🏋️ Training](#training)
+  - [Prepare Dataset](#prepare-dataset)
+  - [Training Process](#training-1)
+
+---
 
 ## 🔥🔥🔥🚀 Announcing Pusa V1.0 🚀🔥🔥🔥
 
@@ -58,7 +73,7 @@ The checkpoints should arrange like this to use the codes with default settings:
     - pusa_v1.pt
 ```
 
-## 🎬 Gradio Demo (Recommended)
+## 🎬 Gradio Demo (Work in Progress)
 
 For the easiest way to experience Pusa V1.0, we provide a beautiful web-based Gradio demo with an intuitive interface:
 
