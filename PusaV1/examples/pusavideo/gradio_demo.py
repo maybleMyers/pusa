@@ -561,7 +561,7 @@ def create_demo():
     }
     """
     
-    with gr.Blocks(css=css, title="✨ Pusa-Video V1.0 - Revolutionary AI Video Generation ✨", theme=gr.themes.Default(primary_hue="purple", neutral_hue="gray").set(
+    with gr.Blocks(css=css, title="✨ Pusa V1.0 - Revolutionary AI Video Generation ✨", theme=gr.themes.Default(primary_hue="purple", neutral_hue="gray").set(
         body_background_fill="linear-gradient(135deg, #0f172a 0%, #1e293b 100%)",
         background_fill_primary="#1e293b",
         background_fill_secondary="#0f172a",
@@ -573,7 +573,7 @@ def create_demo():
         <div class="fancy-header">
             <div style="position: relative; z-index: 1;">
                 <h1 style="font-size: 3.5em; margin-bottom: 20px; text-shadow: 0 4px 15px rgba(0,0,0,0.4); background: none !important; color: white !important;">
-                ✨ PUSA-VIDEO V1.0 ✨
+                ✨ PUSA V1.0 ✨
             </h1>
             <h2 style="font-size: 1.4em; margin-bottom: 15px; opacity: 0.95; background: none !important; color: white !important;">
                 🎬 Revolutionary Video Generation with Vectorized Timestep Adaptation
@@ -1102,10 +1102,10 @@ def create_demo():
             gr.HTML("""
             <div style="text-align: center; padding: 20px; background: rgba(30, 41, 59, 0.6); border-radius: 15px; margin: 20px 0; backdrop-filter: blur(12px);">
                 <h2 style="background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 15px;">
-                    📖 About Pusa-Video V1.0
+                    📖 About Pusa V1.0
                 </h2>
                 <p style="font-size: 1.1em; line-height: 1.6; margin-bottom: 20px; color: var(--color-text-light);">
-                    <strong>Pusa-Video V1.0</strong> leverages <span style="color: var(--color-primary);">vectorized timestep adaptation (VTA)</span> for fine-grained temporal control 
+                    <strong>Pusa V1.0</strong> leverages <span style="color: var(--color-primary);">vectorized timestep adaptation (VTA)</span> for fine-grained temporal control 
                     within a unified video diffusion framework. The model achieves unprecedented efficiency, surpassing Wan-I2V on Vbench-I2V with only <span style="color: var(--color-secondary);">$500 training cost</span> and 4k data.
                 </p>
             </div>
@@ -1145,7 +1145,7 @@ def create_demo():
                 <strong>✨ Made with ❤️ for the AI Community ✨</strong>
             </p>
             <p style="opacity: 0.8;">
-                Experience the future of video generation with Pusa-Video V1.0 🚀
+                Experience the future of video generation with Pusa V1.0 🚀
             </p>
         </div>
         """)
