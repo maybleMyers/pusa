@@ -1,4 +1,4 @@
-# Pusa-Video V1.0
+# Pusa V1.0
 
 <p align="center">
     <a href="https://yaofang-liu.github.io/Pusa_Web/"><img alt="Project Page" src="https://img.shields.io/badge/Project-Page-blue?style=for-the-badge"></a>
