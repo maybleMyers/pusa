@@ -94,12 +94,6 @@ python examples/pusavideo/run_demo.py
 </div>
 
 The demo will be available at `http://localhost:7860` and includes:
-<div style="display: flex; justify-content: center; gap: 10px;">
-  <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/22f96c7de9b1f98bc373505bcc0cb846954dea8f/PusaV1/assets/gradio_page1_1.png?raw=true" 
-       alt="Image 1" width="49%">
-  <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/22f96c7de9b1f98bc373505bcc0cb846954dea8f/PusaV1/assets/gradio_page2_1.png?raw=true" 
-       alt="Image 2" width="49%">
-</div>
 - **🎨 Image-to-Video (I2V)**: Generate videos from single images with motion control
 - **🖼️ Multi-Frame Generation**: Create smooth transitions between start-end frames  
 - **🎥 Video-to-Video (V2V)**: Extend or complete existing videos
