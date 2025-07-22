@@ -86,11 +86,11 @@ bash launch_demo.sh
 python examples/pusavideo/run_demo.py
 ```
 
-<div style="display: flex; justify-content: center; gap: 10px;">
+<div style="display: flex; justify-content: center; gap: 0px;">
   <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/22f96c7de9b1f98bc373505bcc0cb846954dea8f/PusaV1/assets/gradio_page1_1.png?raw=true" 
-       alt="Image 1" width="49%">
+       alt="Image 1" width="50%">
   <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/22f96c7de9b1f98bc373505bcc0cb846954dea8f/PusaV1/assets/gradio_page2_1.png?raw=true" 
-       alt="Image 2" width="49%">
+       alt="Image 2" width="50%">
 </div>
 
 The demo will be available at `http://localhost:7860` and includes:
