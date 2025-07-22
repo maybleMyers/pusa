@@ -626,7 +626,7 @@ def create_demo():
                                 info="Controls temporal consistency (1-2 recommended)"
                             )
                             steps_i2v = gr.Slider(
-                                minimum=10, maximum=50, value=30, step=5,
+                                minimum=10, maximum=50, value=10, step=5,
                                 label="Inference Steps"
                             )
                     
@@ -712,7 +712,7 @@ def create_demo():
                                 info="Controls temporal consistency (1-2 recommended)"
                             )
                             steps_multi = gr.Slider(
-                                minimum=10, maximum=50, value=30, step=5,
+                                minimum=10, maximum=50, value=10, step=5,
                                 label="Inference Steps"
                             )
                     
@@ -799,7 +799,7 @@ def create_demo():
                                 label="LoRA Alpha"
                             )
                             steps_v2v = gr.Slider(
-                                minimum=10, maximum=50, value=30, step=5,
+                                minimum=10, maximum=50, value=10, step=5,
                                 label="Inference Steps"
                             )
                     
@@ -876,7 +876,7 @@ def create_demo():
                                 info="Controls generation quality and consistency"
                             )
                             steps_t2v = gr.Slider(
-                                minimum=10, maximum=50, value=30, step=5,
+                                minimum=10, maximum=50, value=10, step=5,
                                 label="Inference Steps"
                             )
                     
