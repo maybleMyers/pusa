@@ -1141,7 +1141,7 @@ def create_demo():
                     
                     🌐 **[Project Page](https://yaofang-liu.github.io/Pusa_Web/)** - Official project website
                     
-                    📄 **[Technical Report](https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/PusaV1.0_Report.pdf)** - Detailed research paper
+                    📄 **[Technical Report](https://arxiv.org/abs/2507.16116)** - Detailed research paper
                     
                     🤗 **[Model on HuggingFace](https://huggingface.co/RaphaelLiu/PusaV1)** - Download models
                     
