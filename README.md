@@ -5,7 +5,7 @@
 # Pusa: Thousands Timesteps Video Diffusion Model
 <p align="center">
     <a href="https://yaofang-liu.github.io/Pusa_Web/"><img alt="Project Page" src="https://img.shields.io/badge/Project-Page-blue?style=for-the-badge"></a>
-    <a href="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/e99c3dcf866789a2db7fbe2686888ec398076a82/PusaV1/PusaV1.0_Report.pdf"><img alt="Technical Report" src="https://img.shields.io/badge/Technical_Report-📜-B31B1B?style=for-the-badge"></a>
+    <a href="https://arxiv.org/abs/2507.16116"><img alt="Technical Report" src="https://img.shields.io/badge/Technical_Report-📜-B31B1B?style=for-the-badge"></a>
     <a href="https://huggingface.co/RaphaelLiu/PusaV1"><img alt="Model" src="https://img.shields.io/badge/Pusa_V1.0-Model-FFD700?style=for-the-badge&logo=huggingface"></a>
     <a href="https://huggingface.co/datasets/RaphaelLiu/PusaV1_training"><img alt="Dataset" src="https://img.shields.io/badge/Pusa_V1.0-Dataset-6495ED?style=for-the-badge&logo=huggingface"></a>
 </p>
