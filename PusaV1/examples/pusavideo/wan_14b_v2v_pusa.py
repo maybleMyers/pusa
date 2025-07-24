@@ -108,7 +108,7 @@ def main():
     os.makedirs(args.output_dir, exist_ok=True)
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     output_filename = os.path.basename(args.video_path).split('.')[0]
-    video_filename = os.path.join(args.output_dir, f"v2v_{output_filename}_{timestamp}_cond_{str(cond_pos_list)}_noise_{str(noise_mult_list)}_alpha_{args.lora_alpha}.mp4")
+    video_filename = os.path.join(args.output_dir, f"v2v_{output_filename}_{timestamp}_cond_{str(cond_pos_list)}_noise_{str(noise_mult_list)}_alpha_{args.lora_alpha}_steps_{args.num_inference_steps}.mp4")
     print(f"Saved to {video_filename}")
     save_video(video, video_filename, fps=25, quality=5)
 

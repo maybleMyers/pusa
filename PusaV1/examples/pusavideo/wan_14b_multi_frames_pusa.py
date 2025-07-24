@@ -68,7 +68,7 @@ def main():
     
     os.makedirs(args.output_dir, exist_ok=True)
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-    video_filename = os.path.join(args.output_dir, f"multi_frame_output_{timestamp}_cond_{str(cond_pos_list)}_noise_{str(noise_mult_list)}_alpha_{args.lora_alpha}.mp4")
+    video_filename = os.path.join(args.output_dir, f"multi_frame_output_{timestamp}_cond_{str(cond_pos_list)}_noise_{str(noise_mult_list)}_alpha_{args.lora_alpha}_steps_{args.num_inference_steps}.mp4")
     print(f"Saved to {video_filename}")
     save_video(video, video_filename, fps=25, quality=5)
 
