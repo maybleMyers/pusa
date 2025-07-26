@@ -360,6 +360,16 @@ Pusa currently has several known limitations:
 
 ## BibTeX
 If you use this work in your project, please cite the following references.
+
+```
+@article{liu2025pusa,
+  title={PUSA V1. 0: Surpassing Wan-I2V with $500 Training Cost by Vectorized Timestep Adaptation},
+  author={Liu, Yaofang and Ren, Yumeng and Artola, Aitor and Hu, Yuxuan and Cun, Xiaodong and Zhao, Xiaotong and Zhao, Alan and Chan, Raymond H and Zhang, Suiyun and Liu, Rui and others},
+  journal={arXiv preprint arXiv:2507.16116},
+  year={2025}
+}
+```
+
 ```
 @misc{Liu2025pusa,
   title={Pusa: Thousands Timesteps Video Diffusion Model},
