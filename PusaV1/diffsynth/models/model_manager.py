@@ -335,6 +335,7 @@ class ModelManager:
             ModelDetectorFromPatchedSingleFile(patch_model_loader_configs),
         ]
         self.load_models(downloaded_files + file_path_list)
+        self.lora_alpha = 0
 
 
     def load_model_from_single_file(self, file_path="", state_dict={}, model_names=[], model_classes=[], model_resource=None):
@@ -371,6 +372,7 @@ class ModelManager:
 
 
     def load_lora(self, file_path="", state_dict={}, lora_alpha=1.0):
+        self.lora_alpha = lora_alpha
         if isinstance(file_path, list):
             for file_path_ in file_path:
                 self.load_lora(file_path_, state_dict=state_dict, lora_alpha=lora_alpha)

@@ -32,29 +32,28 @@ class PusaVideoDemo:
 
     def load_models(self):
         """Load all models once for efficiency"""
-        if self.model_manager is None:
-            print("Loading models...")
-            self.model_manager = ModelManager(device="cpu")
-            
-            model_files = sorted([os.path.join(self.base_dir, f) for f in os.listdir(self.base_dir) if f.endswith('.safetensors')])
-            
-            self.model_manager.load_models(
-                [
-                    model_files,
-                    os.path.join(self.base_dir, "models_t5_umt5-xxl-enc-bf16.pth"),
-                    os.path.join(self.base_dir, "Wan2.1_VAE.pth"),
-                ],
-                torch_dtype=torch.bfloat16,
-            )
-            print("Models loaded successfully!")
+        # if self.model_manager is None:
+        print("Loading models...")
+        self.model_manager = ModelManager(device="cpu")
+        
+        model_files = sorted([os.path.join(self.base_dir, f) for f in os.listdir(self.base_dir) if f.endswith('.safetensors')])
+        
+        self.model_manager.load_models(
+            [
+                model_files,
+                os.path.join(self.base_dir, "models_t5_umt5-xxl-enc-bf16.pth"),
+                os.path.join(self.base_dir, "Wan2.1_VAE.pth"),
+            ],
+            torch_dtype=torch.bfloat16,
+        )
+        print("Models loaded successfully!")
         
     def load_lora_and_get_pipe(self, pipe_type, lora_path, lora_alpha):
         """Load LoRA and return appropriate pipeline"""
-        self.load_models()
-        
-        # Load LoRA
-        self.model_manager.load_lora(lora_path, lora_alpha=lora_alpha)
-        
+        if self.model_manager is None or lora_alpha != self.model_manager.lora_alpha:
+            self.load_models()
+            # Load LoRA
+            self.model_manager.load_lora(lora_path, lora_alpha=lora_alpha)
         if pipe_type == "multi_frames":
             pipe = PusaMultiFramesPipeline.from_model_manager(self.model_manager, torch_dtype=torch.bfloat16, device=self.device)
             pipe.enable_vram_management(num_persistent_param_in_dit=6*10**9)

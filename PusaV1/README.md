@@ -366,4 +366,23 @@ bash ./examples/pusavideo/train.sh
 The trained LoRA model will be saved in the `lightning_logs` directory inside your specified `--output_path`.
 
 
+## BibTeX
+If you use this work in your project, please cite the following references.
 
+```
+@article{liu2025pusa,
+  title={PUSA V1. 0: Surpassing Wan-I2V with $500 Training Cost by Vectorized Timestep Adaptation},
+  author={Liu, Yaofang and Ren, Yumeng and Artola, Aitor and Hu, Yuxuan and Cun, Xiaodong and Zhao, Xiaotong and Zhao, Alan and Chan, Raymond H and Zhang, Suiyun and Liu, Rui and others},
+  journal={arXiv preprint arXiv:2507.16116},
+  year={2025}
+}
+```
+
+```
+@article{liu2024redefining,
+  title={Redefining Temporal Modeling in Video Diffusion: The Vectorized Timestep Approach},
+  author={Liu, Yaofang and Ren, Yumeng and Cun, Xiaodong and Artola, Aitor and Liu, Yang and Zeng, Tieyong and Chan, Raymond H and Morel, Jean-michel},
+  journal={arXiv preprint arXiv:2410.03160},
+  year={2024}
+}
+```
