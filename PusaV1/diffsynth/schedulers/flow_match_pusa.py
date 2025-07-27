@@ -104,7 +104,6 @@ class FlowMatchSchedulerPusa():
             sigma = self.sigmas[timestep_id]
         else:
             timestep_id = torch.argmin((self.timesteps.unsqueeze(-1).unsqueeze(-1) - timestep.unsqueeze(0)).abs(), dim=0)
-            timestep_id = timestep_id.squeeze(0)
             sigma = self.sigmas[timestep_id].unsqueeze(1).unsqueeze(3).unsqueeze(4).to(original_samples.device)
         sample = (1 - sigma) * original_samples + sigma * noise
         
