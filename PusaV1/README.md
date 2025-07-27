@@ -127,7 +127,7 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan_14b_multi_frames_pusa.py \
   --noise_multipliers "0.2" \
   --lora_path "./model_zoo/PusaV1/pusa_v1.pt" \
   --lora_alpha 1.4 \
-  --num_inference_steps 10
+  --num_inference_steps 30
 ```
 
 <table>
@@ -168,7 +168,7 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan_14b_multi_frames_pusa.py \
   --noise_multipliers "0.2" \
   --lora_path "./model_zoo/PusaV1/pusa_v1.pt" \
   --lora_alpha 1.4 \
-  --num_inference_steps 10
+  --num_inference_steps 30
 ```
 
 <table>
