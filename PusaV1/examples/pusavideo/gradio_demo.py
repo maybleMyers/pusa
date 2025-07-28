@@ -20,7 +20,12 @@ class PusaVideoDemo:
         self.t2v_pipe = None
         self.base_dir = "model_zoo/PusaV1/Wan2.1-T2V-14B"
         self.output_dir = "outputs"
+        self.current_lora_alpha = None  # Track current LoRA alpha
         os.makedirs(self.output_dir, exist_ok=True)
+        
+        # Load models during initialization
+        print("Initializing Pusa V1.0 - Loading models...")
+        self.load_models()
         
     def _log_progress(self, progress, value, desc):
         """Helper to handle progress logging for both Gradio and CLI."""
@@ -50,10 +55,12 @@ class PusaVideoDemo:
         
     def load_lora_and_get_pipe(self, pipe_type, lora_path, lora_alpha):
         """Load LoRA and return appropriate pipeline"""
-        if self.model_manager is None or lora_alpha != self.model_manager.lora_alpha:
-            self.load_models()
+        # Check if we need to reload LoRA (first time or alpha changed)
+        if self.current_lora_alpha is None or lora_alpha != self.current_lora_alpha:
+            print(f"Loading LoRA with alpha={lora_alpha}...")
             # Load LoRA
             self.model_manager.load_lora(lora_path, lora_alpha=lora_alpha)
+            self.current_lora_alpha = lora_alpha
         if pipe_type == "multi_frames":
             pipe = PusaMultiFramesPipeline.from_model_manager(self.model_manager, torch_dtype=torch.bfloat16, device=self.device)
             pipe.enable_vram_management(num_persistent_param_in_dit=6*10**9)
@@ -673,25 +680,24 @@ def create_demo():
                 with gr.Accordion("Example 1: Monk Meditation", open=False):
                     gr.Markdown("""
                     **Prompt:** "A wide-angle shot shows a serene monk meditating with gentle swaying and peaceful movement..."
+                    - **Input:** ./demos/input_image.jpg
+                    - **Output:** ./assets/multi_frame_output_cond_0_noise_0p2.mp4
                     - **Noise Multiplier:** 0.2
                     - **LoRA Alpha:** 1.4
                     """)
                     gr.Button("Load Example 1").click(
-                        lambda: (0.2, 1.4, "A wide-angle shot shows a serene monk meditating perched atop a pile of weathered rocks that spell out 'ZEN'. The scene is bathed in warm sunrise light with gentle swaying movement."),
-                        outputs=[noise_multiplier_i2v, lora_alpha_i2v, prompt_i2v]
+                        lambda: (
+                            "./demos/input_image.jpg", 
+                            0.2, 
+                            1.4, 
+                            "A wide-angle shot shows a serene monk meditating perched a top of the letter E of a pile of weathered rocks that vertically spell out 'ZEN'. The rock formation is perched atop a misty mountain peak at sunrise. The warm light bathes the monk in a gentle glow, highlighting the folds of his saffron robes. The sky behind him is a soft gradient of pink and orange, creating a tranquil backdrop. The camera slowly zooms in, capturing the monk's peaceful expression and the intricate details of the rocks. The scene is bathed in a soft, ethereal light, emphasizing the spiritual atmosphere.",
+                            "./assets/multi_frame_output_cond_0_noise_0p2.mp4",
+                            "Example loaded: Monk meditation with noise=0.2, alpha=1.4"
+                        ),
+                        outputs=[image_input, noise_multiplier_i2v, lora_alpha_i2v, prompt_i2v, video_output_i2v, status_i2v]
                     )
                 
-                with gr.Accordion("Example 2: Space Adventure", open=False):
-                    gr.Markdown("""
-                    **Prompt:** "A female climber rock climbing on an asteroid in deep space with dynamic movement..."
-                    - **Noise Multiplier:** 0.3
-                    - **LoRA Alpha:** 1.2
-                    """)
-                    gr.Button("Load Example 2").click(
-                        lambda: (0.3, 1.2, "A low-angle, long exposure shot of a lone female climber, wearing shorts and tank top rock climbing on a massive asteroid in deep space. The climber moves methodically with focused determination."),
-                        outputs=[noise_multiplier_i2v, lora_alpha_i2v, prompt_i2v]
-                    )
-            
+                
             # Tab 2: Multi-Frames to Video
             with gr.TabItem("🖼️ Multi-Frames to Video"):
                 gr.Markdown("""
@@ -766,26 +772,28 @@ def create_demo():
                 with gr.Accordion("Example 1: Start-End Transition", open=False):
                     gr.Markdown("""
                     **Prompt:** "Plastic injection machine opens releasing a soft inflatable figure..."
+                    - **Inputs:** ./demos/start_frame.jpg, ./demos/end_frame.jpg
+                    - **Output:** ./assets/multi_frame_output_cond_0_20_noise_0p2_0p5.mp4
                     - **Conditioning Position:** 0,20 (first and last frame)
                     - **Noise Multiplier:** 0.2,0.5
                     - **LoRA Alpha:** 1.4
                     """)
                     gr.Button("Load Example 1").click(
-                        lambda: ("0,20", "0.2,0.5", 1.4, "Plastic injection machine opens releasing a soft inflatable foamy morphing sticky figure over a hand. Isometric. Low light. Dramatic light. Macro shot. Real footage"),
-                        outputs=[cond_position_multi, noise_multipliers_multi, lora_alpha_multi, prompt_multi]
+                        lambda: (
+                            "./demos/start_frame.jpg", 
+                            "./demos/end_frame.jpg", 
+                            None, 
+                            "2", 
+                            "0,20", 
+                            "0.2,0.5", 
+                            1.4, 
+                            "plastic injection machine opens releasing a soft inflatable foamy morphing sticky figure over a hand. isometric. low light. dramatic light. macro shot. real footage",
+                            "./assets/multi_frame_output_cond_0_20_noise_0p2_0p5.mp4",
+                            "Example loaded: Start-end transition with frames at positions 0,20"
+                        ),
+                        outputs=[image1_input, image2_input, image3_input, num_images, cond_position_multi, noise_multipliers_multi, lora_alpha_multi, prompt_multi, video_output_multi, status_multi]
                     )
                 
-                with gr.Accordion("Example 2: Multi-Frame Sequence", open=False):
-                    gr.Markdown("""
-                    **Prompt:** "Smooth transformation sequence with gradual changes..."
-                    - **Conditioning Position:** 0,10,20 (beginning, middle, end)
-                    - **Noise Multiplier:** 0.2,0.4,0.6
-                    - **LoRA Alpha:** 1.5
-                    """)
-                    gr.Button("Load Example 2").click(
-                        lambda: ("0,10,20", "0.2,0.4,0.6", 1.5, "A smooth transformation sequence showing gradual morphing with consistent lighting and style throughout the video."),
-                        outputs=[cond_position_multi, noise_multipliers_multi, lora_alpha_multi, prompt_multi]
-                    )
             
             # Tab 3: Video-to-Video
             with gr.TabItem("🎥 Video-to-Video"):
@@ -850,26 +858,25 @@ def create_demo():
                 
                 # Demo examples for V2V
                 gr.Markdown("### 🎭 Demo Examples")
-                with gr.Accordion("Example 1: Video Completion", open=False):
-                    gr.Markdown("""
-                    **Prompt:** "Piggy bank surfing a tube in Teahupoo wave at dusk..."
-                    - **Conditioning Position:** 0,20 (start and end frames)
-                    - **Noise Multiplier:** 0.3,0.3
-                    """)
-                    gr.Button("Load Example 1").click(
-                        lambda: ("0,20", "0.3,0.3", "Piggy bank surfing a tube in teahupo'o wave dusk light cinematic shot shot in 35mm film"),
-                        outputs=[cond_position_v2v, noise_multipliers_v2v, prompt_v2v]
-                    )
                 
-                with gr.Accordion("Example 2: Video Extension", open=False):
+                with gr.Accordion("Example 1: Video Extension", open=False):
                     gr.Markdown("""
                     **Prompt:** "Piggy bank surfing a tube in Teahupoo wave at dusk..."
+                    - **Input:** ./demos/input_video.mp4  
+                    - **Output:** ./assets/v2v_input_video_cond_0_1_2_3_noise_0p0_0p3_0p4_0p5.mp4
                     - **Conditioning Position:** 0,1,2,3 (first 4 latent frames)
                     - **Noise Multiplier:** 0.0,0.3,0.4,0.5
                     """)
-                    gr.Button("Load Example 2").click(
-                        lambda: ("0,1,2,3", "0.0,0.3,0.4,0.5", "Piggy bank surfing a tube in teahupo'o wave dusk light cinematic shot shot in 35mm film"),
-                        outputs=[cond_position_v2v, noise_multipliers_v2v, prompt_v2v]
+                    gr.Button("Load Example 1").click(
+                        lambda: (
+                            "./demos/input_video.mp4", 
+                            "0,1,2,3", 
+                            "0.0,0.3,0.4,0.5", 
+                            "piggy bank surfing a tube in teahupo'o wave dusk light cinematic shot shot in 35mm film",
+                            "./assets/v2v_input_video_cond_0_1_2_3_noise_0p0_0p3_0p4_0p5.mp4",
+                            "Example loaded: Video extension with first 4 frames conditioning"
+                        ),
+                        outputs=[video_input, cond_position_v2v, noise_multipliers_v2v, prompt_v2v, video_output_v2v, status_v2v]
                     )
             
             # Tab 4: Text-to-Video
@@ -918,20 +925,17 @@ def create_demo():
                 with gr.Accordion("Example 1: Restaurant Scene", open=True):
                     gr.Markdown("""
                     **Prompt:** "A person enjoying spaghetti in a cozy Italian restaurant..."
+                    - **Output:** ./assets/t2v_output.mp4
                     """)
                     gr.Button("Load Example 1").click(
-                        lambda: "A person is enjoying a meal of spaghetti with a fork in a cozy, dimly lit Italian restaurant. The person has warm, friendly features and is dressed casually but stylishly in jeans and a colorful sweater. They are sitting at a small, round table, leaning slightly forward as they eat with enthusiasm. The spaghetti is piled high on their plate, with some strands hanging over the edge. The background shows soft lighting from nearby candles and a few other diners in the corner, creating a warm and inviting atmosphere. The scene captures a close-up view of the person's face and hands as they take a bite of spaghetti, with subtle movements of their mouth and fork. The overall style is realistic with a touch of warmth and authenticity, reflecting the comfort of a genuine dining experience.",
-                        outputs=[prompt_t2v]
+                        lambda: (
+                            "A person is enjoying a meal of spaghetti with a fork in a cozy, dimly lit Italian restaurant. The person has warm, friendly features and is dressed casually but stylishly in jeans and a colorful sweater. They are sitting at a small, round table, leaning slightly forward as they eat with enthusiasm. The spaghetti is piled high on their plate, with some strands hanging over the edge. The background shows soft lighting from nearby candles and a few other diners in the corner, creating a warm and inviting atmosphere. The scene captures a close-up view of the person's face and hands as they take a bite of spaghetti, with subtle movements of their mouth and fork. The overall style is realistic with a touch of warmth and authenticity, reflecting the comfort of a genuine dining experience.",
+                            "./assets/t2v_output.mp4",
+                            "Example loaded: Restaurant scene T2V generation"
+                        ),
+                        outputs=[prompt_t2v, video_output_t2v, status_t2v]
                     )
-                
-                with gr.Accordion("Example 2: Space Adventure", open=False):
-                    gr.Markdown("""
-                    **Prompt:** "A female climber rock climbing on an asteroid in deep space..."
-                    """)
-                    gr.Button("Load Example 2").click(
-                        lambda: "A low-angle, long exposure shot of a lone female climber, wearing shorts and tank top rock climbing on a massive asteroid in deep space. The climber is suspended against a star-filled void. Dramatic shadows across the asteroid's rugged surface, emphasizing the climber's isolation and the scale of the space rock. Dust particles float in the light beams, catching the light. The climber moves methodically, with focused determination.",
-                        outputs=[prompt_t2v]
-                    )
+
         
         # Demo Gallery Section
         with gr.Group():
@@ -968,7 +972,7 @@ def create_demo():
                             - **Conditioning Position:** 0 (first frame)
                             - **Noise Multiplier:** 0.2
                             - **LoRA Alpha:** 1.4
-                            - **Inference Steps:** 10
+                            - **Inference Steps:** 30
                             - **File Path:** ./demos/input_image.jpg
                             """)
                         
@@ -1004,7 +1008,7 @@ def create_demo():
                             - **Conditioning Positions:** 0,20 (start and end frames)
                             - **Noise Multipliers:** 0.2,0.5
                             - **LoRA Alpha:** 1.4
-                            - **Inference Steps:** 10
+                            - **Inference Steps:** 30
                             - **File Paths:** ./demos/start_frame.jpg, ./demos/end_frame.jpg
                             """)
                         
@@ -1034,7 +1038,7 @@ def create_demo():
                             - **Conditioning Positions:** 0,1,2,3 (first 4 latent frames)
                             - **Noise Multipliers:** 0.0,0.3,0.4,0.5
                             - **LoRA Alpha:** 1.4
-                            - **Inference Steps:** 10
+                            - **Inference Steps:** 30
                             - **Task:** Video Extension (using first 13 frames as conditioning)
                             - **File Path:** ./demos/input_video.mp4
                             """)
@@ -1063,7 +1067,7 @@ def create_demo():
                             gr.Markdown("""
                             **Settings Used:**
                             - **LoRA Alpha:** 1.4
-                            - **Inference Steps:** 10
+                            - **Inference Steps:** 30
                             - **Negative Prompt:** "Bright tones, overexposed, static, blurred details, subtitles, style, works, paintings, images, static, overall gray, worst quality, low quality..."
                             - **Task:** Pure Text-to-Video Generation (81 frames)
                             - **File Path:** ./assets/t2v_output.mp4
