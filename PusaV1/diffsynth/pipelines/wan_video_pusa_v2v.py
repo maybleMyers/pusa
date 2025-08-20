@@ -491,7 +491,14 @@ class PusaV2VPipeline(BasePipeline):
                 timestep[:,0] = 0 
             for latent_idx in cond_frame_latent_indices:
                 multiplier = noise_multipliers.get(latent_idx, 1.0)
-                timestep[:,latent_idx] = timestep[:,latent_idx] * multiplier # timestep = sigma * 1000, equivalent
+                timestep[:,latent_idx] = timestep[:,latent_idx] * multiplier
+                # add noise for latent_idx frame if multiplier > 0
+                if progress_id == 0 and multiplier > 0:
+                    latent_size = (1, 16, (num_frames - 1) // 4 + 1, height//8, width//8)
+                    noise = self.generate_noise(latent_size, seed=seed, device=rand_device, dtype=torch.float32)
+                    noise = noise.to(dtype=self.torch_dtype, device=self.device)
+                    latents[:,:,latent_idx:latent_idx+1] = self.scheduler.add_noise(latents[:,:,latent_idx:latent_idx+1], noise[:,:,latent_idx:latent_idx+1], timestep[:,latent_idx:latent_idx+1])
+
             timestep = timestep.to(torch.long).to(dtype=self.torch_dtype, device=self.device)
 
 
