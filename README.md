@@ -175,7 +175,7 @@ python ./demos/cli_test_ti2v_release.py \
   --num_steps 30 \
   --noise_multiplier 0
 ```
-Note: We suggest you to try different `con_position` here, and you may also modify the level of noise added to the condition image. You'd be likely to get some surprises.
+Note: We suggest you try different `con_position` here, and you may also modify the level of noise added to the condition image. You'd be likely to get some surprises.
 
 Take `./demos/example.jpg` as an example and run with 4 GPUs:
 ```bash
@@ -195,7 +195,7 @@ You can get this result:
     <br>
 </p>
 
-You may ref to the baselines' results from the [VideoGen-Eval](https://github.com/AILab-CVC/VideoGen-Eval) benchmark for comparison:
+You may refer to the baselines' results from the [VideoGen-Eval](https://github.com/AILab-CVC/VideoGen-Eval) benchmark for comparison:
 
 <p align="center">
     <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/62526737953d9dc757414f2a368b94a0492ca6da/assets/example_baseline.gif" width="1000" autoplay loop muted/>
