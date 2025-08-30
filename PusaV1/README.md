@@ -39,7 +39,8 @@ We are excited to release **Pusa V1.0**, a groundbreaking paradigm that leverage
 
 ## :sparkles: Highlights
 - [ComfyUI](https://huggingface.co/Kijai/WanVideo_comfy/tree/main/Pusa), supported by [Kijai](https://github.com/kijai), thanks a lot! 
-
+- [WAN2.2-14B-Rapid-AllInOne](https://huggingface.co/Phr00t/WAN2.2-14B-Rapid-AllInOne), big salute to [Phr00t](https://huggingface.co/Phr00t)!
+  
 ## Installation
 
 Before using this model, you may follow the code below to setup the environment, Cuda 12.4 recommended.
