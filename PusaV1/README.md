@@ -38,7 +38,7 @@ The codebase has been integrated into the `PusaV1` directory, based on `DiffSynt
 ## 📑 Table of Contents
 
 - [✨ Highlights](#sparkles-highlights)
-- [🔥 Intro](#-intro-)
+- [🔥 Intro](#-intro)
 - [🛠️ Installation](#installation)
 - [📦 Model Preparation](#model-preparation)
 - [🎬 Gradio Demo (Work in Progress)](#-gradio-demo-work-in-progress)
