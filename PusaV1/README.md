@@ -87,7 +87,8 @@ huggingface-cli download Wan-AI/Wan2.2-T2V-A14B --local-dir ./model_zoo/PusaV1/W
 # (Optional) LightX2V for Wan2.2
 huggingface-cli download lightx2v/Wan2.2-Lightning --local-dir ./model_zoo/PusaV1/Wan2.2-Lightning
 
-# (Optional) LightX2V for Wan2.1
+# (Optional) LightX2V for Wan2.1, directly use the low-noise lora for Wan2.2 or download the lora for Wan2.1
+huggingface-cli download lightx2v/Wan2.1-T2V-14B-StepDistill-CfgDistill-Lightx2v --local-dir ./model_zoo/PusaV1/Wan2.1-T2V-14B-StepDistill-CfgDistill-Lightx2v
 
 ```
 
