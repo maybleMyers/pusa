@@ -7,6 +7,7 @@
     <a href="https://yaofang-liu.github.io/Pusa_Web/"><img alt="Project Page" src="https://img.shields.io/badge/Project-Page-blue?style=for-the-badge"></a>
     <a href="https://arxiv.org/abs/2507.16116"><img alt="Technical Report" src="https://img.shields.io/badge/Technical_Report-📜-B31B1B?style=for-the-badge"></a>
     <a href="https://huggingface.co/RaphaelLiu/PusaV1"><img alt="Model" src="https://img.shields.io/badge/Pusa_V1.0-Model-FFD700?style=for-the-badge&logo=huggingface"></a>
+    <a href="https://huggingface.co/RaphaelLiu/Pusa-Wan2.2-V1"><img alt="Wan2.2 Model" src="https://img.shields.io/badge/Pusa_Wan2.2-Model-FF6B35?style=for-the-badge&logo=huggingface"></a>
     <a href="https://huggingface.co/datasets/RaphaelLiu/PusaV1_training"><img alt="Dataset" src="https://img.shields.io/badge/Pusa_V1.0-Dataset-6495ED?style=for-the-badge&logo=huggingface"></a>
 </p>
 <p align="center">
@@ -19,7 +20,14 @@
 
 ## 🔥🔥🔥🚀 Announcing Pusa V1.0 🚀🔥🔥🔥
 
-We are excited to release **Pusa V1.0**, a groundbreaking paradigm that leverages **vectorized timestep adaptation (VTA)** to enable fine-grained temporal control within a unified video diffusion framework. By finetuning the SOTA **Wan-T2V-14B** model with VTA, Pusa V1.0 achieves unprecedented efficiency --**surpassing the performance of Wan-I2V-14B with ≤ 1/200 of the training cost ($500 vs. ≥ $100,000)** and **≤ 1/2500 of the dataset size (4K vs. ≥ 10M samples)**. The codebase has been integrated into the `PusaV1` directory, based on `DiffSynth-Studio`.
+We are excited to release **Pusa V1.0**, a groundbreaking paradigm that leverages **vectorized timestep adaptation (VTA)** to enable fine-grained temporal control within a unified video diffusion framework. By finetuning the SOTA **Wan-T2V-14B** model with VTA, Pusa V1.0 achieves unprecedented efficiency --**surpassing the performance of Wan-I2V-14B with ≤ 1/200 of the training cost ($500 vs. ≥ $100,000)** and **≤ 1/2500 of the dataset size (4K vs. ≥ 10M samples)**. 
+
+**🆕 NEW: Wan2.2 & LightX2V Acceleration**
+- **🏗️ MoE DiT Architecture**: Pusa now supports Wan2.2 models with separate high-noise and low-noise DiT components for enhanced quality
+- **⚡ LightX2V Integration**: Ultra-fast 4-step inference with lightning acceleration while maintaining generation quality
+- **🎯 Model Release**: [Pusa-Wan2.2-V1](https://huggingface.co/RaphaelLiu/Pusa-Wan2.2-V1) now available on Hugging Face
+
+The codebase has been integrated into the `PusaV1` directory, based on `DiffSynth-Studio`.
 
 <img width="1000" alt="Image" src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/d98ef44c1f7c11724a6887b71fe35152493c68b4/PusaV1/pusa_benchmark_figure_dark.png" />
 
@@ -29,8 +37,15 @@ For detailed usage and examples for Pusa V1.0, please see the **[Pusa V1.0 READM
 
 
 ## News 
-#### 🔥🔥🔥 2025.07:  Pusa V1.0 (Pusa-Wan) Code, Technical Report, and Dataset, all released!!! Check our [project page](https://yaofang-liu.github.io/Pusa_Web/) and [paper](https://github.com/Yaofang-Liu/Pusa-VidGen/blob/e99c3dcf866789a2db7fbe2686888ec398076a82/PusaV1/PusaV1.0_Report.pdf) for more info.
-#### 🔥🔥🔥 2025.04:  Pusa V0.5 (Pusa-Mochi) released.
+#### 🔥🔥🔥 2025.09: Pusa-Wan2.2 & LightX2V Acceleration Support Released!
+- **🏗️ MoE DiT Support**: Added support for Wan2.2 models with separate high-noise and low-noise DiT architecture
+- **⚡ LightX2V Integration**: Lightning-fast 4-step inference with maintained quality (great speed improvement)
+- **🎯 New Model**: Released [Pusa-Wan2.2-V1](https://huggingface.co/RaphaelLiu/Pusa-Wan2.2-V1) with enhanced capabilities
+- **📚 Updated Scripts**: All inference scripts now support `--lightx2v` acceleration flag
+- **⚙️ Parameter Guidelines**: Added optimized settings for both standard and accelerated inference
+
+#### 🔥🔥🔥 2025.07: Pusa V1.0 (Pusa-Wan) Code, Technical Report, and Dataset, all released!!! Check our [project page](https://yaofang-liu.github.io/Pusa_Web/) and [paper](https://github.com/Yaofang-Liu/Pusa-VidGen/blob/e99c3dcf866789a2db7fbe2686888ec398076a82/PusaV1/PusaV1.0_Report.pdf) for more info.
+#### 🔥🔥🔥 2025.04: Pusa V0.5 (Pusa-Mochi) released.
 
  
 
@@ -65,7 +80,7 @@ For detailed usage and examples for Pusa V1.0, please see the **[Pusa V1.0 READM
 
 Pusa (*pu: 'sA:*, from "Thousand-Hand Guanyin" in Chinese) introduces a paradigm shift in video diffusion modeling through frame-level noise control with vectorized timesteps, departing from conventional scalar timestep approaches. This shift was first presented in our [FVDM](https://arxiv.org/abs/2410.03160) paper. 
 
-**Pusa V1.0** is based on the SOTA **Wan-T2V-14B** model and enhances it with our unique vectorized timestep adaptations (VTA), a non-destructive adaptation that fully preserves the capabilities of the base model.
+**Pusa V1.0** is based on the SOTA **Wan-T2V-14B** model and enhances it with our unique vectorized timestep adaptations (VTA), a non-destructive adaptation that fully preserves the capabilities of the base model. With the new Wan2.2 support, Pusa now leverages MoE DiT architecture for improved quality and efficiency.
 
 **Pusa V0.5** leverages this architecture, and it is based on [Mochi1-Preview](https://huggingface.co/genmo/mochi-1-preview). We are open-sourcing this work to foster community collaboration, enhance methodologies, and expand capabilities.
 
@@ -89,10 +104,17 @@ https://github.com/user-attachments/assets/7d751fd8-9a14-42e6-bcde-6db940df6537
   - Surpasses Wan-I2V-14B with **≤ 1/200 of the training cost** (\$500 vs. ≥ \$100,000)
   - Trained on a dataset **≤ 1/2500 of the size** (4K vs. ≥ 10M samples)
   - Achieves a **VBench-I2V score of 87.32%** (vs. 86.86% for Wan-I2V-14B)
+  - **⚡ Speed Improvement** with LightX2V acceleration (4 steps vs. 10 or more steps)
+
+- **Advanced Architecture Options**:
+  - **Wan2.1 Models**: Single DiT architecture for standard inference
+  - **Wan2.2 Models**: MoE DiT architecture (high-noise + low-noise) for enhanced quality
+  - **LightX2V Acceleration**: Compatible with both architectures for ultra-fast generation
 
 - **Complete Open-Source Release**:
   - Full codebase and training/inference scripts
   - LoRA model weights and dataset for Pusa V1.0
+  - [Pusa-Wan2.2-V1](https://huggingface.co/RaphaelLiu/Pusa-Wan2.2-V1) model weights
   - Detailed architecture specifications
   - Comprehensive training methodology
 
@@ -100,12 +122,25 @@ https://github.com/user-attachments/assets/7d751fd8-9a14-42e6-bcde-6db940df6537
 
 - **Novel Diffusion Paradigm**: Implements frame-level noise control with vectorized timesteps, originally introduced in the [FVDM paper](https://arxiv.org/abs/2410.03160), enabling unprecedented flexibility and scalability.
 
+- **MoE DiT Support**: Wan2.2 models feature separate high-noise and low-noise DiT components, allowing for better noise handling and improved generation quality.
+
+- **Lightning Acceleration**: LightX2V integration provides 4-step inference with maintained quality, dramatically reducing generation time.
+
 - **Non-destructive Modification**: Our adaptations to the base model preserve its original Text-to-Video generation capabilities. After this adaptation, we only need a slight fine-tuning.
 
 - **Universal Applicability**: The methodology can be readily applied to other leading video diffusion models including Hunyuan Video, Wan2.1, and others. *Collaborations enthusiastically welcomed!*
 
 
 ## Changelog
+
+**v1.0.1 (September 1, 2025)**
+- Added Wan2.2 MoE DiT architecture support
+- Integrated LightX2V acceleration for 4-step inference
+- Released [Pusa-Wan2.2-V1](https://huggingface.co/RaphaelLiu/Pusa-Wan2.2-V1) model weights
+- Added `wan22_*` inference scripts with MoE LoRA support
+- Updated all `wan_*` scripts with `--lightx2v` acceleration flag
+- Added comprehensive parameter guidelines for accelerated inference
+- Enhanced documentation with Wan2.2 usage examples
 
 **v1.0 (July 15, 2025)**
 - Released Pusa V1.0, based on the Wan-Video models.
@@ -124,7 +159,19 @@ https://github.com/user-attachments/assets/7d751fd8-9a14-42e6-bcde-6db940df6537
 
 ## Pusa V1.0 (Based on Wan)
 
-Pusa V1.0 leverages the powerful Wan-Video models and enhances them with our custom LoRA models and training scripts. For detailed instructions on installation, model preparation, usage examples, and training, please refer to the **[Pusa V1.0 README](./PusaV1/README.md)**.
+Pusa V1.0 leverages the powerful Wan-Video models and enhances them with our custom LoRA models and training scripts. Now featuring both Wan2.1 and Wan2.2 architecture support with LightX2V acceleration capabilities.
+
+**Model Options:**
+- **Wan2.1 Models**: Traditional single DiT architecture ([Original Pusa V1.0](https://huggingface.co/RaphaelLiu/PusaV1))
+- **Wan2.2 Models**: Advanced MoE DiT architecture ([Pusa-Wan2.2-V1](https://huggingface.co/RaphaelLiu/Pusa-Wan2.2-V1))
+
+**Key Features:**
+- **⚡ LightX2V Acceleration**: 4-step inference for both model types
+- **🏗️ MoE DiT Architecture**: Enhanced quality with separate high/low noise models (Wan2.2)
+- **🎯 Optimized Parameters**: `cfg_scale=1` for LightX2V, `cfg_scale=3` for standard inference
+- **📈 Performance**: great speed improvement with maintained generation quality
+
+For detailed instructions on installation, model preparation, usage examples, and training, please refer to the **[Pusa V1.0 README](./PusaV1/README.md)**.
 
 ## Pusa V0.5 (Based on Mochi)
 
@@ -339,6 +386,8 @@ Pusa currently has several known limitations:
 
 ### Currently Available
 - ✅ Model weights for Pusa V1.0 and V0.5
+- ✅ Model weights for Pusa-Wan2.2-V1 with MoE DiT architecture
+- ✅ LightX2V acceleration support for both Wan2.1 and Wan2.2
 - ✅ Inference code for Text-to-Video generation
 - ✅ Inference code for Image-to-Video generation
 - ✅ Inference scripts for start & end frames, multi-frames, video transition, video extension
@@ -350,12 +399,14 @@ Pusa currently has several known limitations:
 ### TODO List
 - 🔄 Release more advanced versions with SOTA models
 - 🔄 More capabilities like long video generation
+- 🔄 Enhanced LightX2V integration for even faster inference
 - 🔄 ....
 
 ## Related Work
 
 - [FVDM](https://arxiv.org/abs/2410.03160): Introduces the groundbreaking frame-level noise control with vectorized timestep approach that inspired Pusa.
 - [Wan-Video](https://github.com/modelscope/DiffSynth-Studio): The foundation model for Pusa V1.0.
+- [LightX2V](https://github.com/ModelTC/LightX2V): Lightning-fast inference acceleration integrated into Pusa for 4-step generation.
 - [Mochi](https://huggingface.co/genmo/mochi-1-preview): The foundation model for Pusa V0.5, recognized as a leading open-source video generation system on the Artificial Analysis Leaderboard.
 
 ## BibTeX

@@ -14,6 +14,9 @@ from .step_video import StepVideoPipeline
 from .wan_video import WanVideoPipeline
 from .wan_video_pusa import WanVideoPusaPipeline
 from .wan_video_pusa_multi_frames import PusaMultiFramesPipeline
+from .wan22_video_pusa import Wan22VideoPusaPipeline
+from .wan22_video_pusa_multi_frames import Wan22VideoPusaMultiFramesPipeline
+from .wan22_video_pusa_v2v import Wan22VideoPusaV2VPipeline
 from .wan_video_pusa_v2v import PusaV2VPipeline
 
 KolorsImagePipeline = SDXLImagePipeline

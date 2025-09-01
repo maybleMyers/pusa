@@ -21,9 +21,15 @@
 - [📦 Model Preparation](#model-preparation)
 - [🎬 Gradio Demo (Work in Progress)](#-gradio-demo-work-in-progress)
 - [🚀 Usage Examples](#usage-examples)
-  - [Image(s) Conditioned Video Generation](#images-conditioned-video-generation)
-  - [Video-to-Video Generation](#video-to-video-generation)
-  - [Text-to-Video Generation](#text-to-video-generation)
+  - [Wan2.1 Models](#wan21-models)
+    - [Image(s) Conditioned Video Generation](#images-conditioned-video-generation)
+    - [Video-to-Video Generation](#video-to-video-generation)
+    - [Text-to-Video Generation](#text-to-video-generation)
+  - [Wan2.2 Models with MoE DiT Architecture](#wan22-models-with-moe-dit-architecture)
+    - [Wan2.2 Image(s) Conditioned Video Generation](#wan22-images-conditioned-video-generation)
+    - [Wan2.2 Video-to-Video Generation](#wan22-video-to-video-generation)
+    - [Wan2.2 Text-to-Video Generation](#wan22-text-to-video-generation)
+  - [⚡ LightX2V Acceleration](#-lightx2v-acceleration)
 - [🏋️ Training](#training)
   - [Prepare Dataset](#prepare-dataset)
   - [Training Process](#training-1)
@@ -32,7 +38,14 @@
 
 ## 🔥🔥🔥🚀 Announcing Pusa V1.0 🚀🔥🔥🔥
 
-We are excited to release **Pusa V1.0**, a groundbreaking paradigm that leverages **vectorized timestep adaptation (VTA)** to enable fine-grained temporal control within a unified video diffusion framework. By finetuning the SOTA **Wan-T2V-14B** model with VTA, Pusa V1.0 achieves unprecedented efficiency, **surpassing Wan-I2V on Vbench-I2V with only $500 of training cost and 4k data**. The codebase has been integrated into the `PusaV1` directory, based on `DiffSynth-Studio`. Pusa V1.0 not only sets a new standard for image-to-video generation but also unlocks many other zero-shot multi-task capabilities such as start-end frames and video extension, all without task-specific training while preserving the base model's T2V capabilities.
+We are excited to release **Pusa V1.0**, a groundbreaking paradigm that leverages **vectorized timestep adaptation (VTA)** to enable fine-grained temporal control within a unified video diffusion framework. By finetuning the SOTA **Wan-T2V-14B** model with VTA, Pusa V1.0 achieves unprecedented efficiency, **surpassing Wan-I2V on Vbench-I2V with only $500 of training cost and 4k data**. 
+
+**🆕 NEW: Wan2.2 Support & LightX2V Acceleration**
+- **MoE DiT Architecture**: Now supporting Wan2.2 models with separate high-noise and low-noise DiT models for enhanced quality
+- **⚡ LightX2V Integration**: Achieve 4-step inference with lightning-fast generation while maintaining quality
+- **Unified Framework**: Compatible with both Wan2.1 and Wan2.2 architectures
+
+The codebase has been integrated into the `PusaV1` directory, based on `DiffSynth-Studio`. Pusa V1.0 not only sets a new standard for image-to-video generation but also unlocks many other zero-shot multi-task capabilities such as start-end frames and video extension, all without task-specific training while preserving the base model's T2V capabilities.
 
 **Important Note!!!**  
 **Our method also works for Full Finetuning with extremely low cost (see [Pusa V0.5](https://github.com/Yaofang-Liu/Mochi-Full-Finetuner), only $100 full finetuing cost). The model gains mainly come from our method, not Lora. Lora is insignificant here.**. We use Lora only because, Wan2.1 full finetuing need too many GPUs (at least 32x80G GPUs, yet we only have 24), so that we choose Lora with very large rank to approximate full finetuing. Why 512 rank is just because  its the largest rank that can train with 8x80G GPUs (768 would cause OOM). Besides, we also did full finetuning to the base model with 81 frames in 480p data or 65 frames in 720p data with less GPUs, our method also works. **We suggest more to try full finetuing with our method if you have the resources. We believe the performance could be further imporved!**
@@ -40,6 +53,8 @@ We are excited to release **Pusa V1.0**, a groundbreaking paradigm that leverage
 ## :sparkles: Highlights
 - [ComfyUI](https://huggingface.co/Kijai/WanVideo_comfy/tree/main/Pusa), supported by [Kijai](https://github.com/kijai), thanks a lot! 
 - [WAN2.2-14B-Rapid-AllInOne](https://huggingface.co/Phr00t/WAN2.2-14B-Rapid-AllInOne), big salute to [Phr00t](https://huggingface.co/Phr00t)!
+- **⚡ LightX2V Acceleration**: Ultra-fast 4-step inference with maintained quality
+- **🏗️ MoE DiT Support**: Wan2.2 architecture with separate high/low noise models
   
 ## Installation
 
@@ -64,6 +79,15 @@ huggingface-cli download RaphaelLiu/PusaV1 --local-dir ./model_zoo/PusaV1
 
 # (Optional) Please download Wan2.1-T2V-14B to ./model_zoo/PusaV1 is you don't have it, if you have you can directly soft link it to ./model_zoo/PusaV1
 huggingface-cli download Wan-AI/Wan2.1-T2V-14B --local-dir ./model_zoo/PusaV1/Wan2.1-T2V-14B
+
+# (Optional) For Wan2.2 models with MoE DiT architecture
+huggingface-cli download Wan-AI/Wan2.2-T2V-A14B --local-dir ./model_zoo/PusaV1/Wan2.2-T2V-A14B
+
+# (Optional) LightX2V for Wan2.2
+huggingface-cli download lightx2v/Wan2.2-Lightning --local-dir ./model_zoo/PusaV1/Wan2.2-Lightning
+
+# (Optional) LightX2V for Wan2.1
+
 ```
 
 The checkpoints should arrange like this to use the codes with default settings:
@@ -71,6 +95,9 @@ The checkpoints should arrange like this to use the codes with default settings:
 ./model_zoo
   - PusaV1
     - Wan2.1-T2V-14B
+    - Wan2.2-T2V-A14B
+      - high_noise_model/
+      - low_noise_model/
     - pusa_v1.pt
 ```
 
@@ -109,9 +136,17 @@ The Gradio interface provides real-time parameter adjustment and includes pre-co
 
 All scripts save their output in an `outputs` directory, which will be created if it doesn't exist.
 
-!!! :sparkles: **Please note that we have two core unique parameters that differ from other methods. `--cond_position`** is Comma-separated list of frame indices for conditioning. You can use any position from 0 to 20. **`--noise_multipliers`** is "Comma-separated noise multipliers for conditioning frames. A value of 0 means the condition image is used as totally clean, higher value means add more noise. For I2V, you can use 0.2 or any from 0 to 1. For Start-End-Frame, you can use 0.2,0.4, or any from 0 to 1. **`--lora_alpha`** is another very important parameter. A bigger alpha would bring more temporal consistency (i.e., make generated frames more like conditioning part), but may also cause small motion or even collapse. We recommend using a value around 1 to 2. For **`--num_inference_steps`**, **5 steps** are enough to get good results with [LightX2V](https://github.com/ModelTC/LightX2V), which has been intergrated by [Kijai](https://github.com/kijai) in [ComfyUI](https://huggingface.co/Kijai/WanVideo_comfy/tree/main/Pusa), check [showcases](https://github.com/kijai/ComfyUI-WanVideoWrapper/issues/804#issuecomment-3110144063).
+
+!!! :sparkles: **Please note that we have two core unique parameters that differ from other methods. `--cond_position`** is Comma-separated list of frame indices for conditioning. You can use any position from 0 to 20. **`--noise_multipliers`** is "Comma-separated noise multipliers for conditioning frames. A value of 0 means the condition image is used as totally clean, higher value means add more noise. For I2V, you can use 0.2 or any from 0 to 1, add some noise like 0.2 noise to the condition frame is stronly suggested for Wan2.2 . For Start-End-Frame, you can use 0.2,0.4, or any from 0 to 1. **`--lora_alpha`** is another very important parameter. A bigger alpha would bring more temporal consistency (i.e., make generated frames more like conditioning part), but may also cause small motion or even collapse. We recommend using a value around 1.3-1.5 for Wan2.1 and 1.4-1.6 for Wan2.2. For **`--num_inference_steps`**, **10 steps** or more are recommended for standard inference, while **4 steps** are sufficient with [LightX2V](https://github.com/ModelTC/LightX2V) acceleration. **`--cfg_scale`** should be set to **1.0** when using LightX2V, and around **3.0** for standard inference.
+
+**⚡ LightX2V Acceleration Notes:**
+- Use `--lightx2v` flag to enable acceleration
+- Set `--cfg_scale 1` (crucial for LightX2V)
+- Use `--num_inference_steps 4`
 
 **Try different configurations and you will get different results.** **Examples shown below are just for demonstration and not the best**
+
+### Wan2.1 Models
 
 ### Image(s) Conditioned Video Generation
 
@@ -129,6 +164,22 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan_14b_multi_frames_pusa.py \
   --lora_path "./model_zoo/PusaV1/pusa_v1.pt" \
   --lora_alpha 1.4 \
   --num_inference_steps 30
+```
+
+**Example 1-1b: Image-to-Video with LightX2V Acceleration**
+Same as above but with 4-step inference and acceleration.
+
+```shell
+CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan_14b_multi_frames_pusa.py \
+  --image_paths "./demos/input_image.jpg" \
+  --prompt "A wide-angle shot shows a serene monk meditating perched a top of the letter E of a pile of weathered rocks that vertically spell out 'ZEN'. The rock formation is perched atop a misty mountain peak at sunrise. The warm light bathes the monk in a gentle glow, highlighting the folds of his saffron robes. The sky behind him is a soft gradient of pink and orange, creating a tranquil backdrop. The camera slowly zooms in, capturing the monk's peaceful expression and the intricate details of the rocks. The scene is bathed in a soft, ethereal light, emphasizing the spiritual atmosphere." \
+  --cond_position "0" \
+  --noise_multipliers "0.2" \
+  --lora_path "./model_zoo/PusaV1/pusa_v1.pt" \
+  --lora_alpha 1.4 \
+  --num_inference_steps 4 \
+  --cfg_scale 1 \
+  --lightx2v
 ```
 
 <table>
@@ -342,6 +393,135 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan_14b_text_to_video_pusa.py \
 <div align="center">
   <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/assets/t2v_output.gif?raw=true" width="500" autoplay loop muted controls></img>
 </div>
+
+### Wan2.2 Models with MoE DiT Architecture
+
+The Wan2.2 models feature a MoE DiT architecture with separate high-noise and low-noise models, providing enhanced quality and control over the generation process.
+
+### Wan2.2 Image(s) Conditioned Video Generation
+
+**Example 1: Image-to-Video with Wan2.2**
+
+```shell
+CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_multi_frames_pusa.py \
+  --image_paths "./demos/input_image.jpg" \
+  --prompt "A wide-angle shot shows a serene monk meditating perched a top of the letter E of a pile of weathered rocks that vertically spell out 'ZEN'. The rock formation is perched atop a misty mountain peak at sunrise. The warm light bathes the monk in a gentle glow, highlighting the folds of his saffron robes. The sky behind him is a soft gradient of pink and orange, creating a tranquil backdrop. The camera slowly zooms in, capturing the monk's peaceful expression and the intricate details of the rocks. The scene is bathed in a soft, ethereal light, emphasizing the spiritual atmosphere." \
+  --cond_position "0" \
+  --noise_multipliers "0.2" \
+  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
+  --high_lora_alpha 1.5 \
+  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
+  --low_lora_alpha 1.4 \
+  --num_inference_steps 30 \
+  --cfg_scale 3.0
+```
+
+**Example 2: Start-End Frames with Wan2.2**
+
+```shell
+CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_multi_frames_pusa.py \
+  --image_paths "./demos/start_frame.jpg" "./demos/end_frame.jpg" \
+  --prompt "plastic injection machine opens releasing a soft inflatable foamy morphing sticky figure over a hand. isometric. low light. dramatic light. macro shot. real footage" \
+  --cond_position "0,20" \
+  --noise_multipliers "0.2,0.5" \
+  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
+  --high_lora_alpha 1.5 \
+  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
+  --low_lora_alpha 1.4 \
+  --num_inference_steps 30 \
+  --cfg_scale 3.0
+```
+
+### Wan2.2 Video-to-Video Generation
+
+```shell
+CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_v2v_pusa.py \
+  --video_path "./demos/input_video.mp4" \
+  --prompt "piggy bank surfing a tube in teahupo'o wave dusk light cinematic shot shot in 35mm film" \
+  --cond_position "0,1,2,3" \
+  --noise_multipliers "0.2,0.4,0.4,0.4" \
+  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
+  --high_lora_alpha 1.5 \
+  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
+  --low_lora_alpha 1.4 \
+  --num_inference_steps 30 \
+  --cfg_scale 3.0
+```
+
+### Wan2.2 Text-to-Video Generation
+
+```shell
+CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_text_to_video_pusa.py \
+  --prompt "A person is enjoying a meal of spaghetti with a fork in a cozy, dimly lit Italian restaurant..." \
+  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
+  --high_lora_alpha 1.5 \
+  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
+  --low_lora_alpha 1.4 \
+  --num_inference_steps 30 \
+  --cfg_scale 3.0
+```
+
+### ⚡ LightX2V Acceleration
+
+LightX2V provides ultra-fast 4-step inference while maintaining generation quality. Compatible with both Wan2.1 and Wan2.2 models.
+
+**Key Parameters for LightX2V:**
+- `--lightx2v`: Enable LightX2V acceleration
+- `--cfg_scale 1`: **Critical** - must be set to 1 for LightX2V
+- `--num_inference_steps 4`: Use 4 steps instead of 30
+- `--lora_alpha 1.5`: Recommended value for LightX2V (larger alpha = smaller motion)
+
+**Example 1: Wan2.2 Image-to-Video with LightX2V**
+
+```shell
+CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_multi_frames_pusa.py \
+  --image_paths "./demos/input_image.jpg" \
+  --prompt "A wide-angle shot shows a serene monk meditating perched a top of the letter E of a pile of weathered rocks that vertically spell out 'ZEN'. The rock formation is perched atop a misty mountain peak at sunrise. The warm light bathes the monk in a gentle glow, highlighting the folds of his saffron robes. The sky behind him is a soft gradient of pink and orange, creating a tranquil backdrop. The camera slowly zooms in, capturing the monk's peaceful expression and the intricate details of the rocks. The scene is bathed in a soft, ethereal light, emphasizing the spiritual atmosphere." \
+  --cond_position "0" \
+  --noise_multipliers "0" \
+  --num_inference_steps 4 \
+  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
+  --high_lora_alpha 1.5 \
+  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
+  --low_lora_alpha 1.4 \
+  --cfg_scale 1 \
+  --lightx2v
+```
+
+**Example 2: Wan2.2 Start-End Frames with LightX2V**
+
+```shell
+CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_multi_frames_pusa.py \
+  --image_paths "./demos/start_frame.jpg" "./demos/end_frame.jpg" \
+  --prompt "plastic injection machine opens releasing a soft inflatable foamy morphing sticky figure over a hand. isometric. low light. dramatic light. macro shot. real footage" \
+  --cond_position "0,20" \
+  --noise_multipliers "0.2,0.5" \
+  --num_inference_steps 4 \
+  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
+  --high_lora_alpha 1.5 \
+  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
+  --low_lora_alpha 1.4 \
+  --cfg_scale 1 \
+  --lightx2v
+```
+
+**Example 3: Wan2.2 Video-to-Video with LightX2V**
+
+```shell
+CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_v2v_pusa.py \
+  --video_path "./demos/input_video.mp4" \
+  --prompt "piggy bank surfing a tube in teahupo'o wave dusk light cinematic shot shot in 35mm film" \
+  --cond_position "0,1,2,3" \
+  --noise_multipliers "0.2,0.4,0.4,0.4" \
+  --num_inference_steps 4 \
+  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
+  --high_lora_alpha 1.5 \
+  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
+  --low_lora_alpha 1.4 \
+  --cfg_scale 1 \
+  --lightx2v
+```
+
 
 ## Training
 First, please note that **our method also works for Full Finetuning with extremely low cost (see [Pusa V0.5](https://github.com/Yaofang-Liu/Mochi-Full-Finetuner), only $100 full finetuing cost). The model gains mainly come from our method, not Lora. Lora is insignificant here.**. We use Lora only because, Wan2.1 full finetuing need too many GPUs (at least 32x80G GPUs, yet we only have 24), so that we choose Lora with very large rank to approximate full finetuing. Why 512 rank is just because its basically the largest rank that can train with 8x80G GPUs. Besides, we also did full finetune on the base model with 81 frames in 480p data or 65 frames in 720p data with less GPUs, our method also works. **We suggest more to try full finetuing with our method if you have the resources. We believe the performance could be further imporved!**

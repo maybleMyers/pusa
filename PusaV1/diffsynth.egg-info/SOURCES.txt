@@ -88,6 +88,7 @@ diffsynth/models/lora.py
 diffsynth/models/model_manager.py
 diffsynth/models/model_manager_I2V.py
 diffsynth/models/model_manager_ori.py
+diffsynth/models/model_manager_wan22.py
 diffsynth/models/omnigen.py
 diffsynth/models/sd3_dit.py
 diffsynth/models/sd3_text_encoder.py
@@ -139,6 +140,9 @@ diffsynth/pipelines/sdxl_image.py
 diffsynth/pipelines/sdxl_video.py
 diffsynth/pipelines/step_video.py
 diffsynth/pipelines/svd_video.py
+diffsynth/pipelines/wan22_video_pusa.py
+diffsynth/pipelines/wan22_video_pusa_multi_frames.py
+diffsynth/pipelines/wan22_video_pusa_v2v.py
 diffsynth/pipelines/wan_video.py
 diffsynth/pipelines/wan_video_pusa.py
 diffsynth/pipelines/wan_video_pusa_multi_frames.py
@@ -169,7 +173,6 @@ diffsynth/schedulers/continuous_ode.py
 diffsynth/schedulers/ddim.py
 diffsynth/schedulers/flow_match.py
 diffsynth/schedulers/flow_match_pusa.py
-diffsynth/schedulers/flow_match_pusa_multi_frames.py
 diffsynth/schedulers/flow_match_pusa_v2v.py
 diffsynth/tokenizer_configs/__init__.py
 diffsynth/tokenizer_configs/cog/tokenizer/added_tokens.json

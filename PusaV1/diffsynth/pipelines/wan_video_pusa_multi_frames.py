@@ -480,6 +480,7 @@ class PusaMultiFramesPipeline(BasePipeline):
 
         # Denoise
         self.load_models_to_device(["dit", "motion_controller", "vace"])
+        flag = torch.zeros((1, latents.shape[2]), dtype=torch.bool, device=self.device)
         for progress_id, timestep in enumerate(progress_bar_cmd(self.scheduler.timesteps)):
             if visualize_attention:
                 from ..models.wan_video_pusa import _VISUALIZE_ATTENTION_CONFIG
@@ -493,11 +494,14 @@ class PusaMultiFramesPipeline(BasePipeline):
                 multiplier = noise_multipliers.get(latent_idx, 1.0)
                 timestep[:,latent_idx] = timestep[:,latent_idx] * multiplier 
                 # add noise for conditioning frames if multiplier > 0
-                if progress_id == 0 and multiplier > 0:
+                if flag[:,latent_idx]==0 and multiplier > 0:
+                    flag[:,latent_idx] = 1
                     latent_size = (1, 16, (num_frames - 1) // 4 + 1, height//8, width//8)
                     noise = self.generate_noise(latent_size, seed=seed, device=rand_device, dtype=torch.float32)
                     noise = noise.to(dtype=self.torch_dtype, device=self.device)
-                    latents[:,:,latent_idx:latent_idx+1] = self.scheduler.add_noise(latents[:,:,latent_idx:latent_idx+1], noise[:,:,latent_idx:latent_idx+1], timestep[:,latent_idx:latent_idx+1])
+                    timestep_cond = torch.ones_like(timestep) * timestep.max()
+                    latents[:,:,latent_idx:latent_idx+1] = self.scheduler.add_noise_for_conditioning_frames(latents[:,:,latent_idx:latent_idx+1], noise[:,:,latent_idx:latent_idx+1], timestep_cond[:,latent_idx:latent_idx+1], noise_multiplier=multiplier)
+
             timestep = timestep.to(torch.long).to(dtype=self.torch_dtype, device=self.device)
 
             print("timestep", timestep[0])

@@ -51,6 +51,7 @@ from ..extensions.ESRGAN import RRDBNet
 
 from ..configs.model_config import model_loader_configs, huggingface_model_loader_configs, patch_model_loader_configs
 from .utils import load_state_dict, init_weights_on_device, hash_state_dict_keys, split_state_dict_with_prefix
+from safetensors import safe_open
 
 
 def load_model_from_single_file(state_dict, model_names, model_classes, model_resource, torch_dtype, device):
@@ -393,6 +394,103 @@ class ModelManager:
             if not is_loaded:
                 print(f"    Cannot load LoRA: {file_path}")
 
+
+    def load_lora_lightx2v(self, file_path="", state_dict={}, lora_alpha=1.0, lora_down_key=".lora_down.weight", lora_up_key=".lora_up.weight"):
+        """
+        Load LoRA models compatible with both standard format and safetensors format.
+        
+        Args:
+            file_path: Path to the LoRA file
+            state_dict: Pre-loaded state dict (optional)
+            lora_alpha: Alpha value for LoRA scaling
+            lora_down_key: Key suffix for LoRA down weights (for safetensors format)
+            lora_up_key: Key suffix for LoRA up weights (for safetensors format)
+        """
+        print(f"Loading LoRA models from file: {file_path}")
+        is_loaded = False
+        
+        # Check if it's a safetensors file
+        is_safetensors = file_path.endswith('.safetensors')
+        
+        # Handle safetensors format
+        try:
+            for model, model_path, model_name in zip(self.model, self.model_path, self.model_name):
+                print(f"    Loading safetensors LoRA to {model_name} ({model_path}).")
+                model = self._load_and_merge_lora_weight_from_safetensors(
+                    model, file_path, lora_down_key, lora_up_key, lora_alpha
+                )
+                is_loaded = True
+                break
+                    
+            if not is_loaded:
+                print(f"    Cannot load safetensors LoRA: {file_path}")
+                
+        except Exception as e:
+            print(f"    Error loading safetensors LoRA: {e}")
+            is_loaded = False
+
+    def _build_lora_names(self, key, lora_down_key, lora_up_key, is_native_weight):
+        """Build LoRA parameter names based on the key structure."""
+        base = "diffusion_model." if is_native_weight else ""
+        lora_down = base + key.replace(".weight", lora_down_key)
+        lora_up = base + key.replace(".weight", lora_up_key)
+        lora_alpha = base + key.replace(".weight", ".alpha")
+        return lora_down, lora_up, lora_alpha
+
+    def _load_and_merge_lora_weight_from_safetensors(self, model, lora_weight_path, lora_down_key=".lora_down.weight", lora_up_key=".lora_up.weight", lora_alpha=1.0):
+        """
+        Load and merge LoRA weights from safetensors file into the model.
+        
+        Args:
+            model: The model to apply LoRA to
+            lora_weight_path: Path to the safetensors LoRA file
+            lora_down_key: Key suffix for LoRA down weights
+            lora_up_key: Key suffix for LoRA up weights
+            lora_alpha: Alpha value for LoRA scaling
+            
+        Returns:
+            Modified model with LoRA weights merged
+        """
+        # Load LoRA state dict from safetensors
+        lora_state_dict = {}
+        with safe_open(lora_weight_path, framework="pt", device="cpu") as f:
+            for key in f.keys():
+                lora_state_dict[key] = f.get_tensor(key)
+        
+        # Check if this is a native weight format
+        is_native_weight = any("diffusion_model." in key for key in lora_state_dict)
+        
+        # Apply LoRA weights to model parameters
+        for key, value in model.named_parameters():
+            lora_down_name, lora_up_name, lora_alpha_name = self._build_lora_names(
+                key, lora_down_key, lora_up_key, is_native_weight
+            )
+            
+            if lora_down_name in lora_state_dict:
+                lora_down = lora_state_dict[lora_down_name]
+                lora_up = lora_state_dict[lora_up_name]
+                
+                # Get alpha value from the LoRA file or use provided alpha
+                if lora_alpha_name in lora_state_dict:
+                    file_lora_alpha = float(lora_state_dict[lora_alpha_name])
+                else:
+                    file_lora_alpha = lora_alpha
+                
+                rank = lora_down.shape[0]
+                scaling_factor = file_lora_alpha / rank
+                
+                # Ensure tensors are in float32 for computation
+                lora_up = lora_up.to(torch.float32)
+                lora_down = lora_down.to(torch.float32)
+                
+                # Compute delta weights
+                delta_W = scaling_factor * torch.matmul(lora_up, lora_down)
+                
+                # Apply to model parameter (ensure same device and dtype)
+                delta_W = delta_W.to(device=value.device, dtype=value.dtype)
+                value.data = value.data + delta_W
+                
+        return model
 
     def load_model(self, file_path, model_names=None, device=None, torch_dtype=None):
         print(f"Loading models from: {file_path}")

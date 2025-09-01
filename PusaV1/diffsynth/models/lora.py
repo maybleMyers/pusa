@@ -204,25 +204,39 @@ class GeneralLoRAFromPeft:
     
     def get_name_dict(self, lora_state_dict):
         lora_name_dict = {}
+
+        # PEFT style
         for key in lora_state_dict:
-            if ".lora_B." not in key:
-                continue
-            keys = key.split(".")
-            if len(keys) > keys.index("lora_B") + 2:
-                keys.pop(keys.index("lora_B") + 1)
-            keys.pop(keys.index("lora_B"))
-            if keys[0] == "diffusion_model":
-                keys.pop(0)
-            target_name = ".".join(keys)
-            lora_name_dict[target_name] = (key, key.replace(".lora_B.", ".lora_A."))
+            if ".lora_B." in key:
+                keys = key.split(".")
+                if len(keys) > keys.index("lora_B") + 2:
+                    keys.pop(keys.index("lora_B") + 1)
+                keys.pop(keys.index("lora_B"))
+                if keys[0] == "diffusion_model":
+                    keys.pop(0)
+                target_name = ".".join(keys)
+                lora_name_dict[target_name] = (key, key.replace(".lora_B.", ".lora_A."))
+        if len(lora_name_dict) > 0:
+            return lora_name_dict
+
+        # diffusers style
+        for key in lora_state_dict:
+            if key.endswith(".lora_up.weight"):
+                lora_down_key = key.replace(".lora_up.", ".lora_down.")
+                if lora_down_key in lora_state_dict:
+                    target_name = key.replace(".lora_up.weight", ".weight")
+                    lora_name_dict[target_name] = (key, lora_down_key)
+        
         return lora_name_dict
     
     
     def match(self, model: torch.nn.Module, state_dict_lora):
         lora_name_dict = self.get_name_dict(state_dict_lora)
+        if not lora_name_dict:
+            return None
         model_name_dict = {name: None for name, _ in model.named_parameters()}
         matched_num = sum([i in model_name_dict for i in lora_name_dict])
-        if matched_num == len(lora_name_dict):
+        if matched_num > 0 and matched_num == len(lora_name_dict):
             return "", ""
         else:
             return None

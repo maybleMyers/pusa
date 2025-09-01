@@ -52,6 +52,7 @@ class FlowMatchSchedulerPusaV2V():
                 sigma_ = self.sigmas[timestep_id + 1]
             prev_sample = sample + model_output * (sigma_ - sigma)
         else:
+            timestep_full = timestep.clone()
             timestep = torch.ones_like(timestep) * timestep.max()
             timestep_id = torch.argmin((self.timesteps.unsqueeze(1) - timestep).abs(), dim=0)
             sigma = self.sigmas[timestep_id].unsqueeze(0).unsqueeze(1).unsqueeze(3).unsqueeze(4).to(sample.device)
@@ -70,15 +71,21 @@ class FlowMatchSchedulerPusaV2V():
                 
             if cond_frame_latent_indices is not None and noise_multipliers is not None:
                 for latent_idx in cond_frame_latent_indices:
+                    if timestep_full[:,latent_idx] == 0:
+                        sigma[:,:,latent_idx] = 0
+                        sigma_[latent_idx] = 0
+                        continue    
                     multiplier = noise_multipliers.get(latent_idx, 1.0)
                     sigma[:,:,latent_idx] = sigma[:,:,latent_idx] * multiplier # timestep = sigma * 1000, equivalent, so directly use multiplier here
                     sigma_[latent_idx] = sigma_[latent_idx] * multiplier 
 
             sigma_ = sigma_.unsqueeze(0).unsqueeze(1).unsqueeze(3).unsqueeze(4).to(sample.device)
 
-            if torch.any(timestep == 0):
+            if torch.any(timestep_full == 0):
                 zero_indices = torch.where(timestep == 0)[1].to(torch.long)
                 sigma[:,:,zero_indices] = 0
+                sigma_[:,:,zero_indices] = 0
+
             print("sigma", sigma[0,0,:,0,0], '\n', "sigma_", sigma_[0,0,:,0,0])
             
             prev_sample = sample + model_output * (sigma_ - sigma)
@@ -103,7 +110,7 @@ class FlowMatchSchedulerPusaV2V():
         return model_output
     
     
-    def add_noise(self, original_samples, noise, timestep):
+    def add_noise_for_conditioning_frames(self, original_samples, noise, timestep, noise_multiplier=None):
         if isinstance(timestep, torch.Tensor):
             self.timesteps = self.timesteps.to(timestep.device)
             self.sigmas = self.sigmas.to(timestep.device)
@@ -112,12 +119,29 @@ class FlowMatchSchedulerPusaV2V():
             sigma = self.sigmas[timestep_id]
         else:
             timestep_id = torch.argmin((self.timesteps.unsqueeze(1) - timestep).abs(), dim=0)
-            sigma = self.sigmas[timestep_id].unsqueeze(0).unsqueeze(1).unsqueeze(3).unsqueeze(4).to(original_samples.device)
+            sigma = self.sigmas[timestep_id].unsqueeze(0).unsqueeze(1).unsqueeze(3).unsqueeze(4).to(original_samples.device)            
+            sigma= sigma * noise_multiplier # timestep = sigma * 1000, equivalent, so directly use multiplier here
+        
         sample = (1 - sigma) * original_samples + sigma * noise
+
+        print("add noise sigma:", sigma,"noise_multiplier:", noise_multiplier, "timestep:", timestep)
 
         return sample
     
-    
+    def add_noise(self, original_samples, noise, timestep):
+        if isinstance(timestep, torch.Tensor):
+            self.timesteps = self.timesteps.to(timestep.device)
+            self.sigmas = self.sigmas.to(timestep.device)
+        if len(timestep.shape) == 1:
+            timestep_id = torch.argmin((self.timesteps - timestep).abs())
+            sigma = self.sigmas[timestep_id]
+        else:
+            timestep_id = torch.argmin((self.timesteps.unsqueeze(-1).unsqueeze(-1) - timestep.unsqueeze(0)).abs(), dim=0)
+            timestep_id = timestep_id.squeeze(0)
+            sigma = self.sigmas[timestep_id].unsqueeze(1).unsqueeze(3).unsqueeze(4).to(original_samples.device)
+        sample = (1 - sigma) * original_samples + sigma * noise
+        
+        return sample
 
     def training_target(self, sample, noise, timestep):
         target = noise - sample
