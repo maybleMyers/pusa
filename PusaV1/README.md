@@ -402,7 +402,7 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_multi_frames_pusa.py 
   <tr>
     <td align="center" style="padding: 8px;">
       <strong>noise: 0.2, high_lora_alpha 1.5</strong><br>
-      <video src="https://github.com/user-attachments/assets/f940d8b8-755a-49fe-99b8-97029fe0e12c" width="100%" controls loop></video>
+      <video src="https://github.com/user-attachments/assets/a7347b4c-7618-45aa-8049-f91d2492eb03" width="100%" controls loop></video>
     </td>
     <td align="center" style="padding: 8px;">
       <strong>noise: 0.2, high_lora_alpha 1.5</strong><br>
