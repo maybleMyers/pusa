@@ -216,11 +216,11 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_multi_frames_pusa.py 
   <tr>
     <td align="center" style="padding: 8px;">
       <strong>noise: [0.2, 0.5], high_lora_alpha 1.5</strong><br>
-      <video src="https://github.com/user-attachments/assets/f5c5f8a7-49e6-4626-80d9-9f2ea9d617f0" width="100%" controls loop></video>
+      <video src="https://github.com/user-attachments/assets/cabc0680-988f-4cf6-9413-e5483a93169c" width="100%" controls loop></video>
     </td>
     <td align="center" style="padding: 8px;">
       <strong>noise: [0.0, 0.4], high_lora_alpha 1.5</strong><br>
-      <video src="https://github.com/user-attachments/assets/09161d45-0893-4994-93f6-7b369f18ed7f" width="100%" controls loop></video>
+      <video src="https://github.com/user-attachments/assets/9f58f029-0337-4608-87dd-4a1dff7da336" width="100%" controls loop></video>
     </td>
   </tr>
 </table>
