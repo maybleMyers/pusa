@@ -386,6 +386,26 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_multi_frames_pusa.py 
   --lightx2v
 ```
 
+<table border="0" style="width: 100%; text-align: left; margin-top: 20px;">
+  <tr>
+    <td>
+      <video src="https://github.com/user-attachments/assets/5e0aedfa-d177-44cf-b707-ffd970952d33" width="100%" controls loop></video>
+    </td>
+    <td>
+      <video src="https://github.com/user-attachments/assets/a7347b4c-7618-45aa-8049-f91d2492eb03" width="100%" controls loop></video>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <video src="https://github.com/user-attachments/assets/27f51555-6298-4daf-8ccc-4afae4ce9eb5" width="100%" controls loop></video>
+    </td>
+    <td>
+      <video src="https://github.com/user-attachments/assets/2eb2c158-fea7-4a7b-b5ee-239cea33ee01" width="100%" controls loop></video>
+    </td>
+  </tr>
+</table>
+
+
 **Example 2: Wan2.2 Video Extension with LightX2V**
 
 ```shell
