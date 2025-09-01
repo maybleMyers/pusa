@@ -15,7 +15,7 @@
 
 ## **🔥🔥🔥🚀 New: Wan2.2 Support & LightX2V Acceleration🚀🔥🔥🔥**
 - **MoE DiT Architecture**: Now supporting Wan2.2 models with separate high-noise and low-noise DiT models for enhanced quality
-- **⚡ LightX2V Integration**: Achieve 4-step inference with lightning-fast generation while maintaining quality
+- **⚡ [LightX2V](https://github.com/ModelTC/LightX2V) Integration**: Achieve 4-step inference with lightning-fast generation while maintaining quality
 - **Unified Framework**: Compatible with both Wan2.1 and Wan2.2 architectures
 We are excited to release **Pusa V1.0**, a groundbreaking paradigm that leverages **vectorized timestep adaptation (VTA)** to enable fine-grained temporal control within a unified video diffusion framework. By finetuning the SOTA **Wan-T2V-14B** model with VTA, Pusa V1.0 achieves unprecedented efficiency, **surpassing Wan-I2V on Vbench-I2V with only $500 of training cost and 4k data**. 
 
