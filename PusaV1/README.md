@@ -43,7 +43,7 @@ The codebase has been integrated into the `PusaV1` directory, based on `DiffSynt
 - [🚀 Usage Examples](#usage-examples)
   - [Wan2.1 Models](#wan21-models)
   - [Wan2.2 w/ ⚡ LightX2V Acceleration](#wan22-w--lightx2v-acceleration)
-  - [Wan2.2 Models w/o LightX2V](#wan22-models-wo-lightx2v)
+  - [Wan2.2 w/o LightX2V](#wan22-wo-lightx2v)
 - [🏋️ Training](#training)
   - [Prepare Dataset](#prepare-dataset)
   - [Training Process](#training-1)
@@ -436,7 +436,7 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_text_to_video_pusa.py
 
 
 
-### Wan2.2 Models w/o LightX2V
+### Wan2.2 w/o LightX2V
 
 The Wan2.2 models feature a MoE DiT architecture with separate high-noise and low-noise models, providing enhanced quality and control over the generation process.
 
