@@ -371,15 +371,14 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_v2v_pusa.py \
   <tr>
     <td align="center" style="padding: 8px;">
       <strong>noise: [0.0, 0.3, 0.5, 0.7], high_lora_alpha 1.5</strong><br>
-      <video src="https://github.com/user-attachments/assets/2eb2c158-fea7-4a7b-b5ee-239cea33ee01" width="100%" controls loop></video>
+      <video src="https://github.com/user-attachments/assets/1ee51dc5-4fb0-4fd7-806f-946a1d749dce" width="100%" controls loop></video>
     </td>
     <td align="center" style="padding: 8px;">
       <strong>noise: [0.2, 0.4, 0.4, 0.4], high_lora_alpha 1.4</strong><br>
-      <video src="https://github.com/user-attachments/assets/5e0aedfa-d177-44cf-b707-ffd970952d33" width="100%" controls loop></video>
+      <video src="https://github.com/user-attachments/assets/09161d45-0893-4994-93f6-7b369f18ed7f" width="100%" controls loop></video>
     </td>
   </tr>
 </table>
-
 
 **Example 3: Wan2.2 Start-End Frames with LightX2V**
 
