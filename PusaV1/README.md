@@ -424,7 +424,7 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_multi_frames_pusa.py 
 
 ```shell
 CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_text_to_video_pusa.py \
-  --prompt "A person is enjoying a meal of spaghetti with a fork in a cozy, dimly lit Italian restaurant..." \
+  --prompt "A person is enjoying a meal of spaghetti with a fork in a cozy, dimly lit Italian restaurant. The person has warm, friendly features and is dressed casually but stylishly in jeans and a colorful sweater. They are sitting at a small, round table, leaning slightly forward as they eat with enthusiasm. The spaghetti is piled high on their plate, with some strands hanging over the edge. The background shows soft lighting from nearby candles and a few other diners in the corner, creating a warm and inviting atmosphere. The scene captures a close-up view of the person’s face and hands as they take a bite of spaghetti, with subtle movements of their mouth and fork. The overall style is realistic with a touch of warmth and authenticity, reflecting the comfort of a genuine dining experience." \
   --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
   --high_lora_alpha 1.5 \
   --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
@@ -494,7 +494,7 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_v2v_pusa.py \
 
 ```shell
 CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_text_to_video_pusa.py \
-  --prompt "A person is enjoying a meal of spaghetti with a fork in a cozy, dimly lit Italian restaurant..." \
+  --prompt "A person is enjoying a meal of spaghetti with a fork in a cozy, dimly lit Italian restaurant. The person has warm, friendly features and is dressed casually but stylishly in jeans and a colorful sweater. They are sitting at a small, round table, leaning slightly forward as they eat with enthusiasm. The spaghetti is piled high on their plate, with some strands hanging over the edge. The background shows soft lighting from nearby candles and a few other diners in the corner, creating a warm and inviting atmosphere. The scene captures a close-up view of the person’s face and hands as they take a bite of spaghetti, with subtle movements of their mouth and fork. The overall style is realistic with a touch of warmth and authenticity, reflecting the comfort of a genuine dining experience." \
   --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
   --high_lora_alpha 1.5 \
   --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
