@@ -13,7 +13,7 @@
     <a href="https://www.xiaohongshu.com/discovery/item/67f898dc000000001c008339"><img alt="Xiaohongshu" src="https://img.shields.io/badge/📕-Xiaohongshu-FF2442"></a>
 </p>
 
-**🆕 NEW: Wan2.2 Support & LightX2V Acceleration**
+**🔥🔥🔥🚀 New 🚀🔥🔥🔥: Wan2.2 Support & LightX2V Acceleration**
 - **MoE DiT Architecture**: Now supporting Wan2.2 models with separate high-noise and low-noise DiT models for enhanced quality
 - **⚡ LightX2V Integration**: Achieve 4-step inference with lightning-fast generation while maintaining quality
 - **Unified Framework**: Compatible with both Wan2.1 and Wan2.2 architectures
@@ -27,7 +27,7 @@ We are excited to release **Pusa V1.0**, a groundbreaking paradigm that leverage
 - **🏗️ MoE DiT Support**: Wan2.2 architecture with separate high/low noise models
 
 
-## 🔥🔥🔥🚀 Announcing Pusa V1.0 🚀🔥🔥🔥
+## 🔥 Intro 
 
 The codebase has been integrated into the `PusaV1` directory, based on `DiffSynth-Studio`. Pusa V1.0 not only sets a new standard for image-to-video generation but also unlocks many other zero-shot multi-task capabilities such as start-end frames and video extension, all without task-specific training while preserving the base model's T2V capabilities.
 
@@ -37,8 +37,8 @@ The codebase has been integrated into the `PusaV1` directory, based on `DiffSynt
   
 ## 📑 Table of Contents
 
-- [🔥 Announcing Pusa V1.0](#-announcing-pusa-v10-)
 - [✨ Highlights](#sparkles-highlights)
+- [🔥 Intro](#-announcing-pusa-v10-)
 - [🛠️ Installation](#installation)
 - [📦 Model Preparation](#model-preparation)
 - [🎬 Gradio Demo (Work in Progress)](#-gradio-demo-work-in-progress)
