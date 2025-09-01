@@ -408,7 +408,6 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_multi_frames_pusa.py 
     </td>
   </tr>
 </table>
-https://github.com/user-attachments/assets/85a36320-1264-452c-affd-8f794a793dbc
 
 **Example 4: Wan2.2 Text-to-Video with LightX2V**
 
@@ -423,7 +422,13 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_text_to_video_pusa.py
   --cfg_scale 1 \
   --lightx2v
 ```
-
+<table border="0" style="width: 100%; text-align: center; margin-top: 20px;">
+  <tr>
+    <td align="center" style="padding: 8px;">
+      <video src="https://github.com/user-attachments/assets/9ace1ba4-61ac-4ecd-878d-4ba394c9f1c8" width="100%" controls loop></video>
+    </td>
+  </tr>
+</table>
 
 ### Wan2.2 w/o LightX2V
 
