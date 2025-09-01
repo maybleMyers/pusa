@@ -6,26 +6,33 @@
 <p align="center">
     <a href="https://yaofang-liu.github.io/Pusa_Web/"><img alt="Project Page" src="https://img.shields.io/badge/Project-Page-blue?style=for-the-badge"></a>
     <a href="https://arxiv.org/abs/2507.16116"><img alt="Technical Report" src="https://img.shields.io/badge/Technical_Report-📜-B31B1B?style=for-the-badge"></a>
-    <a href="https://huggingface.co/RaphaelLiu/PusaV1"><img alt="Model" src="https://img.shields.io/badge/Pusa_V1.0-Model-FFD700?style=for-the-badge&logo=huggingface"></a>
-    <a href="https://huggingface.co/RaphaelLiu/Pusa-Wan2.2-V1"><img alt="Wan2.2 Model" src="https://img.shields.io/badge/Pusa_Wan2.2-Model-FF6B35?style=for-the-badge&logo=huggingface"></a>
-    <a href="https://huggingface.co/datasets/RaphaelLiu/PusaV1_training"><img alt="Dataset" src="https://img.shields.io/badge/Pusa_V1.0-Dataset-6495ED?style=for-the-badge&logo=huggingface"></a>
+    <a href="https://huggingface.co/RaphaelLiu/Pusa-Wan2.2-V1"><img alt="Model" src="https://img.shields.io/badge/Pusa_V1.0_Wan2.2-Model-FFD700?style=for-the-badge&logo=huggingface"></a>
+    <a href="https://huggingface.co/RaphaelLiu/PusaV1"><img alt="Model" src="https://img.shields.io/badge/Pusa_V1.0_Wan2.1-Model-FFD700?style=for-the-badge&logo=huggingface"></a>
 </p>
 <p align="center">
+    <a href="https://huggingface.co/datasets/RaphaelLiu/PusaV1_training"><img alt="Dataset" src="https://img.shields.io/badge/Pusa_V1.0-Dataset-6495ED"></a>
     <a href="https://github.com/Yaofang-Liu/Mochi-Full-Finetuner"><img alt="Code" src="https://img.shields.io/badge/Code-Training%20Scripts-32CD32?logo=github"></a>
     <a href="https://arxiv.org/abs/2410.03160"><img alt="Paper" src="https://img.shields.io/badge/📜-FVDM%20Paper-B31B1B?logo=arxiv"></a>
     <a href="https://x.com/stephenajason"><img alt="Twitter" src="https://img.shields.io/badge/🐦-Twitter-1DA1F2?logo=twitter"></a>
-    <a href="https://www.xiaohongshu.com/user/profile/5c6f928f0000000010015ca1?xsec_token=YBEf_x-s5bOBQIMJuNQvJ6H23Anwey1nnDgC9wiLyDHPU=&xsec_source=app_share&xhsshare=CopyLink&appuid=5c6f928f0000000010015ca1&apptime=1752622393&share_id=60f9a8041f974cb7ac5e3f0f161bf748"><img alt="Xiaohongshu" src="https://img.shields.io/badge/📕-Xiaohongshu-FF2442"></a>
+    <a href="https://www.xiaohongshu.com/discovery/item/67f898dc000000001c008339"><img alt="Xiaohongshu" src="https://img.shields.io/badge/📕-Xiaohongshu-FF2442"></a>
 </p>
 
 
-## 🔥🔥🔥🚀 Announcing Pusa V1.0 🚀🔥🔥🔥
+## **🔥🔥🔥🚀 New: Wan2.2 Support & LightX2V Acceleration🚀🔥🔥🔥**
+- **MoE DiT Architecture**: Now supporting Wan2.2 models with separate high-noise and low-noise DiT models for enhanced quality
+- **⚡ [LightX2V](https://github.com/ModelTC/LightX2V) Integration**: Achieve 4-step inference with lightning-fast generation while maintaining quality
+- **Unified Framework**: Compatible with both Wan2.1 and Wan2.2 architectures
+We are excited to release **Pusa V1.0**, a groundbreaking paradigm that leverages **vectorized timestep adaptation (VTA)** to enable fine-grained temporal control within a unified video diffusion framework. By finetuning the SOTA **Wan-T2V-14B** model with VTA, Pusa V1.0 achieves unprecedented efficiency, **surpassing Wan-I2V on Vbench-I2V with only $500 of training cost and 4k data**. 
+
+
+## :sparkles: Highlights
+- **[ComfyUI](https://huggingface.co/Kijai/WanVideo_comfy/tree/main/Pusa)**, supported by [Kijai](https://github.com/kijai), thanks a lot! 
+- **[WAN2.2-14B-Rapid-AllInOne](https://huggingface.co/Phr00t/WAN2.2-14B-Rapid-AllInOne)**, big salute to [Phr00t](https://huggingface.co/Phr00t)!
+
+## 🔥 Intro 
 
 We are excited to release **Pusa V1.0**, a groundbreaking paradigm that leverages **vectorized timestep adaptation (VTA)** to enable fine-grained temporal control within a unified video diffusion framework. By finetuning the SOTA **Wan-T2V-14B** model with VTA, Pusa V1.0 achieves unprecedented efficiency --**surpassing the performance of Wan-I2V-14B with ≤ 1/200 of the training cost ($500 vs. ≥ $100,000)** and **≤ 1/2500 of the dataset size (4K vs. ≥ 10M samples)**. 
 
-**🆕 NEW: Wan2.2 & LightX2V Acceleration**
-- **🏗️ MoE DiT Architecture**: Pusa now supports Wan2.2 models with separate high-noise and low-noise DiT components for enhanced quality
-- **⚡ LightX2V Integration**: Ultra-fast 4-step inference with lightning acceleration while maintaining generation quality
-- **🎯 Model Release**: [Pusa-Wan2.2-V1](https://huggingface.co/RaphaelLiu/Pusa-Wan2.2-V1) now available on Hugging Face
 
 The codebase has been integrated into the `PusaV1` directory, based on `DiffSynth-Studio`.
 
@@ -438,6 +445,7 @@ If you use this work in your project, please cite the following references.
   year={2024}
 }
 ```
+
 
 
 
