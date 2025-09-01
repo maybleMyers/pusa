@@ -281,18 +281,6 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan_14b_v2v_pusa.py \
       <sub>noise: [0.3, 0.4, 0.5, 0.6]</sub>
     </td>
   </tr>
-  <tr>
-    <td align="center">
-      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/assets/v2v_input_video_cond_0_1_2_3_noise_0p0_0p3_0p4_0p5.gif?raw=true" width="500"/>
-      <br>
-      <sub>noise: [0.0, 0.3, 0.4, 0.5]</sub>
-    </td>
-    <td align="center">
-      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/assets/v2v_input_video_cond_0_1_2_3_noise_0p0_0p0_0p5_0p7.gif?raw=true" width="500"/>
-      <br>
-      <sub>noise: [0.0, 0.0, 0.5, 0.7]</sub>
-    </td>
-  </tr>
 </table>
 
 ### Text-to-Video Generation
