@@ -367,7 +367,68 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan_14b_text_to_video_pusa.py \
   <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/assets/t2v_output.gif?raw=true" width="500" autoplay loop muted controls></img>
 </div>
 
-### Wan2.2 Models with MoE DiT Architecture
+### Wan2.2 w/ ⚡ LightX2V Acceleration 
+
+LightX2V provides ultra-fast 4-step inference while maintaining generation quality. Compatible with both Wan2.1 and Wan2.2 models.
+
+**Key Parameters for LightX2V:**
+- `--lightx2v`: Enable LightX2V acceleration
+- `--cfg_scale 1`: **Critical** - must be set to 1 for LightX2V
+- `--num_inference_steps 4`: Use 4 steps instead of 30
+- `--lora_alpha 1.5`: Recommended value for LightX2V (larger alpha = smaller motion)
+
+**Example 1: Wan2.2 Image-to-Video with LightX2V**
+
+```shell
+CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_multi_frames_pusa.py \
+  --image_paths "./demos/input_image.jpg" \
+  --prompt "A wide-angle shot shows a serene monk meditating perched a top of the letter E of a pile of weathered rocks that vertically spell out 'ZEN'. The rock formation is perched atop a misty mountain peak at sunrise. The warm light bathes the monk in a gentle glow, highlighting the folds of his saffron robes. The sky behind him is a soft gradient of pink and orange, creating a tranquil backdrop. The camera slowly zooms in, capturing the monk's peaceful expression and the intricate details of the rocks. The scene is bathed in a soft, ethereal light, emphasizing the spiritual atmosphere." \
+  --cond_position "0" \
+  --noise_multipliers "0" \
+  --num_inference_steps 4 \
+  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
+  --high_lora_alpha 1.5 \
+  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
+  --low_lora_alpha 1.4 \
+  --cfg_scale 1 \
+  --lightx2v
+```
+
+**Example 2: Wan2.2 Start-End Frames with LightX2V**
+
+```shell
+CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_multi_frames_pusa.py \
+  --image_paths "./demos/start_frame.jpg" "./demos/end_frame.jpg" \
+  --prompt "plastic injection machine opens releasing a soft inflatable foamy morphing sticky figure over a hand. isometric. low light. dramatic light. macro shot. real footage" \
+  --cond_position "0,20" \
+  --noise_multipliers "0.2,0.5" \
+  --num_inference_steps 4 \
+  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
+  --high_lora_alpha 1.5 \
+  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
+  --low_lora_alpha 1.4 \
+  --cfg_scale 1 \
+  --lightx2v
+```
+
+**Example 3: Wan2.2 Video-to-Video with LightX2V**
+
+```shell
+CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_v2v_pusa.py \
+  --video_path "./demos/input_video.mp4" \
+  --prompt "piggy bank surfing a tube in teahupo'o wave dusk light cinematic shot shot in 35mm film" \
+  --cond_position "0,1,2,3" \
+  --noise_multipliers "0.2,0.4,0.4,0.4" \
+  --num_inference_steps 4 \
+  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
+  --high_lora_alpha 1.5 \
+  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
+  --low_lora_alpha 1.4 \
+  --cfg_scale 1 \
+  --lightx2v
+```
+
+### Wan2.2 Models w/o LightX2V
 
 The Wan2.2 models feature a MoE DiT architecture with separate high-noise and low-noise models, providing enhanced quality and control over the generation process.
 
@@ -434,66 +495,7 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_text_to_video_pusa.py
   --cfg_scale 3.0
 ```
 
-### ⚡ LightX2V Acceleration
 
-LightX2V provides ultra-fast 4-step inference while maintaining generation quality. Compatible with both Wan2.1 and Wan2.2 models.
-
-**Key Parameters for LightX2V:**
-- `--lightx2v`: Enable LightX2V acceleration
-- `--cfg_scale 1`: **Critical** - must be set to 1 for LightX2V
-- `--num_inference_steps 4`: Use 4 steps instead of 30
-- `--lora_alpha 1.5`: Recommended value for LightX2V (larger alpha = smaller motion)
-
-**Example 1: Wan2.2 Image-to-Video with LightX2V**
-
-```shell
-CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_multi_frames_pusa.py \
-  --image_paths "./demos/input_image.jpg" \
-  --prompt "A wide-angle shot shows a serene monk meditating perched a top of the letter E of a pile of weathered rocks that vertically spell out 'ZEN'. The rock formation is perched atop a misty mountain peak at sunrise. The warm light bathes the monk in a gentle glow, highlighting the folds of his saffron robes. The sky behind him is a soft gradient of pink and orange, creating a tranquil backdrop. The camera slowly zooms in, capturing the monk's peaceful expression and the intricate details of the rocks. The scene is bathed in a soft, ethereal light, emphasizing the spiritual atmosphere." \
-  --cond_position "0" \
-  --noise_multipliers "0" \
-  --num_inference_steps 4 \
-  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
-  --high_lora_alpha 1.5 \
-  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
-  --low_lora_alpha 1.4 \
-  --cfg_scale 1 \
-  --lightx2v
-```
-
-**Example 2: Wan2.2 Start-End Frames with LightX2V**
-
-```shell
-CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_multi_frames_pusa.py \
-  --image_paths "./demos/start_frame.jpg" "./demos/end_frame.jpg" \
-  --prompt "plastic injection machine opens releasing a soft inflatable foamy morphing sticky figure over a hand. isometric. low light. dramatic light. macro shot. real footage" \
-  --cond_position "0,20" \
-  --noise_multipliers "0.2,0.5" \
-  --num_inference_steps 4 \
-  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
-  --high_lora_alpha 1.5 \
-  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
-  --low_lora_alpha 1.4 \
-  --cfg_scale 1 \
-  --lightx2v
-```
-
-**Example 3: Wan2.2 Video-to-Video with LightX2V**
-
-```shell
-CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_v2v_pusa.py \
-  --video_path "./demos/input_video.mp4" \
-  --prompt "piggy bank surfing a tube in teahupo'o wave dusk light cinematic shot shot in 35mm film" \
-  --cond_position "0,1,2,3" \
-  --noise_multipliers "0.2,0.4,0.4,0.4" \
-  --num_inference_steps 4 \
-  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
-  --high_lora_alpha 1.5 \
-  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
-  --low_lora_alpha 1.4 \
-  --cfg_scale 1 \
-  --lightx2v
-```
 
 
 ## Training
