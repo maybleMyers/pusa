@@ -13,6 +13,28 @@
     <a href="https://www.xiaohongshu.com/discovery/item/67f898dc000000001c008339"><img alt="Xiaohongshu" src="https://img.shields.io/badge/📕-Xiaohongshu-FF2442"></a>
 </p>
 
+**🆕 NEW: Wan2.2 Support & LightX2V Acceleration**
+- **MoE DiT Architecture**: Now supporting Wan2.2 models with separate high-noise and low-noise DiT models for enhanced quality
+- **⚡ LightX2V Integration**: Achieve 4-step inference with lightning-fast generation while maintaining quality
+- **Unified Framework**: Compatible with both Wan2.1 and Wan2.2 architectures
+We are excited to release **Pusa V1.0**, a groundbreaking paradigm that leverages **vectorized timestep adaptation (VTA)** to enable fine-grained temporal control within a unified video diffusion framework. By finetuning the SOTA **Wan-T2V-14B** model with VTA, Pusa V1.0 achieves unprecedented efficiency, **surpassing Wan-I2V on Vbench-I2V with only $500 of training cost and 4k data**. 
+
+
+## :sparkles: Highlights
+- [ComfyUI](https://huggingface.co/Kijai/WanVideo_comfy/tree/main/Pusa), supported by [Kijai](https://github.com/kijai), thanks a lot! 
+- [WAN2.2-14B-Rapid-AllInOne](https://huggingface.co/Phr00t/WAN2.2-14B-Rapid-AllInOne), big salute to [Phr00t](https://huggingface.co/Phr00t)!
+- **⚡ LightX2V Acceleration**: Ultra-fast 4-step inference with maintained quality
+- **🏗️ MoE DiT Support**: Wan2.2 architecture with separate high/low noise models
+
+
+## 🔥🔥🔥🚀 Announcing Pusa V1.0 🚀🔥🔥🔥
+
+The codebase has been integrated into the `PusaV1` directory, based on `DiffSynth-Studio`. Pusa V1.0 not only sets a new standard for image-to-video generation but also unlocks many other zero-shot multi-task capabilities such as start-end frames and video extension, all without task-specific training while preserving the base model's T2V capabilities.
+
+**Important Note!!!**  
+**Our method also works for Full Finetuning with extremely low cost (see [Pusa V0.5](https://github.com/Yaofang-Liu/Mochi-Full-Finetuner), only $100 full finetuing cost). The model gains mainly come from our method, not Lora. Lora is insignificant here.**. We use Lora only because, Wan2.1 full finetuing need too many GPUs (at least 32x80G GPUs, yet we only have 24), so that we choose Lora with very large rank to approximate full finetuing. Why 512 rank is just because  its the largest rank that can train with 8x80G GPUs (768 would cause OOM). Besides, we also did full finetuning to the base model with 81 frames in 480p data or 65 frames in 720p data with less GPUs, our method also works. **We suggest more to try full finetuing with our method if you have the resources. We believe the performance could be further imporved!**
+
+  
 ## 📑 Table of Contents
 
 - [🔥 Announcing Pusa V1.0](#-announcing-pusa-v10-)
@@ -36,26 +58,6 @@
 
 ---
 
-## 🔥🔥🔥🚀 Announcing Pusa V1.0 🚀🔥🔥🔥
-
-We are excited to release **Pusa V1.0**, a groundbreaking paradigm that leverages **vectorized timestep adaptation (VTA)** to enable fine-grained temporal control within a unified video diffusion framework. By finetuning the SOTA **Wan-T2V-14B** model with VTA, Pusa V1.0 achieves unprecedented efficiency, **surpassing Wan-I2V on Vbench-I2V with only $500 of training cost and 4k data**. 
-
-**🆕 NEW: Wan2.2 Support & LightX2V Acceleration**
-- **MoE DiT Architecture**: Now supporting Wan2.2 models with separate high-noise and low-noise DiT models for enhanced quality
-- **⚡ LightX2V Integration**: Achieve 4-step inference with lightning-fast generation while maintaining quality
-- **Unified Framework**: Compatible with both Wan2.1 and Wan2.2 architectures
-
-The codebase has been integrated into the `PusaV1` directory, based on `DiffSynth-Studio`. Pusa V1.0 not only sets a new standard for image-to-video generation but also unlocks many other zero-shot multi-task capabilities such as start-end frames and video extension, all without task-specific training while preserving the base model's T2V capabilities.
-
-**Important Note!!!**  
-**Our method also works for Full Finetuning with extremely low cost (see [Pusa V0.5](https://github.com/Yaofang-Liu/Mochi-Full-Finetuner), only $100 full finetuing cost). The model gains mainly come from our method, not Lora. Lora is insignificant here.**. We use Lora only because, Wan2.1 full finetuing need too many GPUs (at least 32x80G GPUs, yet we only have 24), so that we choose Lora with very large rank to approximate full finetuing. Why 512 rank is just because  its the largest rank that can train with 8x80G GPUs (768 would cause OOM). Besides, we also did full finetuning to the base model with 81 frames in 480p data or 65 frames in 720p data with less GPUs, our method also works. **We suggest more to try full finetuing with our method if you have the resources. We believe the performance could be further imporved!**
-
-## :sparkles: Highlights
-- [ComfyUI](https://huggingface.co/Kijai/WanVideo_comfy/tree/main/Pusa), supported by [Kijai](https://github.com/kijai), thanks a lot! 
-- [WAN2.2-14B-Rapid-AllInOne](https://huggingface.co/Phr00t/WAN2.2-14B-Rapid-AllInOne), big salute to [Phr00t](https://huggingface.co/Phr00t)!
-- **⚡ LightX2V Acceleration**: Ultra-fast 4-step inference with maintained quality
-- **🏗️ MoE DiT Support**: Wan2.2 architecture with separate high/low noise models
-  
 ## Installation
 
 Before using this model, you may follow the code below to setup the environment, Cuda 12.4 recommended.
