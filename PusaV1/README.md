@@ -408,26 +408,22 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_multi_frames_pusa.py 
 <table border="0" style="width: 100%; text-align: center; margin-top: 20px;">
   <tr>
     <td align="center" style="padding: 8px;">
+      <strong>Scene&nbsp;1&nbsp;|&nbsp;Daytime&nbsp;|&nbsp;4K</strong><br>
       <video src="https://github.com/user-attachments/assets/5e0aedfa-d177-44cf-b707-ffd970952d33" width="100%" controls loop></video>
-      <br>
-      <sub>Scene&nbsp;1&nbsp;|&nbsp;Daytime&nbsp;|&nbsp;4K</sub>
     </td>
     <td align="center" style="padding: 8px;">
+      <strong>Scene&nbsp;2&nbsp;|&nbsp;Sunset&nbsp;|&nbsp;4K</strong><br>
       <video src="https://github.com/user-attachments/assets/a7347b4c-7618-45aa-8049-f91d2492eb03" width="100%" controls loop></video>
-      <br>
-      <sub>Scene&nbsp;2&nbsp;|&nbsp;Sunset&nbsp;|&nbsp;4K</sub>
     </td>
   </tr>
   <tr>
     <td align="center" style="padding: 8px;">
+      <strong>Scene&nbsp;3&nbsp;|&nbsp;Night&nbsp;|&nbsp;4K</strong><br>
       <video src="https://github.com/user-attachments/assets/27f51555-6298-4daf-8ccc-4afae4ce9eb5" width="100%" controls loop></video>
-      <br>
-      <sub>Scene&nbsp;3&nbsp;|&nbsp;Night&nbsp;|&nbsp;4K</sub>
     </td>
     <td align="center" style="padding: 8px;">
+      <strong>Scene&nbsp;4&nbsp;|&nbsp;Dawn&nbsp;|&nbsp;4K</strong><br>
       <video src="https://github.com/user-attachments/assets/2eb2c158-fea7-4a7b-b5ee-239cea33ee01" width="100%" controls loop></video>
-      <br>
-      <sub>Scene&nbsp;4&nbsp;|&nbsp;Dawn&nbsp;|&nbsp;4K</sub>
     </td>
   </tr>
 </table>
