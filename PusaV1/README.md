@@ -42,14 +42,8 @@ The codebase has been integrated into the `PusaV1` directory, based on `DiffSynt
 - [📦 Model Preparation](#model-preparation)
 - [🚀 Usage Examples](#usage-examples)
   - [Wan2.1 Models](#wan21-models)
-    - [Image(s) Conditioned Video Generation](#images-conditioned-video-generation)
-    - [Video-to-Video Generation](#video-to-video-generation)
-    - [Text-to-Video Generation](#text-to-video-generation)
   - [Wan2.2 w/ ⚡ LightX2V Acceleration](#wan22-w--lightx2v-acceleration)
   - [Wan2.2 Models w/o LightX2V](#wan22-models-wo-lightx2v)
-    - [Wan2.2 Image(s) Conditioned Video Generation](#wan22-images-conditioned-video-generation)
-    - [Wan2.2 Video-to-Video Generation](#wan22-video-to-video-generation)
-    - [Wan2.2 Text-to-Video Generation](#wan22-text-to-video-generation)
 - [🏋️ Training](#training)
   - [Prepare Dataset](#prepare-dataset)
   - [Training Process](#training-1)
@@ -392,7 +386,24 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_multi_frames_pusa.py 
   --lightx2v
 ```
 
-**Example 2: Wan2.2 Start-End Frames with LightX2V**
+**Example 2: Wan2.2 Video Extension with LightX2V**
+
+```shell
+CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_v2v_pusa.py \
+  --video_path "./demos/input_video.mp4" \
+  --prompt "piggy bank surfing a tube in teahupo'o wave dusk light cinematic shot shot in 35mm film" \
+  --cond_position "0,1,2,3" \
+  --noise_multipliers "0.2,0.4,0.4,0.4" \
+  --num_inference_steps 4 \
+  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
+  --high_lora_alpha 1.5 \
+  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
+  --low_lora_alpha 1.4 \
+  --cfg_scale 1 \
+  --lightx2v
+```
+
+**Example 3: Wan2.2 Start-End Frames with LightX2V**
 
 ```shell
 CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_multi_frames_pusa.py \
@@ -409,22 +420,21 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_multi_frames_pusa.py 
   --lightx2v
 ```
 
-**Example 3: Wan2.2 Video-to-Video with LightX2V**
+**Example 4: Wan2.2 Text-to-Video with LightX2V**
 
 ```shell
-CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_v2v_pusa.py \
-  --video_path "./demos/input_video.mp4" \
-  --prompt "piggy bank surfing a tube in teahupo'o wave dusk light cinematic shot shot in 35mm film" \
-  --cond_position "0,1,2,3" \
-  --noise_multipliers "0.2,0.4,0.4,0.4" \
-  --num_inference_steps 4 \
+CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_text_to_video_pusa.py \
+  --prompt "A person is enjoying a meal of spaghetti with a fork in a cozy, dimly lit Italian restaurant..." \
   --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
   --high_lora_alpha 1.5 \
   --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
   --low_lora_alpha 1.4 \
+  --num_inference_steps 4 \
   --cfg_scale 1 \
   --lightx2v
 ```
+
+
 
 ### Wan2.2 Models w/o LightX2V
 
