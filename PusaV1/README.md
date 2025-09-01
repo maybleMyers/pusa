@@ -191,14 +191,14 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan_14b_multi_frames_pusa.py \
 <table>
   <tr>
   <td align="center">
-      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/assets/multi_frame_output1_cond_0_noise_0p0_alpha_1p4.gif?raw=true" width="500"/>
       <br>
       <sub>noise: [0.0], alpha: 1.4</sub>
+      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/assets/multi_frame_output1_cond_0_noise_0p0_alpha_1p4.gif?raw=true" width="500"/>
     </td>
     <td align="center">
-      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/assets/multi_frame_output1_cond_0_noise_0p0_alpha_1p3.gif?raw=true" width="500"/>
       <br>
       <sub>noise: [0.0], alpha: 1.3</sub>
+      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/assets/multi_frame_output1_cond_0_noise_0p0_alpha_1p3.gif?raw=true" width="500"/>
     </td>
     
   </tr>
