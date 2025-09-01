@@ -102,7 +102,7 @@ The checkpoints should arrange like this to use the codes with default settings:
 All scripts save their output in an `outputs` directory, which will be created if it doesn't exist.
 
 
-!!! :sparkles: **Please note that we have two core unique parameters that differ from other methods. `--cond_position`** is Comma-separated list of frame indices for conditioning. You can use any position from 0 to 20. **`--noise_multipliers`** is "Comma-separated noise multipliers for conditioning frames. A value of 0 means the condition image is used as totally clean, higher value means add more noise. For I2V, you can use 0.2 or any from 0 to 1, add some noise like 0.2 noise to the condition frame is stronly suggested for Wan2.2 . For Start-End-Frame, you can use 0.2,0.4, or any from 0 to 1. **`--lora_alpha`** is another very important parameter. A bigger alpha would bring more temporal consistency (i.e., make generated frames more like conditioning part), but may also cause small motion or even collapse. We recommend using a value around 1.3-1.5 for Wan2.1 and 1.4-1.6 for Wan2.2. For **`--num_inference_steps`**, **10 steps** or more are recommended for standard inference, while **4 steps** are sufficient with [LightX2V](https://github.com/ModelTC/LightX2V) acceleration. **`--cfg_scale`** should be set to **1.0** when using LightX2V, and around **3.0** for standard inference.
+!!! :sparkles: **Please note that we have two core unique parameters that differ from other methods. `--cond_position`** is Comma-separated list of frame indices for conditioning. You can use any position from 0 to 20. **`--noise_multipliers`** is "Comma-separated noise multipliers for conditioning frames. A value of 0 means the condition image is used as totally clean, higher value means add more noise. For I2V, you can use 0.2 or any from 0 to 1, add some noise like 0.2 noise to the condition frame is stronly suggested for Wan2.2 . For Start-End-Frame, you can use 0.2,0.4, or any from 0 to 1. **`--lora_alpha`** is another very important parameter. A bigger alpha would bring more temporal consistency (i.e., make generated frames more like conditioning part), but may also cause small motion or even collapse. We recommend using a value around 1.3-1.5 for Wan2.1 and high_lora_alpha 1.4-1.6 & low_lora_alpha around 1.4 for Wan2.2. For **`--num_inference_steps`**, **10 steps** or more are recommended for standard inference, while **4 steps** are sufficient with [LightX2V](https://github.com/ModelTC/LightX2V) acceleration. **`--cfg_scale`** should be set to **1.0** when using LightX2V, and around **3.0** for standard inference.
 
 **⚡ LightX2V Acceleration Notes:**
 - Use `--lightx2v` flag to enable acceleration
@@ -307,7 +307,7 @@ LightX2V provides ultra-fast 4-step inference while maintaining generation quali
 - `--lightx2v`: Enable LightX2V acceleration
 - `--cfg_scale 1`: **Critical** - must be set to 1 for LightX2V
 - `--num_inference_steps 4`: Use 4 steps instead of 30
-- `--lora_alpha 1.5`: Recommended value for LightX2V (larger alpha = smaller motion)
+- `--high_lora_alpha 1.5, --low_lora_alpha 1.4`: Recommended value for LightX2V (larger alpha = smaller motion), besides, high_lora_alpha has bigger impact on the output
 
 **Example 1: Wan2.2 Image-to-Video with LightX2V**
 
@@ -367,6 +367,19 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_v2v_pusa.py \
   --cfg_scale 1 \
   --lightx2v
 ```
+<table border="0" style="width: 100%; text-align: center; margin-top: 20px;">
+  <tr>
+    <td align="center" style="padding: 8px;">
+      <strong>noise: [0.0, 0.3, 0.5, 0.7], high_lora_alpha 1.5</strong><br>
+      <video src="https://github.com/user-attachments/assets/2eb2c158-fea7-4a7b-b5ee-239cea33ee01" width="100%" controls loop></video>
+    </td>
+    <td align="center" style="padding: 8px;">
+      <strong>noise: [0.2, 0.4, 0.4, 0.4], high_lora_alpha 1.4</strong><br>
+      <video src="https://github.com/user-attachments/assets/5e0aedfa-d177-44cf-b707-ffd970952d33" width="100%" controls loop></video>
+    </td>
+  </tr>
+</table>
+
 
 **Example 3: Wan2.2 Start-End Frames with LightX2V**
 
