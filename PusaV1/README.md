@@ -13,7 +13,7 @@
     <a href="https://www.xiaohongshu.com/discovery/item/67f898dc000000001c008339"><img alt="Xiaohongshu" src="https://img.shields.io/badge/📕-Xiaohongshu-FF2442"></a>
 </p>
 
-**🔥🔥🔥🚀 New 🚀🔥🔥🔥: Wan2.2 Support & LightX2V Acceleration**
+## **🔥🔥🔥🚀 New 🚀🔥🔥🔥: Wan2.2 Support & LightX2V Acceleration**
 - **MoE DiT Architecture**: Now supporting Wan2.2 models with separate high-noise and low-noise DiT models for enhanced quality
 - **⚡ LightX2V Integration**: Achieve 4-step inference with lightning-fast generation while maintaining quality
 - **Unified Framework**: Compatible with both Wan2.1 and Wan2.2 architectures
