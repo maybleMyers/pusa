@@ -41,9 +41,9 @@ The codebase has been integrated into the `PusaV1` directory, based on `DiffSynt
 - [🛠️ Installation](#installation)
 - [📦 Model Preparation](#model-preparation)
 - [🚀 Usage Examples](#usage-examples)
-  - [Wan2.1 Models](#wan21-models)
   - [Wan2.2 w/ ⚡ LightX2V Acceleration](#wan22-w--lightx2v-acceleration)
   - [Wan2.2 w/o LightX2V](#wan22-wo-lightx2v)
+  - [Wan2.1 Models](#wan21-models)
 - [🏋️ Training](#training)
   - [Prepare Dataset](#prepare-dataset)
   - [Training Process](#training-1)
@@ -110,6 +110,204 @@ All scripts save their output in an `outputs` directory, which will be created i
 - Use `--num_inference_steps 4`
 
 **Try different configurations and you will get different results.** **Examples shown below are just for demonstration and not the best**
+
+### Wan2.2 w/ ⚡ LightX2V Acceleration 
+
+LightX2V provides ultra-fast 4-step inference while maintaining generation quality. Compatible with both Wan2.1 and Wan2.2 models.
+
+**Key Parameters for LightX2V:**
+- `--lightx2v`: Enable LightX2V acceleration
+- `--cfg_scale 1`: **Critical** - must be set to 1 for LightX2V
+- `--num_inference_steps 4`: Use 4 steps instead of 30
+- `--high_lora_alpha 1.5, --low_lora_alpha 1.4`: Recommended value for LightX2V (larger alpha = smaller motion), besides, high_lora_alpha has bigger impact on the output
+
+**Example 1: Wan2.2 Image-to-Video with LightX2V**
+
+```shell
+CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_multi_frames_pusa.py \
+  --image_paths "./demos/input_image.jpg" \
+  --prompt "A wide-angle shot shows a serene monk meditating perched a top of the letter E of a pile of weathered rocks that vertically spell out 'ZEN'. The rock formation is perched atop a misty mountain peak at sunrise. The warm light bathes the monk in a gentle glow, highlighting the folds of his saffron robes. The sky behind him is a soft gradient of pink and orange, creating a tranquil backdrop. The camera slowly zooms in, capturing the monk's peaceful expression and the intricate details of the rocks. The scene is bathed in a soft, ethereal light, emphasizing the spiritual atmosphere." \
+  --cond_position "0" \
+  --noise_multipliers "0" \
+  --num_inference_steps 4 \
+  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
+  --high_lora_alpha 1.5 \
+  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
+  --low_lora_alpha 1.4 \
+  --cfg_scale 1 \
+  --lightx2v
+```
+
+
+<table border="0" style="width: 100%; text-align: center; margin-top: 20px;">
+  <tr>
+    <td align="center" style="padding: 8px;">
+      <strong>noise: 0.2, high_lora_alpha 1.5</strong><br>
+      <video src="https://github.com/user-attachments/assets/2eb2c158-fea7-4a7b-b5ee-239cea33ee01" width="100%" controls loop></video>
+    </td>
+    <td align="center" style="padding: 8px;">
+      <strong>noise: 0.3, high_lora_alpha 1.4</strong><br>
+      <video src="https://github.com/user-attachments/assets/5e0aedfa-d177-44cf-b707-ffd970952d33" width="100%" controls loop></video>
+    </td>
+    
+  </tr>
+  <tr>
+    <td align="center" style="padding: 8px;">
+      <strong>noise: 0.2, high_lora_alpha 1.5</strong><br>
+      <video src="https://github.com/user-attachments/assets/a7347b4c-7618-45aa-8049-f91d2492eb03" width="100%" controls loop></video>
+    </td>
+    <td align="center" style="padding: 8px;">
+      <strong>noise: 0.2, high_lora_alpha 1.5</strong><br>
+      <video src="https://github.com/user-attachments/assets/27f51555-6298-4daf-8ccc-4afae4ce9eb5" width="100%" controls loop></video>
+    </td>
+  </tr>
+</table>
+
+**Example 2: Wan2.2 Video Extension with LightX2V**
+
+```shell
+CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_v2v_pusa.py \
+  --video_path "./demos/input_video.mp4" \
+  --prompt "piggy bank surfing a tube in teahupo'o wave dusk light cinematic shot shot in 35mm film" \
+  --cond_position "0,1,2,3" \
+  --noise_multipliers "0.2,0.4,0.4,0.4" \
+  --num_inference_steps 4 \
+  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
+  --high_lora_alpha 1.5 \
+  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
+  --low_lora_alpha 1.4 \
+  --cfg_scale 1 \
+  --lightx2v
+```
+<table border="0" style="width: 100%; text-align: center; margin-top: 20px;">
+  <tr>
+    <td align="center" style="padding: 8px;">
+      <strong>noise: [0.0, 0.3, 0.5, 0.7], high_lora_alpha 1.5</strong><br>
+      <video src="https://github.com/user-attachments/assets/1ee51dc5-4fb0-4fd7-806f-946a1d749dce" width="100%" controls loop></video>
+    </td>
+    <td align="center" style="padding: 8px;">
+      <strong>noise: [0.2, 0.4, 0.4, 0.4], high_lora_alpha 1.4</strong><br>
+      <video src="https://github.com/user-attachments/assets/09161d45-0893-4994-93f6-7b369f18ed7f" width="100%" controls loop></video>
+    </td>
+  </tr>
+</table>
+
+**Example 3: Wan2.2 Start-End Frames with LightX2V**
+
+```shell
+CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_multi_frames_pusa.py \
+  --image_paths "./demos/start_frame.jpg" "./demos/end_frame.jpg" \
+  --prompt "plastic injection machine opens releasing a soft inflatable foamy morphing sticky figure over a hand. isometric. low light. dramatic light. macro shot. real footage" \
+  --cond_position "0,20" \
+  --noise_multipliers "0.2,0.5" \
+  --num_inference_steps 4 \
+  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
+  --high_lora_alpha 1.5 \
+  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
+  --low_lora_alpha 1.4 \
+  --cfg_scale 1 \
+  --lightx2v
+```
+<table border="0" style="width: 100%; text-align: center; margin-top: 20px;">
+  <tr>
+    <td align="center" style="padding: 8px;">
+      <strong>noise: [0.2, 0.5], high_lora_alpha 1.5</strong><br>
+      <video src="https://github.com/user-attachments/assets/f5c5f8a7-49e6-4626-80d9-9f2ea9d617f0" width="100%" controls loop></video>
+    </td>
+    <td align="center" style="padding: 8px;">
+      <strong>noise: [0.0, 0.4], high_lora_alpha 1.5</strong><br>
+      <video src="https://github.com/user-attachments/assets/09161d45-0893-4994-93f6-7b369f18ed7f" width="100%" controls loop></video>
+    </td>
+  </tr>
+</table>
+
+**Example 4: Wan2.2 Text-to-Video with LightX2V**
+
+```shell
+CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_text_to_video_pusa.py \
+  --prompt "A person is enjoying a meal of spaghetti with a fork in a cozy, dimly lit Italian restaurant. The person has warm, friendly features and is dressed casually but stylishly in jeans and a colorful sweater. They are sitting at a small, round table, leaning slightly forward as they eat with enthusiasm. The spaghetti is piled high on their plate, with some strands hanging over the edge. The background shows soft lighting from nearby candles and a few other diners in the corner, creating a warm and inviting atmosphere. The scene captures a close-up view of the person’s face and hands as they take a bite of spaghetti, with subtle movements of their mouth and fork. The overall style is realistic with a touch of warmth and authenticity, reflecting the comfort of a genuine dining experience." \
+  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
+  --high_lora_alpha 1.5 \
+  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
+  --low_lora_alpha 1.4 \
+  --num_inference_steps 4 \
+  --cfg_scale 1 \
+  --lightx2v
+```
+<table border="0" style="width: 100%; text-align: center; margin-top: 20px;">
+  <tr>
+    <td align="center" style="padding: 8px;">
+      <video src="https://github.com/user-attachments/assets/2cd0ae7d-d20d-42b4-8877-bc39ced3767d" width="100%" controls loop></video>
+    </td>
+  </tr>
+</table>
+
+### Wan2.2 w/o LightX2V
+
+The Wan2.2 models feature a MoE DiT architecture with separate high-noise and low-noise models, providing enhanced quality and control over the generation process.
+
+### Wan2.2 Image(s) Conditioned Video Generation
+
+**Example 1: Image-to-Video with Wan2.2**
+
+```shell
+CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_multi_frames_pusa.py \
+  --image_paths "./demos/input_image.jpg" \
+  --prompt "A wide-angle shot shows a serene monk meditating perched a top of the letter E of a pile of weathered rocks that vertically spell out 'ZEN'. The rock formation is perched atop a misty mountain peak at sunrise. The warm light bathes the monk in a gentle glow, highlighting the folds of his saffron robes. The sky behind him is a soft gradient of pink and orange, creating a tranquil backdrop. The camera slowly zooms in, capturing the monk's peaceful expression and the intricate details of the rocks. The scene is bathed in a soft, ethereal light, emphasizing the spiritual atmosphere." \
+  --cond_position "0" \
+  --noise_multipliers "0.2" \
+  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
+  --high_lora_alpha 1.5 \
+  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
+  --low_lora_alpha 1.4 \
+  --num_inference_steps 30 \
+  --cfg_scale 3.0
+```
+
+**Example 2: Start-End Frames with Wan2.2**
+
+```shell
+CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_multi_frames_pusa.py \
+  --image_paths "./demos/start_frame.jpg" "./demos/end_frame.jpg" \
+  --prompt "plastic injection machine opens releasing a soft inflatable foamy morphing sticky figure over a hand. isometric. low light. dramatic light. macro shot. real footage" \
+  --cond_position "0,20" \
+  --noise_multipliers "0.2,0.5" \
+  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
+  --high_lora_alpha 1.5 \
+  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
+  --low_lora_alpha 1.4 \
+  --num_inference_steps 30 \
+  --cfg_scale 3.0
+```
+
+### Wan2.2 Video-to-Video Generation
+
+```shell
+CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_v2v_pusa.py \
+  --video_path "./demos/input_video.mp4" \
+  --prompt "piggy bank surfing a tube in teahupo'o wave dusk light cinematic shot shot in 35mm film" \
+  --cond_position "0,1,2,3" \
+  --noise_multipliers "0.2,0.4,0.4,0.4" \
+  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
+  --high_lora_alpha 1.5 \
+  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
+  --low_lora_alpha 1.4 \
+  --num_inference_steps 30 \
+  --cfg_scale 3.0
+```
+
+### Wan2.2 Text-to-Video Generation
+
+```shell
+CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_text_to_video_pusa.py \
+  --prompt "A person is enjoying a meal of spaghetti with a fork in a cozy, dimly lit Italian restaurant. The person has warm, friendly features and is dressed casually but stylishly in jeans and a colorful sweater. They are sitting at a small, round table, leaning slightly forward as they eat with enthusiasm. The spaghetti is piled high on their plate, with some strands hanging over the edge. The background shows soft lighting from nearby candles and a few other diners in the corner, creating a warm and inviting atmosphere. The scene captures a close-up view of the person’s face and hands as they take a bite of spaghetti, with subtle movements of their mouth and fork. The overall style is realistic with a touch of warmth and authenticity, reflecting the comfort of a genuine dining experience." \
+  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
+  --high_lora_alpha 1.5 \
+  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
+  --low_lora_alpha 1.4 \
+  --num_inference_steps 30 \
+  --cfg_scale 3.0
+```
 
 ### Wan2.1 Models
 
@@ -299,203 +497,7 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan_14b_text_to_video_pusa.py \
   <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/assets/t2v_output.gif?raw=true" width="500" autoplay loop muted controls></img>
 </div>
 
-### Wan2.2 w/ ⚡ LightX2V Acceleration 
 
-LightX2V provides ultra-fast 4-step inference while maintaining generation quality. Compatible with both Wan2.1 and Wan2.2 models.
-
-**Key Parameters for LightX2V:**
-- `--lightx2v`: Enable LightX2V acceleration
-- `--cfg_scale 1`: **Critical** - must be set to 1 for LightX2V
-- `--num_inference_steps 4`: Use 4 steps instead of 30
-- `--high_lora_alpha 1.5, --low_lora_alpha 1.4`: Recommended value for LightX2V (larger alpha = smaller motion), besides, high_lora_alpha has bigger impact on the output
-
-**Example 1: Wan2.2 Image-to-Video with LightX2V**
-
-```shell
-CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_multi_frames_pusa.py \
-  --image_paths "./demos/input_image.jpg" \
-  --prompt "A wide-angle shot shows a serene monk meditating perched a top of the letter E of a pile of weathered rocks that vertically spell out 'ZEN'. The rock formation is perched atop a misty mountain peak at sunrise. The warm light bathes the monk in a gentle glow, highlighting the folds of his saffron robes. The sky behind him is a soft gradient of pink and orange, creating a tranquil backdrop. The camera slowly zooms in, capturing the monk's peaceful expression and the intricate details of the rocks. The scene is bathed in a soft, ethereal light, emphasizing the spiritual atmosphere." \
-  --cond_position "0" \
-  --noise_multipliers "0" \
-  --num_inference_steps 4 \
-  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
-  --high_lora_alpha 1.5 \
-  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
-  --low_lora_alpha 1.4 \
-  --cfg_scale 1 \
-  --lightx2v
-```
-
-
-<table border="0" style="width: 100%; text-align: center; margin-top: 20px;">
-  <tr>
-    <td align="center" style="padding: 8px;">
-      <strong>noise: 0.2, high_lora_alpha 1.5</strong><br>
-      <video src="https://github.com/user-attachments/assets/2eb2c158-fea7-4a7b-b5ee-239cea33ee01" width="100%" controls loop></video>
-    </td>
-    <td align="center" style="padding: 8px;">
-      <strong>noise: 0.3, high_lora_alpha 1.4</strong><br>
-      <video src="https://github.com/user-attachments/assets/5e0aedfa-d177-44cf-b707-ffd970952d33" width="100%" controls loop></video>
-    </td>
-    
-  </tr>
-  <tr>
-    <td align="center" style="padding: 8px;">
-      <strong>noise: 0.2, high_lora_alpha 1.5</strong><br>
-      <video src="https://github.com/user-attachments/assets/a7347b4c-7618-45aa-8049-f91d2492eb03" width="100%" controls loop></video>
-    </td>
-    <td align="center" style="padding: 8px;">
-      <strong>noise: 0.2, high_lora_alpha 1.5</strong><br>
-      <video src="https://github.com/user-attachments/assets/27f51555-6298-4daf-8ccc-4afae4ce9eb5" width="100%" controls loop></video>
-    </td>
-  </tr>
-</table>
-
-**Example 2: Wan2.2 Video Extension with LightX2V**
-
-```shell
-CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_v2v_pusa.py \
-  --video_path "./demos/input_video.mp4" \
-  --prompt "piggy bank surfing a tube in teahupo'o wave dusk light cinematic shot shot in 35mm film" \
-  --cond_position "0,1,2,3" \
-  --noise_multipliers "0.2,0.4,0.4,0.4" \
-  --num_inference_steps 4 \
-  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
-  --high_lora_alpha 1.5 \
-  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
-  --low_lora_alpha 1.4 \
-  --cfg_scale 1 \
-  --lightx2v
-```
-<table border="0" style="width: 100%; text-align: center; margin-top: 20px;">
-  <tr>
-    <td align="center" style="padding: 8px;">
-      <strong>noise: [0.0, 0.3, 0.5, 0.7], high_lora_alpha 1.5</strong><br>
-      <video src="https://github.com/user-attachments/assets/1ee51dc5-4fb0-4fd7-806f-946a1d749dce" width="100%" controls loop></video>
-    </td>
-    <td align="center" style="padding: 8px;">
-      <strong>noise: [0.2, 0.4, 0.4, 0.4], high_lora_alpha 1.4</strong><br>
-      <video src="https://github.com/user-attachments/assets/09161d45-0893-4994-93f6-7b369f18ed7f" width="100%" controls loop></video>
-    </td>
-  </tr>
-</table>
-
-**Example 3: Wan2.2 Start-End Frames with LightX2V**
-
-```shell
-CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_multi_frames_pusa.py \
-  --image_paths "./demos/start_frame.jpg" "./demos/end_frame.jpg" \
-  --prompt "plastic injection machine opens releasing a soft inflatable foamy morphing sticky figure over a hand. isometric. low light. dramatic light. macro shot. real footage" \
-  --cond_position "0,20" \
-  --noise_multipliers "0.2,0.5" \
-  --num_inference_steps 4 \
-  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
-  --high_lora_alpha 1.5 \
-  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
-  --low_lora_alpha 1.4 \
-  --cfg_scale 1 \
-  --lightx2v
-```
-<table border="0" style="width: 100%; text-align: center; margin-top: 20px;">
-  <tr>
-    <td align="center" style="padding: 8px;">
-      <strong>noise: [0.2, 0.5], high_lora_alpha 1.5</strong><br>
-      <video src="https://github.com/user-attachments/assets/f5c5f8a7-49e6-4626-80d9-9f2ea9d617f0" width="100%" controls loop></video>
-    </td>
-    <td align="center" style="padding: 8px;">
-      <strong>noise: [0.0, 0.4], high_lora_alpha 1.5</strong><br>
-      <video src="https://github.com/user-attachments/assets/09161d45-0893-4994-93f6-7b369f18ed7f" width="100%" controls loop></video>
-    </td>
-  </tr>
-</table>
-
-**Example 4: Wan2.2 Text-to-Video with LightX2V**
-
-```shell
-CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_text_to_video_pusa.py \
-  --prompt "A person is enjoying a meal of spaghetti with a fork in a cozy, dimly lit Italian restaurant. The person has warm, friendly features and is dressed casually but stylishly in jeans and a colorful sweater. They are sitting at a small, round table, leaning slightly forward as they eat with enthusiasm. The spaghetti is piled high on their plate, with some strands hanging over the edge. The background shows soft lighting from nearby candles and a few other diners in the corner, creating a warm and inviting atmosphere. The scene captures a close-up view of the person’s face and hands as they take a bite of spaghetti, with subtle movements of their mouth and fork. The overall style is realistic with a touch of warmth and authenticity, reflecting the comfort of a genuine dining experience." \
-  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
-  --high_lora_alpha 1.5 \
-  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
-  --low_lora_alpha 1.4 \
-  --num_inference_steps 4 \
-  --cfg_scale 1 \
-  --lightx2v
-```
-<table border="0" style="width: 100%; text-align: center; margin-top: 20px;">
-  <tr>
-    <td align="center" style="padding: 8px;">
-      <video src="https://github.com/user-attachments/assets/9ace1ba4-61ac-4ecd-878d-4ba394c9f1c8" width="100%" controls loop></video>
-    </td>
-  </tr>
-</table>
-
-### Wan2.2 w/o LightX2V
-
-The Wan2.2 models feature a MoE DiT architecture with separate high-noise and low-noise models, providing enhanced quality and control over the generation process.
-
-### Wan2.2 Image(s) Conditioned Video Generation
-
-**Example 1: Image-to-Video with Wan2.2**
-
-```shell
-CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_multi_frames_pusa.py \
-  --image_paths "./demos/input_image.jpg" \
-  --prompt "A wide-angle shot shows a serene monk meditating perched a top of the letter E of a pile of weathered rocks that vertically spell out 'ZEN'. The rock formation is perched atop a misty mountain peak at sunrise. The warm light bathes the monk in a gentle glow, highlighting the folds of his saffron robes. The sky behind him is a soft gradient of pink and orange, creating a tranquil backdrop. The camera slowly zooms in, capturing the monk's peaceful expression and the intricate details of the rocks. The scene is bathed in a soft, ethereal light, emphasizing the spiritual atmosphere." \
-  --cond_position "0" \
-  --noise_multipliers "0.2" \
-  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
-  --high_lora_alpha 1.5 \
-  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
-  --low_lora_alpha 1.4 \
-  --num_inference_steps 30 \
-  --cfg_scale 3.0
-```
-
-**Example 2: Start-End Frames with Wan2.2**
-
-```shell
-CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_multi_frames_pusa.py \
-  --image_paths "./demos/start_frame.jpg" "./demos/end_frame.jpg" \
-  --prompt "plastic injection machine opens releasing a soft inflatable foamy morphing sticky figure over a hand. isometric. low light. dramatic light. macro shot. real footage" \
-  --cond_position "0,20" \
-  --noise_multipliers "0.2,0.5" \
-  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
-  --high_lora_alpha 1.5 \
-  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
-  --low_lora_alpha 1.4 \
-  --num_inference_steps 30 \
-  --cfg_scale 3.0
-```
-
-### Wan2.2 Video-to-Video Generation
-
-```shell
-CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_v2v_pusa.py \
-  --video_path "./demos/input_video.mp4" \
-  --prompt "piggy bank surfing a tube in teahupo'o wave dusk light cinematic shot shot in 35mm film" \
-  --cond_position "0,1,2,3" \
-  --noise_multipliers "0.2,0.4,0.4,0.4" \
-  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
-  --high_lora_alpha 1.5 \
-  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
-  --low_lora_alpha 1.4 \
-  --num_inference_steps 30 \
-  --cfg_scale 3.0
-```
-
-### Wan2.2 Text-to-Video Generation
-
-```shell
-CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_text_to_video_pusa.py \
-  --prompt "A person is enjoying a meal of spaghetti with a fork in a cozy, dimly lit Italian restaurant. The person has warm, friendly features and is dressed casually but stylishly in jeans and a colorful sweater. They are sitting at a small, round table, leaning slightly forward as they eat with enthusiasm. The spaghetti is piled high on their plate, with some strands hanging over the edge. The background shows soft lighting from nearby candles and a few other diners in the corner, creating a warm and inviting atmosphere. The scene captures a close-up view of the person’s face and hands as they take a bite of spaghetti, with subtle movements of their mouth and fork. The overall style is realistic with a touch of warmth and authenticity, reflecting the comfort of a genuine dining experience." \
-  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
-  --high_lora_alpha 1.5 \
-  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
-  --low_lora_alpha 1.4 \
-  --num_inference_steps 30 \
-  --cfg_scale 3.0
-```
 
 
 
