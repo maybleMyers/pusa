@@ -160,18 +160,6 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan_14b_multi_frames_pusa.py \
       <sub>noise: [0.2]</sub>
     </td>
   </tr>
-  <tr>
-    <td align="center">
-      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/assets/multi_frame_output_cond_0_noise_0p3.gif?raw=true" width="500"/>
-      <br>
-      <sub>noise: [0.3]</sub>
-    </td>
-    <td align="center">
-      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/assets/multi_frame_output_cond_0_noise_0p4.gif?raw=true" width="500"/>
-      <br>
-      <sub>noise: [0.4]</sub>
-    </td>
-  </tr>
 </table>
 
 **Example 1-2: Image-to-Video with Different LoRA Alpha Values**
@@ -202,18 +190,6 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan_14b_multi_frames_pusa.py \
     </td>
     
   </tr>
-  <tr>
-    <td align="center">
-      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/assets/multi_frame_output1_cond_0_noise_0p0_alpha_1p6.gif?raw=true" width="500"/>
-      <br>
-      <sub>noise: [0.0], alpha: 1.6</sub>
-    </td>
-    <td align="center">
-      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/assets/multi_frame_output1_cond_0_noise_0p2_alpha_1p3.gif?raw=true" width="500"/>
-      <br>
-      <sub>noise: [0.2], alpha: 1.3</sub>
-    </td>
-  </tr>
 </table>
 
 **Example 2: Start-End Frames**
@@ -241,18 +217,6 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan_14b_multi_frames_pusa.py \
       <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/assets/multi_frame_output_cond_0_20_noise_0p2_0p5.gif?raw=true" width="500"/>
       <br>
       <sub>noise: [0.2, 0.5]</sub>
-    </td>
-  </tr>
-  <tr>
-    <td align="center">
-      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/assets/multi_frame_output_cond_0_20_noise_0p1_0p7.gif?raw=true" width="500"/>
-      <br>
-      <sub>noise: [0.1, 0.7]</sub>
-    </td>
-    <td align="center">
-      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/assets/multi_frame_output_cond_0_20_noise_0p2_0p6.gif?raw=true" width="500"/>
-      <br>
-      <sub>noise: [0.2, 0.6]</sub>
     </td>
   </tr>
 </table>
@@ -286,18 +250,6 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan_14b_v2v_pusa.py \
       <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/assets/v2v_input_video_cond_0_20_noise_0p2_0p2.gif?raw=true" width="500"/>
       <br>
       <sub>noise: [0.2, 0.2]</sub>
-    </td>
-  </tr>
-  <tr>
-    <td align="center">
-      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/assets/v2v_input_video_cond_0_20_noise_0p3_0p3.gif?raw=true" width="500"/>
-      <br>
-      <sub>noise: [0.3, 0.3]</sub>
-    </td>
-    <td align="center">
-      <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/main/PusaV1/assets/v2v_input_video_cond_0_20_noise_0p4_0p4.gif?raw=true" width="500"/>
-      <br>
-      <sub>noise: [0.4, 0.4]</sub>
     </td>
   </tr>
 </table>
