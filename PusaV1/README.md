@@ -95,8 +95,8 @@ The checkpoints should arrange like this to use the codes with default settings:
       - high_noise_model/
       - low_noise_model/
     - Pusa-Wan2.2-V1
-     - high_noise_pusa.safetensors
-     - low_noise_pusa.safetensors
+      - high_noise_pusa.safetensors
+      - low_noise_pusa.safetensors
     - pusa_v1.pt
 ```
 
