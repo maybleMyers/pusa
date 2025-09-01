@@ -70,6 +70,7 @@ Download the necessary models and place them into the `./model_zoo` directory. Y
 # Install huggingface-cli if you don't have it
 pip install -U "huggingface_hub[cli]"
 huggingface-cli download RaphaelLiu/PusaV1 --local-dir ./model_zoo/PusaV1
+huggingface-cli download RaphaelLiu/Pusa-Wan2.2-V1 --local-dir ./model_zoo/Pusa-Wan2.2-V1
 
 # (Optional) Please download Wan2.1-T2V-14B to ./model_zoo/PusaV1 is you don't have it, if you have you can directly soft link it to ./model_zoo/PusaV1
 huggingface-cli download Wan-AI/Wan2.1-T2V-14B --local-dir ./model_zoo/PusaV1/Wan2.1-T2V-14B
@@ -93,6 +94,9 @@ The checkpoints should arrange like this to use the codes with default settings:
     - Wan2.2-T2V-A14B
       - high_noise_model/
       - low_noise_model/
+    - Pusa-Wan2.2-V1
+     - high_noise_pusa.safetensors
+     - low_noise_pusa.safetensors
     - pusa_v1.pt
 ```
 
@@ -130,9 +134,9 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_multi_frames_pusa.py 
   --cond_position "0" \
   --noise_multipliers "0" \
   --num_inference_steps 4 \
-  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
+  --high_lora_path "model_zoo/PusaV1/Pusa-Wan2.2-V1/high_noise_pusa.safetensors" \
   --high_lora_alpha 1.5 \
-  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
+  --low_lora_path "model_zoo/PusaV1/Pusa-Wan2.2-V1/low_noise_pusa.safetensors" \
   --low_lora_alpha 1.4 \
   --cfg_scale 1 \
   --lightx2v
@@ -172,9 +176,9 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_v2v_pusa.py \
   --cond_position "0,1,2,3" \
   --noise_multipliers "0.2,0.4,0.4,0.4" \
   --num_inference_steps 4 \
-  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
+  --high_lora_path "model_zoo/PusaV1/Pusa-Wan2.2-V1/high_noise_pusa.safetensors" \
   --high_lora_alpha 1.5 \
-  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
+  --low_lora_path "model_zoo/PusaV1/Pusa-Wan2.2-V1/low_noise_pusa.safetensors" \
   --low_lora_alpha 1.4 \
   --cfg_scale 1 \
   --lightx2v
@@ -201,9 +205,9 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_multi_frames_pusa.py 
   --cond_position "0,20" \
   --noise_multipliers "0.2,0.5" \
   --num_inference_steps 4 \
-  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
+  --high_lora_path "model_zoo/PusaV1/Pusa-Wan2.2-V1/high_noise_pusa.safetensors" \
   --high_lora_alpha 1.5 \
-  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
+  --low_lora_path "model_zoo/PusaV1/Pusa-Wan2.2-V1/low_noise_pusa.safetensors" \
   --low_lora_alpha 1.4 \
   --cfg_scale 1 \
   --lightx2v
@@ -226,9 +230,9 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_multi_frames_pusa.py 
 ```shell
 CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_text_to_video_pusa.py \
   --prompt "A person is enjoying a meal of spaghetti with a fork in a cozy, dimly lit Italian restaurant. The person has warm, friendly features and is dressed casually but stylishly in jeans and a colorful sweater. They are sitting at a small, round table, leaning slightly forward as they eat with enthusiasm. The spaghetti is piled high on their plate, with some strands hanging over the edge. The background shows soft lighting from nearby candles and a few other diners in the corner, creating a warm and inviting atmosphere. The scene captures a close-up view of the person’s face and hands as they take a bite of spaghetti, with subtle movements of their mouth and fork. The overall style is realistic with a touch of warmth and authenticity, reflecting the comfort of a genuine dining experience." \
-  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
+  --high_lora_path "model_zoo/PusaV1/Pusa-Wan2.2-V1/high_noise_pusa.safetensors" \
   --high_lora_alpha 1.5 \
-  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
+  --low_lora_path "model_zoo/PusaV1/Pusa-Wan2.2-V1/low_noise_pusa.safetensors" \
   --low_lora_alpha 1.4 \
   --num_inference_steps 4 \
   --cfg_scale 1 \
@@ -256,9 +260,9 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_multi_frames_pusa.py 
   --prompt "A wide-angle shot shows a serene monk meditating perched a top of the letter E of a pile of weathered rocks that vertically spell out 'ZEN'. The rock formation is perched atop a misty mountain peak at sunrise. The warm light bathes the monk in a gentle glow, highlighting the folds of his saffron robes. The sky behind him is a soft gradient of pink and orange, creating a tranquil backdrop. The camera slowly zooms in, capturing the monk's peaceful expression and the intricate details of the rocks. The scene is bathed in a soft, ethereal light, emphasizing the spiritual atmosphere." \
   --cond_position "0" \
   --noise_multipliers "0.2" \
-  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
+  --high_lora_path "model_zoo/PusaV1/Pusa-Wan2.2-V1/high_noise_pusa.safetensors" \
   --high_lora_alpha 1.5 \
-  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
+  --low_lora_path "model_zoo/PusaV1/Pusa-Wan2.2-V1/low_noise_pusa.safetensors" \
   --low_lora_alpha 1.4 \
   --num_inference_steps 30 \
   --cfg_scale 3.0
@@ -272,9 +276,9 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_multi_frames_pusa.py 
   --prompt "plastic injection machine opens releasing a soft inflatable foamy morphing sticky figure over a hand. isometric. low light. dramatic light. macro shot. real footage" \
   --cond_position "0,20" \
   --noise_multipliers "0.2,0.5" \
-  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
+  --high_lora_path "model_zoo/PusaV1/Pusa-Wan2.2-V1/high_noise_pusa.safetensors" \
   --high_lora_alpha 1.5 \
-  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
+  --low_lora_path "model_zoo/PusaV1/Pusa-Wan2.2-V1/low_noise_pusa.safetensors" \
   --low_lora_alpha 1.4 \
   --num_inference_steps 30 \
   --cfg_scale 3.0
@@ -288,9 +292,9 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_v2v_pusa.py \
   --prompt "piggy bank surfing a tube in teahupo'o wave dusk light cinematic shot shot in 35mm film" \
   --cond_position "0,1,2,3" \
   --noise_multipliers "0.2,0.4,0.4,0.4" \
-  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
+  --high_lora_path "model_zoo/PusaV1/Pusa-Wan2.2-V1/high_noise_pusa.safetensors" \
   --high_lora_alpha 1.5 \
-  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
+  --low_lora_path "model_zoo/PusaV1/Pusa-Wan2.2-V1/low_noise_pusa.safetensors" \
   --low_lora_alpha 1.4 \
   --num_inference_steps 30 \
   --cfg_scale 3.0
@@ -301,9 +305,9 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_v2v_pusa.py \
 ```shell
 CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_text_to_video_pusa.py \
   --prompt "A person is enjoying a meal of spaghetti with a fork in a cozy, dimly lit Italian restaurant. The person has warm, friendly features and is dressed casually but stylishly in jeans and a colorful sweater. They are sitting at a small, round table, leaning slightly forward as they eat with enthusiasm. The spaghetti is piled high on their plate, with some strands hanging over the edge. The background shows soft lighting from nearby candles and a few other diners in the corner, creating a warm and inviting atmosphere. The scene captures a close-up view of the person’s face and hands as they take a bite of spaghetti, with subtle movements of their mouth and fork. The overall style is realistic with a touch of warmth and authenticity, reflecting the comfort of a genuine dining experience." \
-  --high_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_pusa.safetensors" \
+  --high_lora_path "model_zoo/PusaV1/Pusa-Wan2.2-V1/high_noise_pusa.safetensors" \
   --high_lora_alpha 1.5 \
-  --low_lora_path "model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_pusa.safetensors" \
+  --low_lora_path "model_zoo/PusaV1/Pusa-Wan2.2-V1/low_noise_pusa.safetensors" \
   --low_lora_alpha 1.4 \
   --num_inference_steps 30 \
   --cfg_scale 3.0
