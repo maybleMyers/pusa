@@ -41,7 +41,6 @@ The codebase has been integrated into the `PusaV1` directory, based on `DiffSynt
 - [🔥 Intro](#-intro)
 - [🛠️ Installation](#installation)
 - [📦 Model Preparation](#model-preparation)
-- [🎬 Gradio Demo (Work in Progress)](#-gradio-demo-work-in-progress)
 - [🚀 Usage Examples](#usage-examples)
   - [Wan2.1 Models](#wan21-models)
     - [Image(s) Conditioned Video Generation](#images-conditioned-video-generation)
@@ -55,7 +54,7 @@ The codebase has been integrated into the `PusaV1` directory, based on `DiffSynt
 - [🏋️ Training](#training)
   - [Prepare Dataset](#prepare-dataset)
   - [Training Process](#training-1)
-
+- [🎬 Gradio Demo (Work in Progress)](#-gradio-demo-work-in-progress)
 ---
 
 ## Installation
@@ -102,36 +101,6 @@ The checkpoints should arrange like this to use the codes with default settings:
       - low_noise_model/
     - pusa_v1.pt
 ```
-
-## 🎬 Gradio Demo (Work in Progress)
-
-For the easiest way to experience Pusa V1.0, we provide a beautiful web-based Gradio demo with an intuitive interface:
-
-
-```shell
-# Launch the demo
-bash launch_demo.sh
-
-# Or run directly
-python examples/pusavideo/run_demo.py
-```
-
-<div style="display: flex; justify-content: center; gap: 2px;">
-  <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/22f96c7de9b1f98bc373505bcc0cb846954dea8f/PusaV1/assets/gradio_page1_1.png?raw=true" 
-       alt="Image 1" width="49.5%">
-  <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/22f96c7de9b1f98bc373505bcc0cb846954dea8f/PusaV1/assets/gradio_page2_1.png?raw=true" 
-       alt="Image 2" width="49.5%">
-</div>
-
-The demo will be available at `http://localhost:7860` and includes:
-- **🎨 Image-to-Video (I2V)**: Generate videos from single images with motion control
-- **🖼️ Multi-Frame Generation**: Create smooth transitions between start-end frames  
-- **🎥 Video-to-Video (V2V)**: Extend or complete existing videos
-- **📝 Text-to-Video (T2V)**: Generate videos directly from text descriptions
-- **📊 Interactive Gallery**: View demo results with exact parameter settings
-- **⚙️ Easy Parameter Control**: Adjust LoRA alpha, noise multipliers, and conditioning positions
-
-The Gradio interface provides real-time parameter adjustment and includes pre-configured examples for each generation mode. Perfect for experimentation and getting familiar with Pusa V1.0's capabilities!
 
 
 ## Usage Examples
@@ -547,6 +516,36 @@ You can find the content in `examples/pusavideo/train.sh` and modify the paths a
 bash ./examples/pusavideo/train.sh
 ```
 The trained LoRA model will be saved in the `lightning_logs` directory inside your specified `--output_path`.
+
+## 🎬 Gradio Demo (Work in Progress)
+
+For the easiest way to experience Pusa V1.0, we provide a beautiful web-based Gradio demo with an intuitive interface:
+
+
+```shell
+# Launch the demo
+bash launch_demo.sh
+
+# Or run directly
+python examples/pusavideo/run_demo.py
+```
+
+<div style="display: flex; justify-content: center; gap: 2px;">
+  <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/22f96c7de9b1f98bc373505bcc0cb846954dea8f/PusaV1/assets/gradio_page1_1.png?raw=true" 
+       alt="Image 1" width="49.5%">
+  <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/22f96c7de9b1f98bc373505bcc0cb846954dea8f/PusaV1/assets/gradio_page2_1.png?raw=true" 
+       alt="Image 2" width="49.5%">
+</div>
+
+The demo will be available at `http://localhost:7860` and includes:
+- **🎨 Image-to-Video (I2V)**: Generate videos from single images with motion control
+- **🖼️ Multi-Frame Generation**: Create smooth transitions between start-end frames  
+- **🎥 Video-to-Video (V2V)**: Extend or complete existing videos
+- **📝 Text-to-Video (T2V)**: Generate videos directly from text descriptions
+- **📊 Interactive Gallery**: View demo results with exact parameter settings
+- **⚙️ Easy Parameter Control**: Adjust LoRA alpha, noise multipliers, and conditioning positions
+
+The Gradio interface provides real-time parameter adjustment and includes pre-configured examples for each generation mode. Perfect for experimentation and getting familiar with Pusa V1.0's capabilities!
 
 
 ## BibTeX
