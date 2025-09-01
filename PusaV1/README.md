@@ -45,7 +45,7 @@ The codebase has been integrated into the `PusaV1` directory, based on `DiffSynt
     - [Image(s) Conditioned Video Generation](#images-conditioned-video-generation)
     - [Video-to-Video Generation](#video-to-video-generation)
     - [Text-to-Video Generation](#text-to-video-generation)
-  - [Wan2.2 w/ ⚡ LightX2V Acceleration ](#wan2.2-w/-lightx2v-acceleration)
+  - [Wan2.2 w/ ⚡ LightX2V Acceleration ](#wan2.2-w/---lightx2v-acceleration)
   - [Wan2.2 Models ](#wan22-models-with-moe-dit-architecture)
     - [Wan2.2 Image(s) Conditioned Video Generation](#wan22-images-conditioned-video-generation)
     - [Wan2.2 Video-to-Video Generation](#wan22-video-to-video-generation)
