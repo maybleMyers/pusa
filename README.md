@@ -402,6 +402,7 @@ For Pusa V0.5, you can find our training code and details [here](https://github.
 Pusa currently has several known limitations:
 - Video generation quality is dependent on the base model (e.g., Wan-T2V-14B for V1.0).
 - We anticipate significant quality improvements when applying our methodology to more advanced models.
+- Sim2real gap between conditioning frames and generated frames, like color shifting in image-to-video task.
 - We welcome community contributions to enhance model performance and extend its capabilities.
 
 
@@ -486,6 +487,7 @@ If you use this work in your project, please cite the following references.
   year={2024}
 }
 ```
+
 
 
 
