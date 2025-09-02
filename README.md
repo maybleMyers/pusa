@@ -29,9 +29,9 @@ We are excited to release **Pusa V1.0**, a groundbreaking paradigm that leverage
 - **[WAN2.2-14B-Rapid-AllInOne](https://huggingface.co/Phr00t/WAN2.2-14B-Rapid-AllInOne)**, big salute to [Phr00t](https://huggingface.co/Phr00t)!
 
 
-## Pusa-Wan2.2 Demos 
+## Showcases
 ### **Various tasks in one model, all in 4 steps with LightX2V**
-  **Text-to-Video, Image-to-Video, Start-End Frames, Video Completion, Video Extension, Video Transition, and more...**
+  **Text-to-Video, Image-to-Video, Start-End Frames, Video Completion, Video Extension, Video Transition, and more...**. Below are some showcases for Pusa-Wan2.2-V1. Please refer to **[Pusa V1.0 README](./PusaV1/README.md)** for detailed info.
 
 **Example 1: Image-to-Video in 4 Steps**
 <table border="0" style="width: 100%; text-align: center; margin-top: 20px;">
@@ -486,6 +486,7 @@ If you use this work in your project, please cite the following references.
   year={2024}
 }
 ```
+
 
 
 
