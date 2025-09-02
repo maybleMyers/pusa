@@ -24,10 +24,80 @@
 - **Unified Framework**: Compatible with both Wan2.1 and Wan2.2 architectures
 We are excited to release **Pusa V1.0**, a groundbreaking paradigm that leverages **vectorized timestep adaptation (VTA)** to enable fine-grained temporal control within a unified video diffusion framework. By finetuning the SOTA **Wan-T2V-14B** model with VTA, Pusa V1.0 achieves unprecedented efficiency, **surpassing Wan-I2V on Vbench-I2V with only $500 of training cost and 4k data**. 
 
+**Various tasks in one model, all in 4 steps with LightX2V**:
+  Image-to-Video, Start-End Frames, Video Completion, Video Extension, Text-to-Video, Video Transition, and more...
+
+**Example 1: Image-to-Video in 4 Steps**
+<table border="0" style="width: 100%; text-align: center; margin-top: 20px;">
+  <tr>
+    <td align="center" style="padding: 8px;">
+      <strong>noise: 0.2, high_lora_alpha 1.5</strong><br>
+      <video src="https://github.com/user-attachments/assets/2eb2c158-fea7-4a7b-b5ee-239cea33ee01" width="100%" controls loop></video>
+    </td>
+    <td align="center" style="padding: 8px;">
+      <strong>noise: 0.3, high_lora_alpha 1.4</strong><br>
+      <video src="https://github.com/user-attachments/assets/5e0aedfa-d177-44cf-b707-ffd970952d33" width="100%" controls loop></video>
+    </td>
+    
+  </tr>
+  <tr>
+    <td align="center" style="padding: 8px;">
+      <strong>noise: 0.2, high_lora_alpha 1.5</strong><br>
+      <video src="https://github.com/user-attachments/assets/a7347b4c-7618-45aa-8049-f91d2492eb03" width="100%" controls loop></video>
+    </td>
+    <td align="center" style="padding: 8px;">
+      <strong>noise: 0.2, high_lora_alpha 1.5</strong><br>
+      <video src="https://github.com/user-attachments/assets/27f51555-6298-4daf-8ccc-4afae4ce9eb5" width="100%" controls loop></video>
+    </td>
+  </tr>
+</table>
+
+**Example 2: Video Extension in 4 Steps**
+<table border="0" style="width: 100%; text-align: center; margin-top: 20px;">
+  <tr>
+    <td align="center" style="padding: 8px;">
+      <strong>noise: [0.0, 0.3, 0.5, 0.7], high_lora_alpha 1.5</strong><br>
+      <video src="https://github.com/user-attachments/assets/1ee51dc5-4fb0-4fd7-806f-946a1d749dce" width="100%" controls loop></video>
+    </td>
+    <td align="center" style="padding: 8px;">
+      <strong>noise: [0.2, 0.4, 0.4, 0.4], high_lora_alpha 1.4</strong><br>
+      <video src="https://github.com/user-attachments/assets/09161d45-0893-4994-93f6-7b369f18ed7f" width="100%" controls loop></video>
+    </td>
+  </tr>
+</table>
+
+
+**Example 3: Start-End Frames in 4 Steps**
+<table border="0" style="width: 100%; text-align: center; margin-top: 20px;">
+  <tr>
+    <td align="center" style="padding: 8px;">
+      <strong>noise: [0.2, 0.5], high_lora_alpha 1.5</strong><br>
+      <video src="https://github.com/user-attachments/assets/cabc0680-988f-4cf6-9413-e5483a93169c" width="100%" controls loop></video>
+    </td>
+    <td align="center" style="padding: 8px;">
+      <strong>noise: [0.0, 0.4], high_lora_alpha 1.5</strong><br>
+      <video src="https://github.com/user-attachments/assets/9f58f029-0337-4608-87dd-4a1dff7da336" width="100%" controls loop></video>
+    </td>
+  </tr>
+</table>
+
+**Example 4: Text-to-Video with in 4 Steps**
+<table border="0" style="width: 100%; text-align: center; margin-top: 20px;">
+  <tr>
+    <td align="center" style="padding: 8px;">
+      <video src="https://github.com/user-attachments/assets/2cd0ae7d-d20d-42b4-8877-bc39ced3767d" width="100%" controls loop></video>
+    </td>
+  </tr>
+</table>
+
+
 
 ## :sparkles: Highlights
 - **[ComfyUI](https://huggingface.co/Kijai/WanVideo_comfy/tree/main/Pusa)**, supported by [Kijai](https://github.com/kijai), thanks a lot! 
 - **[WAN2.2-14B-Rapid-AllInOne](https://huggingface.co/Phr00t/WAN2.2-14B-Rapid-AllInOne)**, big salute to [Phr00t](https://huggingface.co/Phr00t)!
+
+
+
 
 ## 🔥 Intro 
 
@@ -51,22 +121,11 @@ For detailed usage and examples for Pusa V1.0, please see the **[Pusa V1.0 READM
 - **📚 Updated Scripts**: All inference scripts now support `--lightx2v` acceleration flag
 - **⚙️ Parameter Guidelines**: Added optimized settings for both standard and accelerated inference
 
+
 #### 🔥🔥🔥 2025.07: Pusa V1.0 (Pusa-Wan) Code, Technical Report, and Dataset, all released!!! Check our [project page](https://yaofang-liu.github.io/Pusa_Web/) and [paper](https://github.com/Yaofang-Liu/Pusa-VidGen/blob/e99c3dcf866789a2db7fbe2686888ec398076a82/PusaV1/PusaV1.0_Report.pdf) for more info.
+
 #### 🔥🔥🔥 2025.04: Pusa V0.5 (Pusa-Mochi) released.
 
- 
-
-<p align="center">
-    <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/55de93a198427525e23a509e0f0d04616b10d71f/assets/demo0.gif" width="1000" autoplay loop muted/>
-    <br>
-    <em>Pusa V0.5 showcases </em>
-</p>
-
-<p align="center">
-    <img src="https://github.com/Yaofang-Liu/Pusa-VidGen/blob/8d2af9cad78859361cb1bc6b8df56d06b2c2fbb8/assets/demo_T2V.gif" width="1000" autoplay loop muted/>
-    <br>
-    <em>Pusa V0.5 still can do text-to-video generation like base model Mochi </em>
-</p>
 
 **Pusa can do many more other things, you may check details below.**
 
@@ -93,8 +152,6 @@ Pusa (*pu: 'sA:*, from "Thousand-Hand Guanyin" in Chinese) introduces a paradigm
 
 
 Pusa's novel frame-level noise architecture with vectorized timesteps compared with conventional video diffusion models with a scalar timestep
-
-https://github.com/user-attachments/assets/7d751fd8-9a14-42e6-bcde-6db940df6537
 
 
 ### ✨ Key Features
@@ -445,6 +502,7 @@ If you use this work in your project, please cite the following references.
   year={2024}
 }
 ```
+
 
 
 
