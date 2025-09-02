@@ -24,7 +24,7 @@
 - **Unified Framework**: Compatible with both Wan2.1 and Wan2.2 architectures
 We are excited to release **Pusa V1.0**, a groundbreaking paradigm that leverages **vectorized timestep adaptation (VTA)** to enable fine-grained temporal control within a unified video diffusion framework. By finetuning the SOTA **Wan-T2V-14B** model with VTA, Pusa V1.0 achieves unprecedented efficiency, **surpassing Wan-I2V on Vbench-I2V with only $500 of training cost and 4k data**. 
 
-#### **Various tasks in one model, all in 4 steps with LightX2V**:
+### **Various tasks in one model, all in 4 steps with LightX2V**:
   Text-to-Video, Image-to-Video, Start-End Frames, Video Completion, Video Extension, Video Transition, and more...
 
 **Example 1: Image-to-Video in 4 Steps**
@@ -502,6 +502,7 @@ If you use this work in your project, please cite the following references.
   year={2024}
 }
 ```
+
 
 
 
