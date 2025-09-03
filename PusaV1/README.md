@@ -131,7 +131,7 @@ CUDA_VISIBLE_DEVICES=0 python examples/pusavideo/wan22_14b_multi_frames_pusa.py 
   --image_paths "./demos/input_image.jpg" \
   --prompt "A wide-angle shot shows a serene monk meditating perched a top of the letter E of a pile of weathered rocks that vertically spell out 'ZEN'. The rock formation is perched atop a misty mountain peak at sunrise. The warm light bathes the monk in a gentle glow, highlighting the folds of his saffron robes. The sky behind him is a soft gradient of pink and orange, creating a tranquil backdrop. The camera slowly zooms in, capturing the monk's peaceful expression and the intricate details of the rocks. The scene is bathed in a soft, ethereal light, emphasizing the spiritual atmosphere." \
   --cond_position "0" \
-  --noise_multipliers "0" \
+  --noise_multipliers "0.2" \
   --num_inference_steps 4 \
   --high_lora_path "model_zoo/PusaV1/Pusa-Wan2.2-V1/high_noise_pusa.safetensors" \
   --high_lora_alpha 1.5 \

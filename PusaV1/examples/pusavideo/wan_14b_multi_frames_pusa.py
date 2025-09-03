@@ -11,7 +11,7 @@ def main():
     parser.add_argument("--image_paths", type=str, nargs='+', required=True, help="Paths to one or more conditioning image frames.")
     parser.add_argument("--prompt", type=str, required=True, help="Text prompt for video generation.")
     parser.add_argument("--cond_position", type=str, required=True, help="Comma-separated list of frame indices for conditioning. You can use any position from 0 to 20")
-    parser.add_argument("--noise_multipliers", type=str, required=True, help="Comma-separated noise multipliers for conditioning frames. A value of 0 means the condition image is used as totally clean, higher value means add more noise. For I2V, you can use 0.3 or any from 0 to 1. For Start-End-Frame, you can use 0.3,0.7, or any from 0 to 1.")
+    parser.add_argument("--noise_multipliers", type=str, required=True, help="Comma-separated noise multipliers for conditioning frames. A value of 0 means the condition image is used as totally clean, higher value means add more noise. For I2V, you can use 0.2 or any from 0 to 1. For Start-End-Frame, you can use 0.2,0.7, or any from 0 to 1.")
     parser.add_argument("--i2v_model_path", type=str, default="model_zoo/PusaV1/Wan2.1-I2V-14B-720P/models_clip_open-clip-xlm-roberta-large-vit-huge-14.pth", help="Path to the I2V CLIP model.")
     parser.add_argument("--t2v_model_dir", type=str, default="model_zoo/PusaV1/Wan2.1-T2V-14B", help="Directory of the T2V model components.")
     parser.add_argument("--lora_path", type=str, required=True, help="Path to the LoRA checkpoint file.")
