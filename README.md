@@ -109,7 +109,9 @@ We are excited to release **Pusa V1.0**, a groundbreaking paradigm that leverage
 #### 🔥🔥🔥 2025.07: Pusa V1.0 (Pusa-Wan) Code, Technical Report, and Dataset, all released!!! Check our [project page](https://yaofang-liu.github.io/Pusa_Web/) and [paper](https://github.com/Yaofang-Liu/Pusa-VidGen/blob/e99c3dcf866789a2db7fbe2686888ec398076a82/PusaV1/PusaV1.0_Report.pdf) for more info.
 
 #### 🔥🔥🔥 2025.04: Pusa V0.5 (Pusa-Mochi) released.
- 
+
+#### 🔥🔥🔥 2024.10: FVDM [paper](https://arxiv.org/abs/2410.03160) released, initially introducing the vectorized tiemstep paradigm.
+
 
 ## Table of Contents
 - [Overview](#overview)
@@ -487,6 +489,7 @@ If you use this work in your project, please cite the following references.
   year={2024}
 }
 ```
+
 
 
 
