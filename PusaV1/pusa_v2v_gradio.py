@@ -163,7 +163,7 @@ def run_generation(
         "--width", str(width),
         "--height", str(height),
         "--output_dir", output_dir,
-        "--num_persistent_params", f"{num_persistent_params * 1e9:.0f}"
+        "--num_persistent_params", f"{num_persistent_params}e9"
     ]
 
     # Add conditioning mode
