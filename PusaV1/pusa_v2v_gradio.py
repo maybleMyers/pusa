@@ -89,6 +89,7 @@ def run_generation(
     # Generation parameters
     width: int,
     height: int,
+    fps: int,
     num_inference_steps: int,
     cfg_scale: float,
     # Model directories
@@ -154,7 +155,6 @@ def run_generation(
         "--low_model_dir", low_model_dir,
         "--base_dir", base_dir,
         "--high_lora_path", high_paths_str if high_paths_str else "",
-        # FIX: Pass empty string for alpha if no path is present, instead of a default value.
         "--high_lora_alpha", high_alphas_str if high_alphas_str else "",
         "--low_lora_path", low_paths_str if low_paths_str else "",
         "--low_lora_alpha", low_alphas_str if low_alphas_str else "",
@@ -162,6 +162,7 @@ def run_generation(
         "--cfg_scale", str(cfg_scale),
         "--width", str(width),
         "--height", str(height),
+        "--fps", str(fps),
         "--output_dir", output_dir,
         "--num_persistent_params", f"{num_persistent_params}e9"
     ]
@@ -385,6 +386,13 @@ def create_interface():
                             maximum=2048,
                             step=8
                         )
+                        fps = gr.Number(
+                            label="FPS",
+                            value=24,
+                            minimum=1,
+                            maximum=60,
+                            step=1
+                        )
 
                     with gr.Row():
                         num_inference_steps = gr.Slider(
@@ -557,7 +565,7 @@ def create_interface():
         generation_inputs = [
             video_input, prompt, negative_prompt,
             use_extend_from_end, extend_from_end, cond_position, noise_multipliers,
-            width, height, num_inference_steps, cfg_scale,
+            width, height, fps, num_inference_steps, cfg_scale,
             high_model_dir, low_model_dir, base_dir
         ] + interleaved_high_loras_alphas + interleaved_low_loras_alphas + [
             switch_boundary, concatenate, num_persistent_params, output_dir

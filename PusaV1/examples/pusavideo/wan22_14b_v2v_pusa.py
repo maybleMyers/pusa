@@ -74,6 +74,7 @@ def main():
     parser.add_argument("--num_persistent_params", type=float, default=6e9, help="Number of persistent parameters in DiT for VRAM management. Use scientific notation (e.g., 6e9 for 6 billion).")
     parser.add_argument("--width", type=int, default=832, help="Width of the output video. Default: 832")
     parser.add_argument("--height", type=int, default=480, help="Height of the output video. Default: 480")
+    parser.add_argument("--fps", type=int, default=24, help="fps to save video in")
     args = parser.parse_args()
 
     # --- Argument Validation and Input Preparation ---
@@ -211,7 +212,7 @@ def main():
         video_filename = os.path.join(args.output_dir, base_video_filename + ".mp4")
 
     print(f"Saving video to {video_filename}")
-    save_video(video_to_save, video_filename, fps=24, quality=5)
+    save_video(video_to_save, video_filename, fps=args.fps, quality=5)
     print("Video saved successfully.")
 
 if __name__ == "__main__":
