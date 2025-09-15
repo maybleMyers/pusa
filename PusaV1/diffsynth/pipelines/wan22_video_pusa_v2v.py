@@ -471,8 +471,11 @@ class Wan22VideoPusaV2VPipeline(BasePipeline):
             for i, frame_idx in enumerate(conditioning_indices):
                 latent_idx = frame_idx
                 cond_frame_latent_indices.append(latent_idx)
-                noise_multipliers[latent_idx] = conditioning_noise_multipliers[i]
-                latents[:, :, latent_idx:latent_idx+1] = cond_latents[:, :, latent_idx:latent_idx+1].to(latents.device)
+                # Ensure we don't go out of bounds for the provided conditioning latents
+                if i < cond_latents.shape[2]:
+                    noise_multipliers[latent_idx] = conditioning_noise_multipliers[i]
+                    # Map the i-th frame of the conditioning video to the `latent_idx` position of the output
+                    latents[:, :, latent_idx:latent_idx+1] = cond_latents[:, :, i:i+1].to(latents.device)
         # Encode prompts
         self.load_models_to_device(["text_encoder"])
         prompt_emb_posi = self.encode_prompt(prompt, positive=True)
