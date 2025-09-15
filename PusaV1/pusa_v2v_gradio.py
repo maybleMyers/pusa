@@ -174,6 +174,12 @@ def run_generation(
             yield "Error: Either extend_from_end or cond_position must be specified", None
             return
 
+    # Print command for debugging
+    print("\n" + "="*80)
+    print("Executing command:")
+    print(" ".join(cmd))
+    print("="*80 + "\n")
+
     # Run the command
     try:
         yield "Starting generation...", None
@@ -182,7 +188,7 @@ def run_generation(
         process = subprocess.Popen(
             cmd,
             stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
+            stderr=subprocess.PIPE,
             text=True,
             bufsize=1,
             universal_newlines=True
@@ -191,15 +197,48 @@ def run_generation(
         output_lines = []
         last_video_path = None
 
-        if process.stdout is None:
-            yield "Error: Failed to capture process output", None
-            return
+        # Create threads to read stdout and stderr
+        import queue
+        output_queue = queue.Queue()
 
-        for line in process.stdout:
+        def read_output(pipe, pipe_name):
+            if pipe is None:
+                return
+            for line in pipe:
+                output_queue.put((pipe_name, line))
+            pipe.close()
+
+        stdout_thread = threading.Thread(target=read_output, args=(process.stdout, "stdout"))
+        stderr_thread = threading.Thread(target=read_output, args=(process.stderr, "stderr"))
+
+        stdout_thread.start()
+        stderr_thread.start()
+
+        # Process output from both streams
+        while True:
+            # Check if process is still running
+            poll_status = process.poll()
+
+            # Read from queue with timeout
+            try:
+                pipe_name, line = output_queue.get(timeout=0.1)
+            except queue.Empty:
+                # Check if process finished and threads are done
+                if poll_status is not None and not stdout_thread.is_alive() and not stderr_thread.is_alive():
+                    break
+                continue
+
             if stop_event.is_set():
                 process.terminate()
+                print("\n[STOPPED] Generation stopped by user")
                 yield "Generation stopped by user", last_video_path
                 return
+
+            # Print to console with proper prefix
+            if pipe_name == "stderr":
+                print(f"[ERROR] {line.strip()}")
+            else:
+                print(f"[OUTPUT] {line.strip()}")
 
             output_lines.append(line.strip())
 
@@ -221,18 +260,30 @@ def run_generation(
                 progress(1.0, desc="Complete!")
 
             # Update status
-            status = "\n".join(output_lines[-10:])  # Show last 10 lines
+            status = "\n".join(output_lines[-20:])  # Show last 20 lines
             yield status, last_video_path
 
+        # Wait for threads to complete
+        stdout_thread.join()
+        stderr_thread.join()
+
         process.wait()
+
+        print(f"\n[COMPLETED] Process exited with code: {process.returncode}")
 
         if process.returncode == 0:
             yield "Generation completed successfully!", last_video_path
         else:
-            yield f"Generation failed with code {process.returncode}", last_video_path
+            error_msg = f"Generation failed with code {process.returncode}\n\nLast output:\n" + "\n".join(output_lines[-30:])
+            print(f"[FAILED] {error_msg}")
+            yield error_msg, last_video_path
 
     except Exception as e:
-        yield f"Error: {str(e)}", None
+        error_msg = f"Error: {str(e)}\n{type(e).__name__}"
+        print(f"\n[EXCEPTION] {error_msg}")
+        import traceback
+        traceback.print_exc()
+        yield error_msg, None
 
 def stop_generation():
     """Stop the current generation"""
