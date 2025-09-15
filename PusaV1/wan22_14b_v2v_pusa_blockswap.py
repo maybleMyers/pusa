@@ -259,9 +259,9 @@ def main():
     if args.lightx2v:
         video = pipe(
             prompt=args.prompt,
-            cond_frames=cond_frames,
-            cond_position=cond_position,
-            noise_multipliers=noise_multipliers,
+            conditioning_video=cond_frames,
+            conditioning_indices=cond_position,
+            conditioning_noise_multipliers=noise_multipliers,
             negative_prompt=args.negative_prompt,
             height=args.height,
             width=args.width,
@@ -274,9 +274,9 @@ def main():
     else:
         video = pipe(
             prompt=args.prompt,
-            cond_frames=cond_frames,
-            cond_position=cond_position,
-            noise_multipliers=noise_multipliers,
+            conditioning_video=cond_frames,
+            conditioning_indices=cond_position,
+            conditioning_noise_multipliers=noise_multipliers,
             negative_prompt=args.negative_prompt,
             height=args.height,
             width=args.width,
