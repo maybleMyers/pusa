@@ -66,7 +66,8 @@ def parse_lora_inputs(lora_paths: List[str], lora_alphas: List[float]) -> Tuple[
     valid_alphas = []
 
     for path, alpha in zip(lora_paths, lora_alphas):
-        if path and path != "None" and path.strip():
+        # Check if path is valid (not None, not "None", and not empty)
+        if path and isinstance(path, str) and path != "None" and path.strip():
             valid_paths.append(path.strip())
             valid_alphas.append(str(alpha))
 
@@ -189,6 +190,10 @@ def run_generation(
 
         output_lines = []
         last_video_path = None
+
+        if process.stdout is None:
+            yield "Error: Failed to capture process output", None
+            return
 
         for line in process.stdout:
             if stop_event.is_set():
@@ -538,6 +543,6 @@ if __name__ == "__main__":
     interface.launch(
         share=False,
         server_name="0.0.0.0",
-        server_port=7860,
+        server_port=7863,
         show_error=True
     )
