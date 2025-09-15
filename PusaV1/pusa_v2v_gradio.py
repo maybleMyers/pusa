@@ -1,5 +1,3 @@
---- START OF FILE pusa_v2v_gradio.py ---
-
 import gradio as gr
 import subprocess
 import threading
