@@ -72,6 +72,7 @@ def parse_lora_inputs(lora_paths: List[str], lora_alphas: List[float]) -> Tuple[
             valid_alphas.append(str(alpha))
 
     if not valid_paths:
+        # Return empty strings to indicate no LoRAs selected
         return "", ""
 
     return ",".join(valid_paths), ",".join(valid_alphas)
@@ -134,9 +135,11 @@ def run_generation(
     high_paths_str, high_alphas_str = parse_lora_inputs(high_lora_paths, high_lora_alphas)
     low_paths_str, low_alphas_str = parse_lora_inputs(low_lora_paths, low_lora_alphas)
 
-    if not high_paths_str or not low_paths_str:
-        yield "Error: At least one high and one low LoRA must be specified", None
-        return
+    # Debug print
+    print(f"[DEBUG] High LoRA paths: {high_paths_str}")
+    print(f"[DEBUG] High LoRA alphas: {high_alphas_str}")
+    print(f"[DEBUG] Low LoRA paths: {low_paths_str}")
+    print(f"[DEBUG] Low LoRA alphas: {low_alphas_str}")
 
     # Build command
     cmd = [
@@ -150,10 +153,10 @@ def run_generation(
         "--high_model_dir", high_model_dir,
         "--low_model_dir", low_model_dir,
         "--base_dir", base_dir,
-        "--high_lora_path", high_paths_str,
-        "--high_lora_alpha", high_alphas_str,
-        "--low_lora_path", low_paths_str,
-        "--low_lora_alpha", low_alphas_str,
+        "--high_lora_path", high_paths_str if high_paths_str else "",
+        "--high_lora_alpha", high_alphas_str if high_alphas_str else "1.4",
+        "--low_lora_path", low_paths_str if low_paths_str else "",
+        "--low_lora_alpha", low_alphas_str if low_alphas_str else "1.4",
         "--switch_DiT_boundary", str(switch_boundary),
         "--cfg_scale", str(cfg_scale),
         "--width", str(width),

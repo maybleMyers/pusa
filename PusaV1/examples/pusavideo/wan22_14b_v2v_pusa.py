@@ -61,9 +61,9 @@ def main():
     parser.add_argument("--high_model_dir", type=str, default="model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_model", help="Directory of the high noise DiT model components.")
     parser.add_argument("--low_model_dir", type=str, default="model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_model", help="Directory of the low noise DiT model components.")
     parser.add_argument("--base_dir", type=str, default="model_zoo/PusaV1/Wan2.2-T2V-A14B", help="Directory of the T2V model components (T5, VAE).")
-    parser.add_argument("--high_lora_path", type=str, required=True, help="Path(s) to the LoRA checkpoint file(s) for high noise model. Multiple paths separated by comma.")
+    parser.add_argument("--high_lora_path", type=str, default="", help="Path(s) to the LoRA checkpoint file(s) for high noise model. Multiple paths separated by comma. Optional.")
     parser.add_argument("--high_lora_alpha", type=str, default="1.4", help="Alpha value(s) for high noise LoRA. Multiple values separated by comma.")
-    parser.add_argument("--low_lora_path", type=str, required=True, help="Path(s) to the LoRA checkpoint file(s) for low noise model. Multiple paths separated by comma.")
+    parser.add_argument("--low_lora_path", type=str, default="", help="Path(s) to the LoRA checkpoint file(s) for low noise model. Multiple paths separated by comma. Optional.")
     parser.add_argument("--low_lora_alpha", type=str, default="1.4", help="Alpha value(s) for low noise LoRA. Multiple values separated by comma.")
     parser.add_argument("--num_inference_steps", type=int, default=30, help="Number of inference steps.")
     parser.add_argument("--switch_DiT_boundary", type=float, default=0.875, help="Boundary to switch between DiT models.")
@@ -110,27 +110,36 @@ def main():
         low_lora_path = "./model_zoo/PusaV1/Wan2.2-Lightning/Wan2.2-T2V-A14B-4steps-lora-rank64-Seko-V1.1/low_noise_model.safetensors"
         model_manager.load_loras_wan22_lightx2v(low_lora_path, model_type="low")
 
-    # Parse multiple LoRA paths and alphas
-    high_lora_paths = [path.strip() for path in args.high_lora_path.split(',')]
-    high_lora_alphas = [float(alpha.strip()) for alpha in args.high_lora_alpha.split(',')]
-    low_lora_paths = [path.strip() for path in args.low_lora_path.split(',')]
-    low_lora_alphas = [float(alpha.strip()) for alpha in args.low_lora_alpha.split(',')]
+    # Parse multiple LoRA paths and alphas (handle empty strings)
+    if args.high_lora_path and args.high_lora_path.strip():
+        high_lora_paths = [path.strip() for path in args.high_lora_path.split(',') if path.strip()]
+        high_lora_alphas = [float(alpha.strip()) for alpha in args.high_lora_alpha.split(',') if alpha.strip()]
 
-    # Validate matching counts
-    if len(high_lora_paths) != len(high_lora_alphas):
-        raise ValueError(f"Number of high LoRA paths ({len(high_lora_paths)}) must match number of high LoRA alphas ({len(high_lora_alphas)})")
-    if len(low_lora_paths) != len(low_lora_alphas):
-        raise ValueError(f"Number of low LoRA paths ({len(low_lora_paths)}) must match number of low LoRA alphas ({len(low_lora_alphas)})")
+        # Validate matching counts
+        if len(high_lora_paths) != len(high_lora_alphas):
+            raise ValueError(f"Number of high LoRA paths ({len(high_lora_paths)}) must match number of high LoRA alphas ({len(high_lora_alphas)})")
 
-    # Load multiple LoRAs for high noise model
-    for lora_path, lora_alpha in zip(high_lora_paths, high_lora_alphas):
-        print(f"Loading high noise LoRA: {lora_path} with alpha={lora_alpha}")
-        model_manager.load_loras_wan22(lora_path, lora_alpha=lora_alpha, model_type="high")
+        # Load multiple LoRAs for high noise model
+        for lora_path, lora_alpha in zip(high_lora_paths, high_lora_alphas):
+            print(f"Loading high noise LoRA: {lora_path} with alpha={lora_alpha}")
+            model_manager.load_loras_wan22(lora_path, lora_alpha=lora_alpha, model_type="high")
+    else:
+        print("No high noise LoRAs specified, using base model")
 
-    # Load multiple LoRAs for low noise model
-    for lora_path, lora_alpha in zip(low_lora_paths, low_lora_alphas):
-        print(f"Loading low noise LoRA: {lora_path} with alpha={lora_alpha}")
-        model_manager.load_loras_wan22(lora_path, lora_alpha=lora_alpha, model_type="low")
+    if args.low_lora_path and args.low_lora_path.strip():
+        low_lora_paths = [path.strip() for path in args.low_lora_path.split(',') if path.strip()]
+        low_lora_alphas = [float(alpha.strip()) for alpha in args.low_lora_alpha.split(',') if alpha.strip()]
+
+        # Validate matching counts
+        if len(low_lora_paths) != len(low_lora_alphas):
+            raise ValueError(f"Number of low LoRA paths ({len(low_lora_paths)}) must match number of low LoRA alphas ({len(low_lora_alphas)})")
+
+        # Load multiple LoRAs for low noise model
+        for lora_path, lora_alpha in zip(low_lora_paths, low_lora_alphas):
+            print(f"Loading low noise LoRA: {lora_path} with alpha={lora_alpha}")
+            model_manager.load_loras_wan22(lora_path, lora_alpha=lora_alpha, model_type="low")
+    else:
+        print("No low noise LoRAs specified, using base model")
     
     pipe = Wan22VideoPusaV2VPipeline.from_model_manager(model_manager, torch_dtype=torch.bfloat16, device=device)
     pipe.enable_vram_management(num_persistent_param_in_dit=int(args.num_persistent_params))
