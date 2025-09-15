@@ -1,3 +1,5 @@
+--- START OF FILE pusa_v2v_gradio.py ---
+
 import gradio as gr
 import subprocess
 import threading
@@ -154,9 +156,10 @@ def run_generation(
         "--low_model_dir", low_model_dir,
         "--base_dir", base_dir,
         "--high_lora_path", high_paths_str if high_paths_str else "",
-        "--high_lora_alpha", high_alphas_str if high_alphas_str else "1.4",
+        # FIX: Pass empty string for alpha if no path is present, instead of a default value.
+        "--high_lora_alpha", high_alphas_str if high_alphas_str else "",
         "--low_lora_path", low_paths_str if low_paths_str else "",
-        "--low_lora_alpha", low_alphas_str if low_alphas_str else "1.4",
+        "--low_lora_alpha", low_alphas_str if low_alphas_str else "",
         "--switch_DiT_boundary", str(switch_boundary),
         "--cfg_scale", str(cfg_scale),
         "--width", str(width),
@@ -543,13 +546,22 @@ def create_interface():
             outputs=high_loras + low_loras
         )
 
-        # Prepare all inputs for generation
+        # FIX: Correctly interleave LoRA and Alpha components to match the function signature
+        interleaved_high_loras_alphas = []
+        for lora, alpha in zip(high_loras, high_alphas):
+            interleaved_high_loras_alphas.extend([lora, alpha])
+
+        interleaved_low_loras_alphas = []
+        for lora, alpha in zip(low_loras, low_alphas):
+            interleaved_low_loras_alphas.extend([lora, alpha])
+
+        # Prepare all inputs for generation in the correct order
         generation_inputs = [
             video_input, prompt, negative_prompt,
             use_extend_from_end, extend_from_end, cond_position, noise_multipliers,
             width, height, num_inference_steps, cfg_scale,
             high_model_dir, low_model_dir, base_dir
-        ] + high_loras + high_alphas + low_loras + low_alphas + [
+        ] + interleaved_high_loras_alphas + interleaved_low_loras_alphas + [
             switch_boundary, concatenate, num_persistent_params, output_dir
         ]
 
@@ -564,31 +576,6 @@ def create_interface():
             outputs=[status_output]
         )
 
-        # Add examples
-        gr.Examples(
-            examples=[
-                [
-                    "A fast action video featuring a cute tabby cat wearing a pink hat, eating a blueberry and cucumber sandwich.",
-                    "0.1,0.1,0.1,0.1,0.1,0.1",
-                    6,
-                    True
-                ],
-                [
-                    "A majestic eagle soaring through cloudy mountain peaks at sunset.",
-                    "0.2,0.2,0.2,0.2",
-                    4,
-                    True
-                ],
-                [
-                    "An underwater scene with colorful coral reefs and tropical fish swimming gracefully.",
-                    "0.15,0.15,0.15,0.15,0.15",
-                    5,
-                    False
-                ]
-            ],
-            inputs=[prompt, noise_multipliers, extend_from_end, concatenate],
-            label="Example Configurations"
-        )
 
     return interface
 
