@@ -99,8 +99,8 @@ def main():
     
     model_manager.load_models(
         [
-            high_model_files,
-            low_model_files,
+            (high_model_files, "high"),  # Tag as high noise model
+            (low_model_files, "low"),    # Tag as low noise model
             os.path.join(args.base_dir, "models_t5_umt5-xxl-enc-bf16.pth"),
             os.path.join(args.base_dir, "Wan2.1_VAE.pth"),
         ],

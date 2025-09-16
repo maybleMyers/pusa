@@ -122,11 +122,11 @@ def main():
     high_model_path = get_model_path(args.high_model)
     low_model_path = get_model_path(args.low_model)
 
-    # Load all models
+    # Load all models with proper model type tagging for LoRA matching
     model_manager.load_models(
         [
-            high_model_path,
-            low_model_path,
+            (high_model_path, "high"),  # Tag as high noise model
+            (low_model_path, "low"),    # Tag as low noise model
             os.path.join(args.base_dir, "models_t5_umt5-xxl-enc-bf16.pth"),
             os.path.join(args.base_dir, "Wan2.1_VAE.pth"),
         ],
