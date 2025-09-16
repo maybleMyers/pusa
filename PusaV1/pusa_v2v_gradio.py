@@ -92,9 +92,9 @@ def run_generation(
     fps: int,
     num_inference_steps: int,
     cfg_scale: float,
-    # Model directories
-    high_model_dir: str,
-    low_model_dir: str,
+    # Model paths (can be single files or directories)
+    high_model_path: str,
+    low_model_path: str,
     base_dir: str,
     # High LoRAs
     high_lora_1: str, high_alpha_1: float,
@@ -142,17 +142,17 @@ def run_generation(
     print(f"[DEBUG] Low LoRA paths: {low_paths_str}")
     print(f"[DEBUG] Low LoRA alphas: {low_alphas_str}")
 
-    # Build command
+    # Build command - use single file version script
     cmd = [
         sys.executable,
-        "examples/pusavideo/wan22_14b_v2v_pusa.py",
+        "examples/pusavideo/wan22_14b_v2v_pusa_single_file.py",
         "--video_path", video_path,
         "--prompt", prompt,
         "--negative_prompt", negative_prompt,
         "--noise_multipliers", noise_multipliers,
         "--num_inference_steps", str(num_inference_steps),
-        "--high_model_dir", high_model_dir,
-        "--low_model_dir", low_model_dir,
+        "--high_model", high_model_path,
+        "--low_model", low_model_path,
         "--base_dir", base_dir,
         "--high_lora_path", high_paths_str if high_paths_str else "",
         "--high_lora_alpha", high_alphas_str if high_alphas_str else "",
@@ -480,18 +480,21 @@ def create_interface():
                                 low_loras.append(lora)
                                 low_alphas.append(alpha)
 
-                # Model directories
+                # Model paths
                 with gr.Group():
-                    gr.Markdown("### 📁 Model Directories")
+                    gr.Markdown("### 📁 Model Paths")
+                    gr.Markdown("*Can be either a single .safetensors file or a directory containing multiple .safetensors files*")
 
-                    high_model_dir = gr.Textbox(
-                        label="High Noise Model Directory",
-                        value="model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_model"
+                    high_model_path = gr.Textbox(
+                        label="High Noise Model (file or directory)",
+                        value="model_zoo/PusaV1/Wan2.2-T2V-A14B/high_noise_model",
+                        placeholder="path/to/model.safetensors or path/to/model/directory"
                     )
 
-                    low_model_dir = gr.Textbox(
-                        label="Low Noise Model Directory",
-                        value="model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_model"
+                    low_model_path = gr.Textbox(
+                        label="Low Noise Model (file or directory)",
+                        value="model_zoo/PusaV1/Wan2.2-T2V-A14B/low_noise_model",
+                        placeholder="path/to/model.safetensors or path/to/model/directory"
                     )
 
                     base_dir = gr.Textbox(
@@ -566,7 +569,7 @@ def create_interface():
             video_input, prompt, negative_prompt,
             use_extend_from_end, extend_from_end, cond_position, noise_multipliers,
             width, height, fps, num_inference_steps, cfg_scale,
-            high_model_dir, low_model_dir, base_dir
+            high_model_path, low_model_path, base_dir
         ] + interleaved_high_loras_alphas + interleaved_low_loras_alphas + [
             switch_boundary, concatenate, num_persistent_params, output_dir
         ]
