@@ -95,16 +95,19 @@ def main():
     
     model_manager.load_lora(args.lora_path, lora_alpha=args.lora_alpha)
 
-    # Ensure text encoder and VAE are in CPU before creating pipeline
-    # This forces them to stay in RAM while DiT loads
-    for model in model_manager.model:
-        if model is not None and hasattr(model, 'to'):
-            model.to('cpu')
-    torch.cuda.empty_cache()
+    # Create pipeline with CPU device first to avoid loading to GPU
+    pipe = PusaV2VPipeline.from_model_manager(model_manager, torch_dtype=torch.bfloat16, device="cpu")
 
-    pipe = PusaV2VPipeline.from_model_manager(model_manager, torch_dtype=torch.bfloat16, device=device)
+    # Now set the actual device and enable VRAM management
+    pipe.device = device
     pipe.enable_vram_management(num_persistent_param_in_dit=6*10**9)
-    print(f"Models loaded successfully")
+
+    # Clear any cached memory
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+
+    print(f"Models loaded successfully with VRAM management enabled")
+    print(f"  Persistent parameters in DiT: {6e9/1e9:.1f}B")
 
     cond_pos_list = [int(x.strip()) for x in args.cond_position.split(',')]
     noise_mult_list = [float(x.strip()) for x in args.noise_multipliers.split(',')]
