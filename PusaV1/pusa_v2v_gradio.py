@@ -422,7 +422,7 @@ def create_interface():
                         num_persistent_params = gr.Number(
                             label="Persistent Parameters (billions)",
                             value=10.6,
-                            minimum=1,
+                            minimum=0,
                             maximum=20,
                             step=0.1,
                             info="VRAM management parameter (in billions)"
@@ -593,6 +593,5 @@ if __name__ == "__main__":
     interface.launch(
         share=False,
         server_name="0.0.0.0",
-        server_port=7863,
         show_error=True
     )
