@@ -94,7 +94,14 @@ def main():
         # model_manager.load_lora(lightx2v_lora_path,lora_alpha=lightx2v_lora_alpha)
     
     model_manager.load_lora(args.lora_path, lora_alpha=args.lora_alpha)
-    
+
+    # Ensure text encoder and VAE are in CPU before creating pipeline
+    # This forces them to stay in RAM while DiT loads
+    for model in model_manager.model:
+        if model is not None and hasattr(model, 'to'):
+            model.to('cpu')
+    torch.cuda.empty_cache()
+
     pipe = PusaV2VPipeline.from_model_manager(model_manager, torch_dtype=torch.bfloat16, device=device)
     pipe.enable_vram_management(num_persistent_param_in_dit=6*10**9)
     print(f"Models loaded successfully")

@@ -142,6 +142,13 @@ def main():
     else:
         print("No low noise LoRAs specified, using base model")
     
+    # Ensure text encoder and VAE are in CPU before creating pipeline
+    # This forces them to stay in RAM while DiT loads
+    for model in model_manager.model:
+        if model is not None and hasattr(model, 'to'):
+            model.to('cpu')
+    torch.cuda.empty_cache()
+
     pipe = Wan22VideoPusaV2VPipeline.from_model_manager(model_manager, torch_dtype=torch.bfloat16, device=device)
     pipe.enable_vram_management(num_persistent_param_in_dit=int(args.num_persistent_params))
     print(f"Models loaded successfully")

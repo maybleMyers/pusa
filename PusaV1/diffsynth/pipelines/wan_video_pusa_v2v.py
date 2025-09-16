@@ -103,7 +103,7 @@ class PusaV2VPipeline(BasePipeline):
                 offload_dtype=dtype,
                 offload_device="cpu",
                 onload_dtype=dtype,
-                onload_device=self.device,
+                onload_device="cpu",  # Keep VAE in CPU initially
                 computation_dtype=self.torch_dtype,
                 computation_device=self.device,
             ),
