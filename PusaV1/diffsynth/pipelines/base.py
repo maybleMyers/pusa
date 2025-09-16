@@ -107,6 +107,9 @@ class BasePipeline(torch.nn.Module):
                                 module.offload()
                     else:
                         model.cpu()
+        # Clear cache after offloading to free memory immediately
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
         # load the needed models to device
         for model_name in loadmodel_names:
             model = getattr(self, model_name)
@@ -117,8 +120,9 @@ class BasePipeline(torch.nn.Module):
                             module.onload()
                 else:
                     model.to(self.device)
-        # fresh the cuda cache
-        torch.cuda.empty_cache()
+        # fresh the cuda cache again after loading
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
 
     
     def generate_noise(self, shape, seed=None, device="cpu", dtype=torch.float16):

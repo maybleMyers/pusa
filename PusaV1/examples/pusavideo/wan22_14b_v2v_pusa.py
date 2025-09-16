@@ -51,6 +51,9 @@ def process_video_frames(video_path, target_width=832, target_height=480):
     return frames
 
 def main():
+    # Enable PyTorch memory optimization settings
+    os.environ['PYTORCH_CUDA_ALLOC_CONF'] = 'expandable_segments:True,max_split_size_mb:128'
+
     parser = argparse.ArgumentParser(description="Pusa V2V: Video-to-Video Generation with dual DiT models")
     parser.add_argument("--video_path", type=str, required=True, help="Path to the conditioning video.")
     parser.add_argument("--prompt", type=str, required=True, help="Text prompt for video generation.")

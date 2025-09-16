@@ -132,7 +132,7 @@ class Wan22VideoPusaV2VPipeline(BasePipeline):
                 offload_dtype=dtype,
                 offload_device="cpu",
                 onload_dtype=dtype,
-                onload_device="cpu",  # Keep VAE in CPU initially
+                onload_device=self.device,  # Load VAE to GPU when needed
                 computation_dtype=self.torch_dtype,
                 computation_device=self.device,
             ),
@@ -457,6 +457,9 @@ class Wan22VideoPusaV2VPipeline(BasePipeline):
             input_video = torch.stack(input_video, dim=2).to(dtype=self.torch_dtype, device=self.device)
             latents = self.encode_video(input_video, **tiler_kwargs).to(dtype=self.torch_dtype, device=self.device)
             latents = self.scheduler.add_noise(latents, noise, timestep=self.scheduler.timesteps[0])
+            # Offload VAE after encoding
+            self.load_models_to_device([])
+            torch.cuda.empty_cache()
         else:
             latents = noise
 
@@ -467,7 +470,7 @@ class Wan22VideoPusaV2VPipeline(BasePipeline):
             video_frames = self.preprocess_images(conditioning_video)
             video_tensor = torch.stack(video_frames, dim=2).to(dtype=self.torch_dtype, device=self.device)
             cond_latents = self.encode_video(video_tensor, **tiler_kwargs)
-            
+
             for i, frame_idx in enumerate(conditioning_indices):
                 latent_idx = frame_idx
                 cond_frame_latent_indices.append(latent_idx)
@@ -476,6 +479,9 @@ class Wan22VideoPusaV2VPipeline(BasePipeline):
                     noise_multipliers[latent_idx] = conditioning_noise_multipliers[i]
                     # Map the i-th frame of the conditioning video to the `latent_idx` position of the output
                     latents[:, :, latent_idx:latent_idx+1] = cond_latents[:, :, i:i+1].to(latents.device)
+            # Offload VAE after encoding conditioning video
+            self.load_models_to_device([])
+            torch.cuda.empty_cache()
         # Encode prompts
         self.load_models_to_device(["text_encoder"])
         prompt_emb_posi = self.encode_prompt(prompt, positive=True)
@@ -535,12 +541,20 @@ class Wan22VideoPusaV2VPipeline(BasePipeline):
             
             if self.dit2 is not None and timestep_val.item() < switch_DiT_boundary * self.scheduler.num_train_timesteps:
                 if denoising_models["dit"] is not self.dit2:
+                    # Clear cache before switching models
+                    torch.cuda.empty_cache()
                     self.load_models_to_device(["dit2", "motion_controller", "vace"])
                     denoising_models["dit"] = self.dit2
+                    # Clear cache after switching to free fragmented memory
+                    torch.cuda.empty_cache()
             else:
                 if denoising_models["dit"] is not self.dit:
+                    # Clear cache before switching models
+                    torch.cuda.empty_cache()
                     self.load_models_to_device(["dit", "motion_controller", "vace"])
                     denoising_models["dit"] = self.dit
+                    # Clear cache after switching to free fragmented memory
+                    torch.cuda.empty_cache()
                     
             timestep = timestep_val.unsqueeze(0).unsqueeze(1).repeat(1, latents.shape[2]).to(dtype=self.torch_dtype, device=self.device)
             
@@ -605,7 +619,9 @@ class Wan22VideoPusaV2VPipeline(BasePipeline):
         # Decode
         self.load_models_to_device(['vae'])
         frames = self.decode_video(latents, **tiler_kwargs)
+        # Explicitly offload VAE and clear cache after decoding
         self.load_models_to_device([])
+        torch.cuda.empty_cache()
         frames = self.tensor2video(frames[0])
 
         return frames
