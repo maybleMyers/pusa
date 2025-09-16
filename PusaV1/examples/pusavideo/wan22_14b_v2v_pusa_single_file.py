@@ -51,7 +51,10 @@ def process_video_frames(video_path, target_width=832, target_height=480):
     return frames
 
 def main():
-    parser = argparse.ArgumentParser(description="Pusa V2V: Video-to-Video Generation with dual DiT models (Single File Support)")
+    # Enable PyTorch memory optimization settings
+    os.environ['PYTORCH_CUDA_ALLOC_CONF'] = 'expandable_segments:True,max_split_size_mb:128'
+
+    parser = argparse.ArgumentParser(description="Pusa V2V: Video-to-Video Generation with dual DiT models")
     parser.add_argument("--video_path", type=str, required=True, help="Path to the conditioning video.")
     parser.add_argument("--prompt", type=str, required=True, help="Text prompt for video generation.")
     parser.add_argument("--negative_prompt", type=str, default="Bright tones, overexposed, static, blurred details, subtitles, style, works, paintings, images, static, overall gray, worst quality, low quality, JPEG compression residue, ugly, incomplete, extra fingers, poorly drawn hands, poorly drawn faces, deformed, disfigured, misshapen limbs, fused fingers, still picture, messy background, three legs, many people in the background, walking backwards", help="Negative text prompt for video generation.")
@@ -167,18 +170,21 @@ def main():
             model_manager.load_loras_wan22(lora_path, lora_alpha=lora_alpha, model_type="low")
     else:
         print("No low noise LoRAs specified, using base model")
+    
+    # Create pipeline with CPU device first to avoid loading to GPU
+    pipe = Wan22VideoPusaV2VPipeline.from_model_manager(model_manager, torch_dtype=torch.bfloat16, device="cpu")
 
-    # Ensure text encoder and VAE are in CPU before creating pipeline
-    # This forces them to stay in RAM while DiT loads
-    for model in model_manager.model:
-        if model is not None and hasattr(model, 'to'):
-            model.to('cpu')
-    torch.cuda.empty_cache()
-
-    pipe = Wan22VideoPusaV2VPipeline.from_model_manager(model_manager, torch_dtype=torch.bfloat16, device=device)
+    # Now set the actual device and enable VRAM management
+    pipe.device = device
     pipe.enable_vram_management(num_persistent_param_in_dit=int(args.num_persistent_params))
-    print(f"Models loaded successfully")
 
+    # Clear any cached memory
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+
+    print(f"Models loaded successfully with VRAM management enabled")
+    print(f"  Persistent parameters in DiT: {args.num_persistent_params/1e9:.2f}B")
+    
     # --- Prepare Conditioning Inputs ---
     all_video_frames = process_video_frames(args.video_path, target_width=args.width, target_height=args.height)
     noise_mult_list = [float(x.strip()) for x in args.noise_multipliers.split(',')]
